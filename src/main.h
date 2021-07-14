@@ -61,12 +61,14 @@ void polyval(double p[], double x[], int nn, int mm);
 double * linspace(double a, double b, int numbers);
 double rsquare(double data[], double fitted[], int length);
 int decompose_wave();
+int decompose_wave_p();
 void n_DOS();
 int FindMinInd(double arr[],int length);
 
 double conduction_dispersion(double k,double coefficients[5][7],double kindex[4],int a[2]);
 double dedk(double k, double coeff[5][7], double kindex[4], int a[2]);
 double admixture_value(double k,int coloumn);
+double admixture_value_p(double k,int coloumn);
 double DOS_value(double energy, int a);
 void find_fermi(double k_grid[], double n, double T, int ii, double energy_n[], double energy_p[], double Ds_n[], double Ds_p[], int points);
 double f0(double E1, double E_f, double T);
@@ -158,7 +160,7 @@ extern double kvbm[3], VBM;
 //------------------------------------ make_band ----------------------------------------
 extern double cond_band[2000][2], val_band[2000][2],poly[4000];
 extern int count1,count2,countx;    //count1 for conduction band count2 for valence band
-extern int count_orbital;
+extern int count_orbital, count_orbital_p;
 extern int count_DOS_n,count_DOS_p;
 extern double E_F,n_e,n_h;
 //extern double short_range_band_num[1000][3];
@@ -199,7 +201,7 @@ extern int len_T,len_n;
 extern double ecbm,evbm,kcbm1[3],kvbm1[3];
 extern double kcbm[3],kvbm[3],VBM,CBM;
 extern int NKPTS,NBVAL,NBTOT;
-extern double orbital_decomposedd[1000][4];
+extern double orbital_decomposedd[1000][4], orbital_decomposedd_p[1000][4];
 extern int ispin;
 extern double DOS_n[2000][2],DOS_p[2000][2];
 extern int ispin;

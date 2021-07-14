@@ -2,7 +2,7 @@
 int a[2],b[2];
 double h_bar,CBM,VBM;
 int count1,count2;
-int count_orbital;
+int count_orbital, count_orbital_p;
 
 double mobility_all[10]={0};
 double calc_mobility[30][2] = {0};
@@ -386,47 +386,6 @@ int main()
 
 //---------------------------------------------saved output file ---------------------------------------------------------
 
-
-
-
-//------------------------------------------- Reading Procar file not dependent on ispin----------------------
-    //cout<<"fitting_2 = "<<fitting_2<<endl;
-    if (fitting_2 == 0)
-    {
-        count_orbital = decompose_wave();
-        //cout<<"count_orbital = "<<count_orbital<<endl;
-    }
-    else     // this part is for debugging code only
-    {
-        int i;
-        ifstream cin("orbital_decomposedd.txt");
-
-        i=0;
-        while(!cin.eof())
-        {
-            cin>>orbital_decomposedd[i][0]>>orbital_decomposedd[i][1]>>orbital_decomposedd[i][2]>>orbital_decomposedd[i][3];
-            /*
-            cout<<orbital_decomposedd[i][0]<<"    "<<orbital_decomposedd[i][1]<<"    "<<
-            orbital_decomposedd[i][2]<<"    "<<orbital_decomposedd[i][3]<<endl;
-            getchar();
-            */
-            i++;
-        }
-        count_orbital = i;
-    }
-
-    /*
-	if(fitting_2 == 0)
-	{
-	    fid1 = fopen("orbital_decomposedd.txt","w");
-	    for (int i = 0; i < count_orbital; i++)
-		fprintf(fid1,"%d    %e    %e    %e    %e\n", i+1, orbital_decomposedd[i][0],
-		orbital_decomposedd[i][1], orbital_decomposedd[i][2],orbital_decomposedd[i][3]);
-	    fclose(fid1);
-	}
-    */
-
-//------------------------------------------------------------------------------------------------------------------------------------
 	
     for (kk=0; kk<= jj ; kk++)
     {
@@ -454,6 +413,77 @@ int main()
     cout<<endl<<"kvbm = "<<"   "<<kvbm[0]<<"   "<<kvbm[1]<<"   "<<kvbm[2]<<endl;
     
     		
+
+//------------------------------------------- Reading Procar file not for conduction band dependent on ispin----------------------
+    //cout<<"fitting_2 = "<<fitting_2<<endl;
+    if (fitting_2 == 0)
+    {
+        count_orbital = decompose_wave();
+        //cout<<"count_orbital = "<<count_orbital<<endl;
+    }
+    else     // this part is for debugging code only
+    {
+        int i;
+        ifstream cin("orbital_decomposedd.txt");
+
+        i=0;
+        while(!cin.eof())
+        {
+            cin>>orbital_decomposedd[i][0]>>orbital_decomposedd[i][1]>>orbital_decomposedd[i][2]>>orbital_decomposedd[i][3];
+            /*
+
+            cout<<orbital_decomposedd[i][0]<<"    "<<orbital_decomposedd[i][1]<<"    "<<
+            orbital_decomposedd[i][2]<<"    "<<orbital_decomposedd[i][3]<<endl;
+            getchar();
+            */
+            i++;
+        }
+        count_orbital = i;
+    }
+
+    /*
+	if(fitting_2 == 0)
+	{
+	    fid1 = fopen("orbital_decomposedd.txt","w");
+
+	    for (int i = 0; i < count_orbital; i++)
+		fprintf(fid1,"%d    %e    %e    %e    %e\n", i+1, orbital_decomposedd[i][0],
+		orbital_decomposedd[i][1], orbital_decomposedd[i][2],orbital_decomposedd[i][3]);
+	    fclose(fid1);
+
+	}
+    */
+//------------------------------------------- Reading Procar file not for valence band dependent on ispin----------------------
+	
+    //cout<<"fitting_2 = "<<fitting_2<<endl;
+    if (fitting_2 == 0)
+    {
+        count_orbital_p = decompose_wave_p();
+        //cout<<"count_orbital_p = "<<count_orbital_p<<endl;
+    }
+    else     // this part is for debugging code only
+    {
+        int i;
+        ifstream cin("orbital_decomposedd_p.txt");
+
+        i=0;
+        while(!cin.eof())
+        {
+            cin>>orbital_decomposedd_p[i][0]>>orbital_decomposedd_p[i][1]>>orbital_decomposedd_p[i][2]>>orbital_decomposedd_p[i][3];
+            /*
+            cout<<orbital_decomposedd_p[i][0]<<"    "<<orbital_decomposedd_p[i][1]<<"    "<<
+            orbital_decomposedd_p[i][2]<<"    "<<orbital_decomposedd_p[i][3]<<endl;
+            getchar();
+            */
+            i++;
+        }
+        count_orbital_p = i;
+    }
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+
     make_band(1); // for conduction band
     count1 = countx;   // length of conduction band
     //cout<<"count1 = "<<count1<<endl;
@@ -889,6 +919,9 @@ int main()
             double a_n[points]={0};
             double c_n[points]={0};
 
+            double a_p[points]={0};
+            double c_p[points]={0};
+
             double Ds[points]={0};
             double Ds_n[points]={0};
             double Ds_p[points]={0};
@@ -937,8 +970,23 @@ int main()
 		}
 
 
+		if (count_orbital_p!=0)
+                {
+		    a_p[counter] = admixture_value_p(k_dum,2);
+                    c_p[counter] = admixture_value_p(k_dum,3);
+		}
+		else
+                {
+		    a_p[counter] = 0;
+                    c_p[counter] = 1;
+		}
+
                 //cout<<"a_n[counter] = "<<a_n[counter]<<endl;
                 //cout<<"c_n[counter] = "<<c_n[counter]<<endl;
+                //getchar();
+
+                //cout<<"a_p[counter] = "<<a_p[counter]<<endl;
+                //cout<<"c_p[counter] = "<<c_p[counter]<<endl;
                 //getchar();
 
                 if (free_e==0)
