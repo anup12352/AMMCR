@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Getting Started}{2}{section.2}%
+\contentsline {section}{\numberline {3}Input Files}{3}{section.3}%
+\contentsline {section}{\numberline {4}Output Files}{12}{section.4}%
+\contentsline {section}{\numberline {5}Installation and Prerequisites}{14}{section.5}%
+\contentsline {section}{\numberline {6}Examples}{14}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Example 1 - ZnSe}{14}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Example 2 - CdS}{15}{subsection.6.2}%

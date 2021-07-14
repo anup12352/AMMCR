@@ -1,0 +1,47 @@
+\begin{thebibliography}{1}
+
+\bibitem{rode1}
+D.~Rode, ``Low-field electron transport,'' in {\em Semiconductors and
+  semimetals}, vol.~10, pp.~1--89, Elsevier, 1975.
+
+\bibitem{rode2}
+D.~Rode, ``Electron mobility in direct-gap polar semiconductors,'' {\em
+  Physical Review B}, vol.~2, no.~4, p.~1012, 1970.
+
+\bibitem{rode3}
+D.~Rode, ``Electron mobility in ii-vi semiconductors,'' {\em Physical Review
+  B}, vol.~2, no.~10, p.~4036, 1970.
+
+\bibitem{rode4}
+D.~Rode, ``Theory of electron galvanomagnetics in crystals: Hall effect in
+  semiconductors and semimetals,'' {\em physica status solidi (b)}, vol.~55,
+  no.~2, pp.~687--696, 1973.
+
+\bibitem{ref4}
+G.~Kresse and J.~Hafner, ``Ab initio molecular-dynamics simulation of the
+  liquid-metal--amorphous-semiconductor transition in germanium,'' {\em
+  Physical Review B}, vol.~49, no.~20, p.~14251, 1994.
+
+\bibitem{ref5}
+G.~Kresse and J.~Furthm{\"u}ller, ``Efficient iterative schemes for ab initio
+  total-energy calculations using a plane-wave basis set,'' {\em Physical
+  review B}, vol.~54, no.~16, p.~11169, 1996.
+
+\bibitem{ref6}
+G.~Kresse and J.~Furthm{\"u}ller, ``Efficiency of ab-initio total energy
+  calculations for metals and semiconductors using a plane-wave basis set,''
+  {\em Computational materials science}, vol.~6, no.~1, pp.~15--50, 1996.
+
+\bibitem{paper1}
+A.~K. Mandia, R.~Patnaik, B.~Muralidharan, S.-C. Lee, and S.~Bhattacharjee,
+  ``Ab initio semi-classical electronic transport in znse: the role of
+  inelastic scattering mechanisms,'' {\em Journal of Physics: Condensed
+  Matter}, vol.~31, no.~34, p.~345901, 2019.
+
+\bibitem{paper2}
+A.~K. Mandia, B.~Muralidharan, J.-H. Choi, S.-C. Lee, and S.~Bhattacharjee,
+  ``Ammcr: Ab initio model for mobility and conductivity calculation by using
+  rode algorithm,'' {\em Computer Physics Communications}, vol.~259, p.~107697,
+  2021.
+
+\end{thebibliography}
