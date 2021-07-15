@@ -1,5 +1,5 @@
 # AMMCR
-Ab initio model for mobility and conductivity calculation by using Rode Algorithm (AMMCR), solves Boltzmann transport equation within Rode's scheme.
+Ab initio model for mobility and conductivity calculation by using Rode Algorithm (AMMCR), solves Boltzmann transport equation within Rode's iterative scheme.
 At present it works for only electrons.
 
 It is written in C++. Currently it is interfaced with Vienna Ab initio Simulation Package (VASP). It is very simple to use. Once compiled, it produces an executable called AMMCR. The executable can be run in a directory where four VASP output files: **OUTCAR, EIGENVAL, PROCAR and DOSCAR** are present. 
