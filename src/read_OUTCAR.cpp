@@ -175,14 +175,15 @@ void read_OUTCAR()
 	int c=0;
 	i=0;
 	while(ion_numbers[i]!='\0' && ion_numbers[i]!=char(10) )
-    {
-        if(ion_numbers[i] != char(32) )
-            number++;
-        i++;
-    }
+    	{
+		if(ion_numbers[i] != char(32) )
+		    number++;
+		i++;
+    	}
 
 	if (number==1)
-	{	sscanf(ion_numbers, "%d", &ion_numbers1[0]);
+	{	
+		sscanf(ion_numbers, "%d", &ion_numbers1[0]);
 	 	sscanf(ion_mass, "%lf", &ion_mass1[0]);
 	}
 	else if (number==2)
@@ -210,4 +211,84 @@ void read_OUTCAR()
     		exit(EXIT_FAILURE);
 	}
 	sscanf(volume, "%lf", &volume1);
+
+//------------------------// showing outcar data ---------------------------------------------------------------------------------
+//------------------------// showing outcar data ---------------------------------------------------------------------------------
+    			
+    //cout<<"number = "<<number<<endl;
+
+    if (number==1)
+    {
+        printf("\nion_mass =  %lf \n", ion_mass1[0] );   // unit amu
+        printf("\nion_numbers =  %d \n", ion_numbers1[0] );
+    }
+    else if (number==2)
+    {
+        printf("\nion_mass =  %lf %lf \n", ion_mass1[0], ion_mass1[1]);   // unit amu
+        printf("\nion_numbers =  %d %d\n", ion_numbers1[0], ion_numbers1[1]);
+    }
+    else if (number==3)
+    {
+        printf("\nion_mass =  %lf %lf %lf \n", ion_mass1[0], ion_mass1[1],ion_mass1[2]);   // unit amu
+        printf("\nion_numbers =  %d %d %d \n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2]);
+    }
+    else if (number==4)
+    {
+        printf("\nion_mass =  %lf %lf %lf %lf\n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3]);   // unit amu
+        printf("\nion_numbers =  %d %d %d %d\n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3]);
+    }
+    else
+    {
+        printf("\nion_mass =  %lf %lf %lf %lf\n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3]);     // unit amu
+        printf("\nion_numbers =  %d %d %d %d\n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3]);
+    }
+	printf("\nvolume =  %lf A^(-3)\n", volume1);
+	// unit Angestron^3  volume = a^3/4   (a -> lattice constant)
+
+    //cout<<"spin_orbit_coupling = "<<spin_orbit_coupling<<endl;
+    if(spin_orbit_coupling == 0)
+        cout<<endl<<"spin_orbit_coupling = false"<<endl;
+    if(spin_orbit_coupling == 1)
+        cout<<endl<<"spin_orbit_coupling = true"<<endl;
+
+	cout<<"Lattice matrix : "<<endl;
+
+	for (int i = 0; i < 3; i++)
+        {
+		for (int j = 3; j < 6; j++)
+        	{
+			printf(" %lf", 10 * lm[i][j]);
+		}
+		printf("\n");
+	}
+
+	
+	if (rho==0)
+    	{
+		double sum=0;
+		for (int i = 0; i < number; i++)
+		{
+		    sum += (ion_mass1[i] * ion_numbers1[i]);
+			//cout<<"sum = "<<sum<<endl;
+		}
+		rho = (sum*1.67377e-27) / (volume1*1e-30);    // unit kg/m^3
+	    	cout<<endl<<"Calculated density = "<<rho/1000<<" g/cm^3"<<endl;       
+	}
+	else	
+	{
+		rho = rho*1000;   // to convert g/cm^3 to kg/cm^3
+				  // user has given density into g/cm^3 in calculation kg/m^3 is used	
+	}
+	if (scattering_mechanisms[6]==1)   // dislocation scattering 
+	{
+		cout<<endl<<"c_lattice constant = "<<c_lattice<<" nm"<<endl;       		
+	}	
+	//	
+	//return 0;
+
+	//getchar();
+	
+    
+//----------------// showing outcar data completed  -----------------------------------------------------------------------
+	
 }

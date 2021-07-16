@@ -1,6 +1,6 @@
 #include"main.h"
 
-double beta(double T,double Ds[], double energy[], double k_grid[], double v[],  int points, int T_loop)
+double beta(double T,int T_loop)
 // it gives inverse screening length (beta) in units of (1/nm) in certain Fermi energy (E_F),
 // and at Temperature (T)
 {
@@ -12,15 +12,15 @@ double beta(double T,double Ds[], double energy[], double k_grid[], double v[], 
     for(int counter = 0;counter <= points-2; counter++)
     {
         k = k_grid[counter];
-        de = energy[counter+1]-energy[counter];
+        de = energy_n[counter+1]-energy_n[counter];
         k_step = k_grid[counter+1]-k_grid[counter];
 
         if (free_e ==0)
-            integral = integral+ de*((Ds[counter]*1000)/volume1)*f0(energy[counter],E_F,T)*(1-f0(energy[counter],E_F,T));
+            integral = integral+ de*((Ds_n[counter]*1000)/volume1)*f0(energy_n[counter],E_F,T)*(1-f0(energy_n[counter],E_F,T));
             // unit is (1/nm)^3, 1000 is multiplied to convert volume from (1/Angstron)^3 to (1/nm)^3
         else
         {
-            integral = integral+k_step*(k/pi)*(k/pi)*f0(energy[counter],E_F,T)*(1-f0(energy[counter],E_F,T));
+            integral = integral+k_step*(k/pi)*(k/pi)*f0(energy_n[counter],E_F,T)*(1-f0(energy_n[counter],E_F,T));
             // unit is (1/nm)^3
             // Part of equation (70) or Rode's book (book8)
         }

@@ -12,12 +12,12 @@ double max_array(double band[],int county)
 }
 
 
-double Aplus(int counter,double k_grid[],double omega, double a[],double c[],double energy[], int points)
+double Aplus(int counter,double omega, int points)
 {
-    double k_plus = kplus(counter,k_grid,omega,energy,points);
+    double k_plus = kplus(counter,omega,points);
     double AA;
-    double max1 = max_array(energy,points);
-    if (max1 < energy[counter] + h_bar*omega)
+    double max1 = max_array(energy_n,points);
+    if (max1 < energy_n[counter] + h_bar*omega)
         AA =0;
     else
     {
@@ -30,7 +30,7 @@ double Aplus(int counter,double k_grid[],double omega, double a[],double c[],dou
             arr[i] = abs(k_grid[i] - k);
         int index =FindMinInd(arr,points);
 
-        AA = a[index]*a[plus_index]+(k_plus*k_plus+k*k)/(2*k_plus*k)*c[index]*c[plus_index];
+        AA = a_n[index]*a_n[plus_index]+(k_plus*k_plus+k*k)/(2*k_plus*k)*c_n[index]*c_n[plus_index];
     }
 
     return AA;

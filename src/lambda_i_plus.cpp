@@ -1,18 +1,17 @@
 
 #include"main.h"
 
-double lambda_i_plus(int counter,double k_grid[],double omega,double A_plus,double c[],double epsilon_s,
-                     double epsilon_inf,double energy[],double v[],int points)
+double lambda_i_plus(int counter,double omega,double A_plus,double epsilon_s, double epsilon_inf,int points)
 // gives Lambda+_i in equations for inelastic optical phonon scattering; equation (123) of Rode's book
 {
     double l;
 
-    double k_plus = kplus(counter,k_grid,omega,energy,points);
+    double k_plus = kplus(counter,omega,points);
     //cout<<endl<<"Inside lambda_i_plus"<<endl;
     //cout<<"A_plus = "<<A_plus<<endl;
     //cout<<"omega = "<<omega<<endl;
     //cout<<"k_plus = "<<k_plus<<endl;
-    //cout<<"c[counter] = "<<c[counter]<<endl;
+    //cout<<"c_n[counter] = "<<c_n[counter]<<endl;
 
     //A_plus =  47.695069008345868;
     //omega =  3.694512960621596e+13;
@@ -36,9 +35,9 @@ double lambda_i_plus(int counter,double k_grid[],double omega,double A_plus,doub
         //double yy = ;
         //cout<<"aa = "<<aa<<endl;
         //aa =      6.115495758768291e+16;
-        l = betaplus(counter,k_grid,omega,epsilon_s,epsilon_inf,energy,v,points)*
+        l = betaplus(counter,omega,epsilon_s,epsilon_inf,points)*
         ((pow(k_plus,2)+k*k)/(2*k_plus*k) * A_plus*A_plus*log(abs((k_plus+k)/(k_plus-k))) -
-                A_plus*A_plus - (c[counter]*c[counter])*(pow(c[plus_index],2)/3));
+                A_plus*A_plus - (c_n[counter]*c_n[counter])*(pow(c_n[plus_index],2)/3));
     }
     //cout<<"l = "<<l<<endl;
     //cout<<"End of lambda_i_plus"<<endl;

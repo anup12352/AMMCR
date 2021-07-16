@@ -1,10 +1,10 @@
 #include"main.h"
 
-double lambda_e_minus(int counter,double k_grid[],double omega,double rho,double De,int nfv,double energy[],double v[],int points)
+double lambda_e_minus(int counter,double omega,double rho,double De,int nfv,int points)
 {
     //cout<<endl<<"Inside lambda_e_minus"<<endl;
 
-    double k_minus = kminus(counter,k_grid,omega,energy,points);
+    double k_minus = kminus(counter,omega,points);
     //cout<<"k_minus = "<<k_minus<<endl;
 
     double arr[points];
@@ -18,13 +18,13 @@ double lambda_e_minus(int counter,double k_grid[],double omega,double rho,double
 
     double l;
 
-    if ((energy[counter]<h_bar*omega)||(k_minus==k))
+    if ((energy_n[counter]<h_bar*omega)||(k_minus==k))
         l = 0;
         // If the energy of electron is lower than the phonon, there will be no
         // elmission so lambda_minus terms will be zero
         // (page 40 of Semiconductors and Semimetals, volume 10)
     else
-            l = pow((e*De*1e10),2)*nfv*(k_minus*(1e9))*(k*(1e9))/(2*pi*rho*omega*(h_bar*e)*v[counter]*1e-2);
+            l = pow((e*De*1e10),2)*nfv*(k_minus*(1e9))*(k*(1e9))/(2*pi*rho*omega*(h_bar*e)*v_n[counter]*1e-2);
 
     //cout<<"l = "<<l<<endl;
     //cout<<"End of  lambda_e_minus"<<endl;

@@ -1,7 +1,7 @@
 
 #include"main.h"
 
-double J(double k_grid[],double T,double m,double g_th[], double Ds[],double energy[],double v[], int points)
+double J(double T,double m,double g_th[], int points)
 // It gives the current density in units of (???) from dT/dz as a driving force in
 // thermopower calculation
 // According to equation (A10) of PRB, doi: 10.1103/PhysRevB.84.075315
@@ -14,7 +14,7 @@ double J(double k_grid[],double T,double m,double g_th[], double Ds[],double ene
     for (int counter = 0;counter<=points-2;counter++)
     {
         dk = k_grid[counter+1]-k_grid[counter];
-        integral_dum = integral_dum + dk*pow((k_grid[counter]/pi),2)*v[counter]*g_th[counter];
+        integral_dum = integral_dum + dk*pow((k_grid[counter]/pi),2)*v_n[counter]*g_th[counter];
         // J=e/3*integral of [v(En)*g_th(En)*DOS(En)
     }
 

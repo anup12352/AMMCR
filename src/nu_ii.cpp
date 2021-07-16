@@ -1,7 +1,8 @@
 #include"main.h"
 
-double nu_ii(double k, int counter, double B_ii, double D_ii, double beta_constant, double N_ii, double v, double epsilon_s)
+double nu_ii(double k, int counter, double beta_constant, double v, double epsilon_s)
 {
+
     /*
     cout<<"k = "<<k<<endl;
     cout<<"counter = "<<counter<<endl;

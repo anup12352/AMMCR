@@ -1,6 +1,67 @@
 #include"main.h"
 
-//double k_min0,k_trans0,k_step_fine0,k_step0;
+double n0, Nd1,Na1, efef_n, efef_p, N_ii;
+int cc=-1, count_d, count_t;
+double mobility_ii, mobility_po, mobility_to, mobility_npop, mobility_de, mobility_pe, mobility_dis;
+double mobility_alloy, mobility_iv, mobility_neutral, mobility_avg, mobility, mobility_rta;
+double mobility_hall_ii, mobility_hall_po, mobility_hall_to, mobility_hall_npop, mobility_hall_de;
+double mobility_hall_pe, mobility_hall_dis, mobility_hall_alloy, mobility_hall_iv;
+double mobility_hall_neutral, mobility_hall_avg, mobility_hall, mobility_hall_rta, hall_factor1, hall_factor_rta1;
+double sigma_hall_rta, sigma_hall, thermopower, sigma, sigma_rta;
+
+double g[2000], g_rta[2000], g_old[2000], g_LO[2000], g_iv[2000], g_th[2000], g_th_old[2000], g_LO_th[2000];
+double S_o_grid[2000], S_o_grid_total[2000], S_i_grid[2000], S_iLO_grid[2000], S_i_th_grid[2000], S_iLO_th_grid[2000];
+double result_g[2000][15+1], result_g_LO[2000][15+1], result_g_th[2000][15+1], result_f[2000][15+1];
+
+double N_poph_atT, df0dz_integral_n, N_e[10], beta_constant; 
+
+double k_min, k_trans, k_step_fine, k_step;
+int points, points1, points2;
+double df0dk_grid[2000], f0x1_f0[2000], electric_driving_force[2000], thermal_driving_force[2000], f_dist[2000];
+
+double kplus_grid[2000], kminus_grid[2000], betaplus_grid[2000], betaminus_grid[2000];
+
+double  Aminus_grid[2000], Aplus_grid[2000], lambda_i_plus_grid[2000], lambda_o_plus_grid[2000];
+double lambda_i_minus_grid[2000], lambda_o_minus_grid[2000], lambda_e_plus_grid[2000][5], lambda_e_minus_grid[2000][5];
+
+double nu_deformation[2000], nu_piezoelectric[2000], nu_ionizedimpurity[2000], nu_dislocation[2000], nu_alloy[2000];
+double nu_neutralimpurity[2000], nu_iv[2000][5], nu_iv_total[2000], nu_el[2000];
+
+double Ed;
+int a11[2],b11[2];
+double h_bar,CBM,VBM;
+int count1,count2;
+int count_orbital, count_orbital_p;
+
+double beta1[2000], gH[2000], hH[2000], gH_rta[2000], hH_rta[2000];
+double gH_LO[2000], hH_LO[2000], S_i_grid_g[2000], S_i_grid_h[2000];
+double S_iLO_grid_g[2000], S_iLO_grid_h[2000], S_o_gridH[2000], S_o_grid_totalH[2000];
+
+double mobility_all[10]={0} , calc_mobility[30][2] = {0}, calc_mobility_rta[30][2] = {0};
+double calc_thermopower[30][2] = {0}, calc_sigma[30][2] = {0}, calc_sigma_rta[30][2] = {0};
+
+double calc_mobility_pe[30][1] = {0}, calc_mobility_de[30][1] = {0}, calc_mobility_dis[30][1] = {0}, calc_mobility_ii[30][1] = {0};
+double calc_mobility_po[30][1] = {0}, calc_mobility_to[30][1] = {0}, calc_mobility_alloy[30][1] = {0}, calc_mobility_iv[30][1] = {0};
+double calc_mobility_neutral[30][1] = {0};
+
+double mobility_hall_all[10]={0}, calc_mobility_hall[30][2] = {0}, calc_mobility_hall_rta[30][2] = {0};
+double calc_sigma_hall[30][2] = {0}, calc_sigma_hall_rta[30][2] = {0}, hall_factor[30][2] = {0}, hall_factor_rta[30][2] = {0};
+
+double calc_mobility_hall_pe[30][1] = {0}, calc_mobility_hall_de[30][1] = {0}, calc_mobility_hall_dis[30][1] = {0};
+double calc_mobility_hall_ii[30][1] = {0}, calc_mobility_hall_iv[30][1] = {0}, calc_mobility_hall_neutral[30][1] = {0};
+double calc_mobility_hall_po[30][1] = {0}, calc_mobility_hall_to[30][1] = {0}, calc_mobility_hall_alloy[30][1] = {0}; 
+double kcbm[3],kvbm[3];
+
+double k_grid[2000]={0}, v_n[2000]={0}, v_p[2000]={0};	
+double energy_n[2000]={0}, energy_p[2000]={0}, a_n[2000]={0}, c_n[2000]={0};
+
+double a_p[2000]={0}, c_p[2000]={0}, Ds_n[2000]={0}, Ds_p[2000]={0};
+
+double B_ii = 0, D_ii = 0, A_ii = 0;
+
+double N_im_de, Nd_plus,N_im_modified;
+
+int kk, ispin;
 
 double T_array[30],epsilon_s[30],epsilon_inf[30],Bgap[30],P_piezo[30],C_piezo_h14[30],n_array[30],Nd[30],Na[30],N_im[30];
 
@@ -11,8 +72,6 @@ int degree1;
 double fraction[4];
 int length_fraction;
 
-double kcbm[3],kvbm[3];
-
 int De_ionization,N_cb, N_vb, iterations, variation, scattering_mechanisms[10], iv_number, fitting_1, fitting_2, fitting_3;
 
 double rho, k_max, N_dis, omega_LO, omega_TO, E_deformation_n, C_long, C_trans, c_bar, C_11, C_12, C_44,
@@ -20,9 +79,8 @@ C_piezo_c14, P_piezo_h14, Uall, V0, xx, m ,m_h, T_trans ;
 
 double Bfield;
 
-string type;
 int free_e,len_T,len_n;
-char line[1000];
+
 
 void read_input_file()
 {
@@ -173,8 +231,6 @@ else
 	}		
 	cout<<endl<<endl;
 	
-
-
 
 //-------------------------------------------------------------------------
 	// Read scattering array
@@ -464,7 +520,6 @@ else
 	}	
 
 	k_max = 6;
-	type = "n";
 	T_trans = 40;
 	
 	cout<<"End of Reading input.dat file"<<endl;
@@ -472,6 +527,68 @@ else
 	//c_lattice = 0.591;  // in nm
 
 	fclose(fid);
+
+
+	count_d=0;
+	count_t=0;
+
+	int s1=0;
+	while(n_array[s1]!=0)
+	s1++;
+
+	count_d = s1;
+
+	s1=0;
+
+	while(T_array[s1]!=0)
+	s1++;
+
+	count_t = s1;
+
+	if(count_d == 0)
+	count_d = count_d+1;
+
+	N_cb = 1;
+	N_vb = 1;
+
+	//cout<<"Count_d = "<<count_d<<endl;
+	//cout<<"Count_t = "<<count_t<<endl;
+
+	if (scattering_mechanisms[1] == 0)
+	{
+		if (iterations != 1 )
+		{
+		    iterations = 1;
+		    cout<<"Since polar optical phonon scattering is not used, so iterations is set to 1"<<endl;
+		}
+		T_trans = 0;
+	}
+
+	if (De_ionization == 1)
+	{	// neutral impurity scattering
+		if (scattering_mechanisms[9] == 0)
+		{
+		    scattering_mechanisms[9] = 1;
+		    cout<<"De-ionization is to be included so neutral impurity scattering is to included in simulation";
+		}
+	}
+
+	if (free_e == 0 )
+		cout<<"free_e = false"<<endl;
+	else
+		cout<<"free_e = true"<<endl;
+
+
+	printf("\n C_long  =   %e dyne/cm^2 \n", C_long);
+	printf("\n C_trans =   %e dyne/cm^2 \n", C_trans);
+	printf("\n c_bar   =   %e dyne/cm^2 \n", c_bar);
+	//printf("\n P_piezo =   %e \n",P_piezo);
+
+	h_bar =  h_planck / (2 * pi);    // Planck constant divided by 2pi[eV.s]
+
+	fitting_1 = 0;  // FOR BAND
+	fitting_2 = 0;  // FOR PROCAR
+	fitting_3 = 1;  // FOR DOSCAR
 
 	return ;
 }

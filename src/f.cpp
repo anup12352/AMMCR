@@ -1,7 +1,7 @@
 
 #include"main.h"
 
-double f(double k,double k_grid[],double E_f,double T,double  coefficients[5][7],double kindex[],double g[], int points, int a[])
+double f(double k,double E_f,double T,double  coefficients[5][7],double kindex[],double g[], int points, int a[])
 {
 
 // gives the electron distribution by calling g as a function (when iteration==0 f==f0)

@@ -1,10 +1,10 @@
 #include"main.h"
 
-double Aminus(int counter,double k_grid[],double omega, double a[],double c[],double energy[], int points)
+double Aminus(int counter, double omega, int points)
 {
-    double k_minus =kminus(counter,k_grid,omega,energy,points);
+    double k_minus =kminus(counter,omega,points);
     double AA;
-    if (energy[counter] < h_bar*omega)
+    if (energy_n[counter] < h_bar*omega)
         AA =0;
     else
     {
@@ -17,7 +17,18 @@ double Aminus(int counter,double k_grid[],double omega, double a[],double c[],do
             arr[i] = abs(k_grid[i] - k);
         int index =FindMinInd(arr,points);
 
-        AA = a[index]*a[minus_index]+(k_minus*k_minus+k*k)/(2*k_minus*k)*c[index]*c[minus_index];
+        AA = a_n[index]*a_n[minus_index]+(k_minus*k_minus+k*k)/(2*k_minus*k)*c_n[index]*c_n[minus_index];
+        
+        /*
+        cout<<"minus_index = "<<minus_index<<endl;
+        cout<<"k = "<<k<<endl;
+        cout<<" index = "<<index<<endl;
+        cout<<"a[index] = "<<a[index]<<endl;
+        cout<<"a[minus_index] = "<<a[minus_index]<<endl;
+        cout<<" = "<<<<endl;
+        */
     }
+    
+    //cout<<"AA = "<<AA<<endl;
     return AA;
 }

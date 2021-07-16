@@ -1,9 +1,13 @@
 
 #include"main.h"
-double E_F,n_e,n_h;
 
-void find_fermi(double k_grid[], double n, double T, int ii, double energy_n[], double energy_p[], double Ds_n[], double Ds_p[], int points)
+
+void find_fermi(double n, double T, int ii)
 {
+
+    if (n > 5e20)
+        n = 5e20;
+
     //cout<<"n = "<<n<<endl;
     //cout<<" T=  "<<T<<endl;
     //cout<<"points = "<<points<<endl;
@@ -132,6 +136,73 @@ void find_fermi(double k_grid[], double n, double T, int ii, double energy_n[], 
     E_F = e_f;
     n_e = integral_n * 1e21;    // to have n in units of [1/cm^3]
     n_h = integral_p * 1e21;    // to have n in units of [1/cm^3]
+
+
+        cout<<"E_F = "<<E_F<<" eV"<<endl;
+        cout<<"n_e = "<<n_e<<" cm^-3"<<endl;
+        cout<<"n_h = "<<n_h<<" cm^-3"<<endl;
+	
+	//cout<<"n = "<<n<<endl;
+		
+	//cout<<"(n_e-n_h)/n = "<<(n_e-n_h)/n<<endl;
+	
+        if ((n_e-n_h)/n < 0.5 && (n_e-n_h)/n > 1.5)
+        {
+            cout<<"Calculated concentration is not within 50% of given concentrtion. Programs end here"<<endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if ((n_e-n_h)/n < 0.6 && (n_e-n_h)/n > 1.4)
+        {
+            cout<<"Calculated concentration is not within 60% of given concentrtion. Programs end here"<<endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if ((n_e-n_h)/n < 0.8 && (n_e-n_h)/n > 1.2)
+        {
+            cout<<"Calculated concentration is not within 80% of given concentrtion. Programs end here"<<endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if ((n_e-n_h)/n < 0.9 && (n_e-n_h)/n > 1.1)
+        {
+            cout<<"Calculated concentration is not within 90% of given concentrtion. Programs end here"<<endl;
+            exit(EXIT_FAILURE);
+        }
+
+    
+            
+            if (isnan(n_e)!=0)
+                n_e = 0;
+            if (isnan(n_h)!=0)
+                n_h = 0;
+
+            if (De_ionization ==0)
+            {
+                if (n_e < Nd1)
+                {
+                    n_e = Nd1;
+                    //cout<<"Modified ionized Donors =  "<<n_e<<endl;
+                }
+
+                if (n_h < Na1)
+                {
+                    n_h = Na1;
+                    //cout<<"Modified ionized Acceptor = "<<n_h<<endl;
+                }
+            }
+
+	    double a1;
+	    if (scattering_mechanisms[6]==1)   // disloaction scattering
+		a1 = abs(N_dis/c_lattice*1e7);
+	    else
+		a1=0;
+	    				
+            N_ii = (n_e + n_h) + a1;
+	    cout<<"Net ionized donors concentration =  "<<N_ii<<"  cm^(-3)"<<endl;
+
+            // net neutral impurity
+            cout<<"Net neutral impurity =  "<<N_im[ii]<<" cm^(-3)"<<endl;
 
 }
 

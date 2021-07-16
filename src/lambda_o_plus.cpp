@@ -1,12 +1,11 @@
 
 #include"main.h"
 
-double lambda_o_plus(int counter,double k_grid[],double omega,double A_plus,double a[],double c[],
-        double epsilon_s,double epsilon_inf,double energy[],double v[],int points)
+double lambda_o_plus(int counter,double omega,double A_plus, double epsilon_s,double epsilon_inf,int points)
 // gives Lambda+_o in equations for inelastic optical phonon scattering; equation (117) of Rode's book
 {
     //cout<<endl<<"Inside lambda_o_plus"<<endl;
-    double k_plus = kplus(counter,k_grid,omega,energy,points);
+    double k_plus = kplus(counter,omega,points);
 
     double arr[points];
     for (int i=0;i<points;i++)
@@ -20,10 +19,10 @@ double lambda_o_plus(int counter,double k_grid[],double omega,double A_plus,doub
         l = 0;
     else
     {
-        double aa = betaplus(counter,k_grid,omega,epsilon_s, epsilon_inf,energy,v, points);
+        double aa = betaplus(counter, omega,epsilon_s, epsilon_inf, points);
         //cout<<"aa = "<<aa<<endl;
         l = aa*(A_plus*A_plus*log(abs((k_plus+k)/(k_plus-k)))
-            -A_plus*c[counter]*c[plus_index]-a[counter]*a[plus_index]*c[counter]*c[plus_index]);
+            -A_plus*c_n[counter]*c_n[plus_index]-a_n[counter]*a_n[plus_index]*c_n[counter]*c_n[plus_index]);
 
     }
     //cout<<"l = "<<l<<endl;
