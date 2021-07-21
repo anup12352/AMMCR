@@ -42,13 +42,22 @@ We then perform the analytical fitting of the band structure to obtain smooth cu
 _The various scattering mechanisms which are implemented in the code are:_
 
 Defect induced scatterings from:
+
 Ionized ion impurities
+
 Neutral impurities
+
 Alloy 
+
 Dislocations
+
 Scattering mechanisms involving lattice:
+
 Piezoelectric
+
 Intravalley acoustic deformation potential
+
 Polar optical phonons.
+
  
 Once the loop converges for g(k), all the transport co-efficients are calculated.
