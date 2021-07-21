@@ -40,6 +40,7 @@ We then perform the analytical fitting of the band structure to obtain smooth cu
 ![image](https://user-images.githubusercontent.com/68414451/126433576-e6e68c38-5f22-4769-b3a1-37280aef6dfd.png)
 
 _The various scattering mechanisms which are implemented in the code are:_
+
 Defect induced scatterings from:
 Ionized ion impurities
 Neutral impurities
