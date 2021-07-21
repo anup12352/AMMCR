@@ -27,7 +27,7 @@ https://doi.org/10.1016/j.cpc.2020.107697.
 **AMMCR flowchart:**
 
 We have implemented the Rode algorithm in the AMMCR code, which is valid for the low electric field.
-For low electric field, the total distribution can be written as
+For low electric field, the total distribution function can be written as
                                          
                                                 fk=f0(k)+xg(k)
 
