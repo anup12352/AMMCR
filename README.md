@@ -35,7 +35,7 @@ Where f0(k) is the _equilibrium distribution function_ and g(k) is the _perturba
 
 The flow-chart of the code is shown here. First, one has to calculate all the required inputs using the first -principles method. The typical inputs are energy band dispersion curve, density of states, the phonon frequencies and the elastic constants.
 
-We then perform the analytical fitting of the band structure to obtain smooth curves to calculate the group velocity. For a given doping concentration, the Fermi energy is calculated. Then we calculate various scattering rates (discussed below). Finally a loop is used to obtain the non-equilibrium part, g(k) of the distribution function.
+We then perform the analytical fitting of the band structure to obtain smooth curves to calculate the group velocity. For a given doping concentration, the Fermi energy is calculated. Then we calculate various scattering rates (discussed below). Finally a loop is used to obtain the out of equilibrium part, g(k) of the distribution function.
 
 ![image](https://user-images.githubusercontent.com/68414451/126433576-e6e68c38-5f22-4769-b3a1-37280aef6dfd.png)
 
