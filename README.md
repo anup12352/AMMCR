@@ -31,7 +31,7 @@ For low electric field, the total distribution can be written as
                                          
                                                 fk=f0(k)+xg(k)
 
-Where f0(k) is the equilibrium distribution function and g(k) is the perturbation (non-equilibrium part of the distribution function).  The factor x defines the angle between the electric field and the direction of the crystal momentum k.
+Where f0(k) is the _equilibrium distribution function_ and g(k) is the _perturbation_ (out of equilibrium part of the distribution function).  The factor x defines the angle between the electric field and the direction of the crystal momentum k.
 
 The flow-chart of the code is shown here. First, one has to calculate all the required inputs using the first -principles method. The typical inputs are energy band dispersion curve, density of states, the phonon frequencies and the elastic constants.
 
@@ -39,7 +39,7 @@ We then perform the analytical fitting of the band structure to obtain smooth cu
 
 ![image](https://user-images.githubusercontent.com/68414451/126433576-e6e68c38-5f22-4769-b3a1-37280aef6dfd.png)
 
-The various scattering mechanisms which are implemented in the code are:
+_The various scattering mechanisms which are implemented in the code are:_
 Defect induced scatterings from:
 Ionized ion impurities
 Neutral impurities
