@@ -41,7 +41,7 @@ We then perform the analytical fitting of the band structure to obtain smooth cu
 
 _The various scattering mechanisms which are implemented in the code are:_
 
-Defect induced scatterings from:
+**Defect induced scatterings from:**
 
 Ionized ion impurities
 
@@ -51,7 +51,7 @@ Alloy
 
 Dislocations
 
-Scattering mechanisms involving lattice:
+**Scattering mechanisms involving lattice:**
 
 Piezoelectric
 
