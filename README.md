@@ -65,7 +65,7 @@ Once the loop converges for g(k), all the transport co-efficients are calculated
 
 Results obtained with AMMCR 
 
-![mobility_variation](https://user-images.githubusercontent.com/68414451/177920870-40fa7754-bb50-4041-bb31-862b191fee77.gif) 
+![mobility_variation](https://user-images.githubusercontent.com/68414451/177920870-40fa7754-bb50-4041-bb31-862b191fee77.gif) width=200 height=200
 ![cond_variation](https://user-images.githubusercontent.com/68414451/177920872-7ab9b78f-d03a-41b1-ac4f-e08461d6d6b5.gif)
 ![mobility_contri](https://user-images.githubusercontent.com/68414451/177920924-d33c6d88-88e5-4c65-9df9-dc44fd95fa5a.gif)
 ![hall_factor](https://user-images.githubusercontent.com/68414451/177920929-071b97e4-b713-4c51-ac9e-0632a2faa4c9.gif)
