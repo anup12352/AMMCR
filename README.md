@@ -61,6 +61,9 @@ Polar optical phonons.
 
  
 Once the loop converges for g(k), all the transport co-efficients are calculated.
+
+**Studies where AMMCR was used:**
+
 1. Mandia, A. K., Koshi, N. A., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2022). Electrical and magneto transport in 2D semiconducting MXene Ti2CO2. Journal of Materials Chemistry C. DOI:	https://doi.org/10.1039/D2TC01279K
 
 Results obtained with AMMCR 
@@ -73,7 +76,6 @@ Results obtained with AMMCR
 <img src="https://user-images.githubusercontent.com/68414451/177922687-17f673db-bfe5-4207-b0d0-68daeb4d296a.jpg" width="1100" height="370" />
 
 
-**Studies where AMMCR was used:**
 2. Mandia, A. K., Patnaik, R., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
 Ab initio semi-classical electronic transport in ZnSe: the role of inelastic scattering mechanisms. 
 Journal of Physics: Condensed Matter, 31(34), 345901, https://doi.org/10.1088/1361-648X/ab229b.
