@@ -65,12 +65,13 @@ Once the loop converges for g(k), all the transport co-efficients are calculated
 
 Results obtained with AMMCR 
 
-![mobility_variation](https://user-images.githubusercontent.com/68414451/177920870-40fa7754-bb50-4041-bb31-862b191fee77.gif) width=200 height=200
-![cond_variation](https://user-images.githubusercontent.com/68414451/177920872-7ab9b78f-d03a-41b1-ac4f-e08461d6d6b5.gif)
-![mobility_contri](https://user-images.githubusercontent.com/68414451/177920924-d33c6d88-88e5-4c65-9df9-dc44fd95fa5a.gif)
-![hall_factor](https://user-images.githubusercontent.com/68414451/177920929-071b97e4-b713-4c51-ac9e-0632a2faa4c9.gif)
-![cond_tesnor](https://user-images.githubusercontent.com/68414451/177920931-fb2e219b-89f2-4d1c-98d8-faf9d9e3f668.gif)
-![image](https://user-images.githubusercontent.com/68414451/177922687-17f673db-bfe5-4207-b0d0-68daeb4d296a.jpg)
+<img src="https://user-images.githubusercontent.com/68414451/177920870-40fa7754-bb50-4041-bb31-862b191fee77.gif" width="1100" height="370" />
+<img src="https://user-images.githubusercontent.com/68414451/177920872-7ab9b78f-d03a-41b1-ac4f-e08461d6d6b5.gif" width="1100" height="370" />
+<img src="https://user-images.githubusercontent.com/68414451/177920924-d33c6d88-88e5-4c65-9df9-dc44fd95fa5a.gif" width="1100" height="370" />
+<img src="https://user-images.githubusercontent.com/68414451/177920929-071b97e4-b713-4c51-ac9e-0632a2faa4c9.gif" width="1100" height="370" />
+<img src="https://user-images.githubusercontent.com/68414451/177920931-fb2e219b-89f2-4d1c-98d8-faf9d9e3f668.gif" width="1100" height="370" />
+<img src="https://user-images.githubusercontent.com/68414451/177922687-17f673db-bfe5-4207-b0d0-68daeb4d296a.jpg" width="1100" height="370" />
+
 
 **Studies where AMMCR was used:**
 2. Mandia, A. K., Patnaik, R., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
