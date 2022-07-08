@@ -61,9 +61,19 @@ Polar optical phonons.
 
  
 Once the loop converges for g(k), all the transport co-efficients are calculated.
+1. Mandia, A. K., Koshi, N. A., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2022). Electrical and magneto transport in 2D semiconducting MXene Ti2CO2. Journal of Materials Chemistry C. DOI:	https://doi.org/10.1039/D2TC01279K
+
+Results obtained with AMMCR 
+
+![mobility_variation](https://user-images.githubusercontent.com/68414451/177920870-40fa7754-bb50-4041-bb31-862b191fee77.gif)
+![cond_variation](https://user-images.githubusercontent.com/68414451/177920872-7ab9b78f-d03a-41b1-ac4f-e08461d6d6b5.gif)
+![mobility_contri](https://user-images.githubusercontent.com/68414451/177920924-d33c6d88-88e5-4c65-9df9-dc44fd95fa5a.gif)
+![hall_factor](https://user-images.githubusercontent.com/68414451/177920929-071b97e4-b713-4c51-ac9e-0632a2faa4c9.gif)
+![cond_tesnor](https://user-images.githubusercontent.com/68414451/177920931-fb2e219b-89f2-4d1c-98d8-faf9d9e3f668.gif)
+![3D_image](https://user-images.githubusercontent.com/68414451/177920946-7a49e1a2-d7d2-4284-812b-818da4d9e9d4.gif)
 
 **Studies where AMMCR was used:**
-1. Mandia, A. K., Patnaik, R., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
+2. Mandia, A. K., Patnaik, R., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
 Ab initio semi-classical electronic transport in ZnSe: the role of inelastic scattering mechanisms. 
 Journal of Physics: Condensed Matter, 31(34), 345901, https://doi.org/10.1088/1361-648X/ab229b.
 
@@ -73,7 +83,7 @@ Results obtained with AMMCR
 ![14](https://user-images.githubusercontent.com/68414451/146901871-1175deed-527f-413e-b43c-2ee47d7567df.jpg)
 
 
-2. Chakrabarty, S., Mandia, A. K., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
+3. Chakrabarty, S., Mandia, A. K., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
 Semi-classical electronic transport properties of ternary compound AlGaAs2: role of different scattering mechanisms. 
 Journal of Physics: Condensed Matter, 32(13), 135704, https://doi.org/10.1088/1361-648X/ab5edf.  
 
@@ -83,7 +93,7 @@ Results obtained with AMMCR
 ![23](https://user-images.githubusercontent.com/68414451/146902003-a10742bb-4d18-47c7-9ba1-1ce04fd62722.jpg)
 ![24](https://user-images.githubusercontent.com/68414451/146902006-e4f43abe-0f5f-4f45-a619-e6b3fde29e5b.jpg)
 
-3. Kumar, U., Nayak, S., Chakrabarty, S., Bhattacharjee, S., & Lee, S. C. (2020). 
+4. Kumar, U., Nayak, S., Chakrabarty, S., Bhattacharjee, S., & Lee, S. C. (2020). 
 Gallium–Boron–Phosphide ($$\hbox {GaBP} _ {2} $$ GaBP 2): a new III–V semiconductor for photovoltaics.
 Journal of Materials Science, 55(22), 9448-9460, https://doi.org/10.1007/s10853-020-04631-5.
 
