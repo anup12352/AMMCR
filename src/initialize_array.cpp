@@ -11,6 +11,8 @@ void initialize_array()
 		    calc_mobility[i][0] = n_array[i];
 		    calc_mobility_rta[i][0] = n_array[i];
 		    calc_thermopower[i][0] = n_array[i];
+		    calc_thermal_conductivity[i][0] = n_array[i];
+		    calc_peltier[i][0] = n_array[i];
 		    calc_sigma[i][0] = n_array[i];
 		    calc_sigma_rta[i][0] = n_array[i];
 
@@ -23,6 +25,7 @@ void initialize_array()
 		    calc_mobility_alloy[i][0] = n_array[i];
 		    calc_mobility_iv[i][0] = n_array[i];
 		    calc_mobility_neutral[i][0] = n_array[i];
+		    calc_mobility_so_pop[i][0] = n_array[i];
 
 
 		    calc_mobility_hall[i][0] = n_array[i];
@@ -42,6 +45,12 @@ void initialize_array()
 
 		    hall_factor[i][0] = n_array[i];
 		    hall_factor_rta[i][0] = n_array[i];
+
+		    calc_sigma_xx[i][0] = n_array[i];
+		    calc_sigma_xy[i][0] = n_array[i];
+		    calc_hall_coeff[i][0] = n_array[i];
+		    calc_long_restivity[i][0] = n_array[i];
+		    calc_mg_resist[i][0] = n_array[i];
 		}
 	    }
 	    else
@@ -51,6 +60,8 @@ void initialize_array()
 		    calc_mobility[i][0] = T_array[i];
 		    calc_mobility_rta[i][0] = T_array[i];
 		    calc_thermopower[i][0] = T_array[i];
+		    calc_thermal_conductivity[i][0] = T_array[i];
+		    calc_peltier[i][0] = T_array[i];
 		    calc_sigma[i][0] = T_array[i];
 		    calc_sigma_rta[i][0] = T_array[i];
 
@@ -63,6 +74,7 @@ void initialize_array()
 		    calc_mobility_alloy[i][0] = T_array[i];
 		    calc_mobility_iv[i][0] = T_array[i];
 		    calc_mobility_neutral[i][0] = T_array[i];
+		    calc_mobility_so_pop[i][0] = T_array[i];
 
 
 		    calc_mobility_hall[i][0] = T_array[i];
@@ -82,6 +94,11 @@ void initialize_array()
 		    hall_factor[i][0] = T_array[i];
 		    hall_factor_rta[i][0] = T_array[i];
 
+		    calc_sigma_xx[i][0] = T_array[i];
+		    calc_sigma_xy[i][0] = T_array[i];
+		    calc_hall_coeff[i][0] = T_array[i];
+		    calc_long_restivity[i][0] = T_array[i];
+		    calc_mg_resist[i][0] = T_array[i];
 		}
 	    }
 //----------------------------------------------- varaibles for doping or temperature variation generated-------------------------

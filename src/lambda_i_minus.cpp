@@ -5,15 +5,12 @@ double lambda_i_minus(int counter,double omega,double A_minus, double epsilon_s,
 // gives Lambda-_i in equations for inelastic optical phonon scattering; equation (123) of Rode's book
 {
     double l;
-    double k_minus = kminus(counter, omega, points);
+    double k_minus = kminus_grid_pop[0][counter];
 
     //cout<<endl<<"Inside lambda_i_minus"<<endl;
     //cout<<"k_minus = "<<k_minus<<endl;
 
-    double arr[points];
-    for (int i=0;i<points;i++)
-        arr[i] = abs(k_grid[i] - k_minus);
-    int minus_index =FindMinInd(arr,points);
+    int minus_index = minus_index_pop[0][counter];;
 
     //cout<<"minus_index = "<<minus_index<<endl;
 

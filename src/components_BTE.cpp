@@ -1,412 +1,515 @@
 #include"main.h"
 
-void components_BTE(double T, int T_loop, double efef, int ii)
+void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   // ii for doping variation loop
 {
+
+	double integral_numerator = 0;
+	double integral_denominator = 0;
+	double k_dum;
 	
 //---------------------------- components for BTE ------------------------------------------------------------------
-            beta_constant = beta(T, T_loop);
-            // unit 1/nm
+	if(geometry==1 && type == "n")
+	{	
+		    beta_constant = beta(T, T_loop);
+		    // unit 1/nm
 
-            cout<< "Inverse screening length, beta = "<<beta_constant<<" (1/nm)"<<endl;
-            double integral_numerator_n = 0;
-            double integral_denominator_n = 0;
+		    cout<< "Inverse screening length, beta = "<<beta_constant<<" (1/nm)"<<endl;
 
-            int factr = 10;
-            for(int counter = 0;counter<=points-2;counter++)
-            {
-                double dk = (k_grid[counter+1]-k_grid[counter])/factr;
-                for (int ss = 0;ss<=factr-1;ss++)
-                {
-                    integral_numerator_n = integral_numerator_n + dk*(pow(((k_grid[counter]+ss*dk)/pi),2))
-                                        *f0(energy_n[counter],efef,T)*(1-f0(energy_n[counter],efef,T))*energy_n[counter]/(k_B*T);
-                    // Part of equation (54) of Rode's book
-                    integral_denominator_n = integral_denominator_n + dk*pow(((k_grid[counter]+ss*dk)/pi),2)
-                    *f0(energy_n[counter],efef,T)*(1-f0(energy_n[counter],efef,T));
-                    // Part of equation (54) of Rode's book
-                }
-            }
-
-            df0dz_integral_n = integral_numerator_n/integral_denominator_n;
-            //cout<<"df0dz_integral_n = "<<df0dz_integral_n<<endl;
-
-            N_poph_atT = N_poph(omega_LO,T);
-
-            //cout<<"N_poph_atT = "<<N_poph_atT<<endl;
-            
-
-            if (scattering_mechanisms[8]==1)   // intravalley scattering
-            {
-                for (int aa=0;aa<iv_number;aa++)
-                    N_e[aa] = N_poph(we[aa],T);
-            }
-
-
-	    double k_dum;	
-            for (int counter = 0;counter<points;counter++)
-            {
-                k_dum = k_grid[counter];
-                // unit 1/nm
-                //cout<<"counter+1 = "<<counter+1<<endl;
-                //cout<<"k_dum = "<<k_dum<<endl;
-                
-		 // polar optical phonon scattering 
-                if (scattering_mechanisms[1]==1)
-                {
-                    kplus_grid[counter] = kplus(counter,omega_LO,points);
-                    kminus_grid[counter] = kminus(counter,omega_LO,points);
-                    //cout<<"kplus_grid[counter] = "<<kplus_grid[counter]<<endl;
-                    //cout<<"kminus_grid[counter] = "<<kminus_grid[counter]<<endl;
-                }
-		
-		// ionized impourity scattering
-                if (scattering_mechanisms[0]==1)
-                {
-                    //cout<<"k_dum = "<<k_dum<<endl;
-                    //cout<<"beta_constant =  "<<beta_constant<<endl;
-                    //cout<<"c_n[counter] =  "<<c_n[counter]<<endl;
-                    //cout<<"counter =  "<<counter+1<<endl;
-
-                    B_ii = (4*(k_dum*k_dum)/(beta_constant*beta_constant))/(1+4*k_dum*k_dum/(beta_constant*beta_constant))
-                    +8*(beta_constant*beta_constant+2*k_dum*k_dum)/(beta_constant*beta_constant+4*k_dum*k_dum)*(pow(c_n[counter],2))
-                    +(3*pow(beta_constant,4)+
-                      6*pow(beta_constant,2)*k_dum*k_dum-8*k_dum*k_dum*k_dum*k_dum)/((beta_constant*beta_constant+4*k_dum*k_dum)*k_dum*k_dum)*pow(c_n[counter],4);
-                    // According to equation (92) of Semiconductors and Semimetals, volume 10 (Rode's chapter)
-
-
-                    D_ii = 1+(2*pow(beta_constant,2)*(pow(c_n[counter],2)/pow(k_dum,2))+
-                              (3*pow(beta_constant,4)*(pow(c_n[counter],4))/(4*pow(k_dum,4))));
-                              // According to equation (92) of Semiconductors and Semimetals, volume 10 (Rode's chapter)
-
-                    nu_ionizedimpurity[counter] = nu_ii(k_dum,counter,beta_constant,v_n[counter],epsilon_s[T_loop]);
-		     // unit 1/second	
-                    //cout<<"B_ii = "<<B_ii<<endl;
-                    //cout<<"D_ii = "<<D_ii<<endl;
-                    //cout<<"N_ii = "<<N_ii<<endl;
-                    //cout<<"nu_ionizedimpurity[counter] = "<<nu_ionizedimpurity[counter]<<endl;
-                }
-
-		// POP scattering
-                if (scattering_mechanisms[1]==1)
-                {
-                    Aminus_grid[counter] = Aminus(counter,omega_LO,points);
-                    Aplus_grid[counter] = Aplus(counter,omega_LO,points);
-
-
-                    betaplus_grid[counter] = betaplus(counter,omega_LO,epsilon_s[T_loop],epsilon_inf[T_loop],points);
-                    betaminus_grid[counter] = betaminus(counter,omega_LO,epsilon_s[T_loop],epsilon_inf[T_loop],points);
-
-                    lambda_i_plus_grid[counter] = abs(lambda_i_plus(counter,omega_LO,Aplus_grid[counter], epsilon_s[T_loop],epsilon_inf[T_loop], points));
-
-                    lambda_i_minus_grid[counter] = abs(lambda_i_minus(counter,omega_LO,Aminus_grid[counter],                epsilon_s[T_loop],epsilon_inf[T_loop],points));
-
-                    lambda_o_plus_grid[counter] = abs(lambda_o_plus(counter,omega_LO,Aplus_grid[counter],
-                    epsilon_s[T_loop],epsilon_inf[T_loop],points));
-
-                    lambda_o_minus_grid[counter] = abs(lambda_o_minus(counter, omega_LO,Aminus_grid[counter],
-                    epsilon_s[T_loop],epsilon_inf[T_loop],points));
-                }
-                
-		// acoustic scattering 
-                if (scattering_mechanisms[3]==1)
-                    nu_deformation[counter] = nu_de(k_dum,counter,T,v_n[counter]);
-                /*
-                if (T==200)
-                {
-                    cout<<"counter = "<<counter+1<<endl;
-                    cout<<"nu_deformation[counter] = "<<nu_deformation[counter]<<endl;
-                    getchar();
-                }
-                */
-                
-		// Piezoelectric scattering
-                if (scattering_mechanisms[4]==1)
-
-                    nu_piezoelectric[counter] = nu_pe(k_dum,counter,T,P_piezo[T_loop],epsilon_s[T_loop],v_n[counter]);
-
-		// Dislocation scattering
-                if (scattering_mechanisms[6]==1)
-                    nu_dislocation[counter] = nu_dis(k_dum,counter,T,beta_constant,epsilon_s[T_loop], v_n[counter]);
-
-		// Alloy scattering
-                if (scattering_mechanisms[7]==1)
-                    nu_alloy[counter] = nu_alloy1(k_dum, v_n[counter]);
-
-
-                if (scattering_mechanisms[8]==1)  // intravalley scattering
-                {
-                    for (int aa = 0;aa<iv_number;aa++)
-                    {
-                        lambda_e_plus_grid[counter][aa] = abs(lambda_e_plus(counter,we[aa],rho,De[aa],nfv[aa],points));
-                        lambda_e_minus_grid[counter][aa] = abs(lambda_e_minus(counter,we[aa],rho,De[aa],nfv[aa],points));
-                        // Equation number 129 of rode book
-                    }
-                }
-
-                if (scattering_mechanisms[9]==1)  // neutral impurity
-                    {			
-			nu_neutralimpurity[counter] = nu_im(k_dum,counter,epsilon_s[T_loop],N_im[ii],v_n[counter]);
-		    }
-
-                df0dk_grid[counter] = df0dk(k_dum, T, E_F, coefficients_cond, kindex_cond, a11);
-
-                f_dist[counter] = f0(energy_n[counter],E_F,T);
-                //cout<<"In between "<<endl;
-                //cout<<"energy_n[counter]  = "<<energy_n[counter]<<endl;
-                //cout<<"E_F = "<<E_F<<endl;
-                //cout<<"T = "<<T<<endl;
-
-                thermal_driving_force[counter] = -1*v_n[counter]*df0dz(k_dum, E_F, T, df0dz_integral_n,coefficients_cond, kindex_cond, a11);
-
-                f0x1_f0[counter] = f0(energy_n[counter],E_F,T)*(1-f0(energy_n[counter],E_F,T));
-
-                nu_el[counter] = nu_deformation[counter] + nu_piezoelectric[counter] + nu_ionizedimpurity[counter]
-                + nu_dislocation[counter] + nu_alloy[counter] + nu_neutralimpurity[counter];
-
-                electric_driving_force[counter] = -(1*E/h_bar)*df0dk_grid[counter]*1e-7;
-		// unit is 1/s 
-		
-		//---------------------------- code to debug -------------------------------------------------------------
-                //cout<<"counter+1 = "<<counter+1<<endl;
-                //cout<<"Aplus_grid[counter] =   "<<Aplus_grid[counter]<<endl;
-                //cout<<"Aminus_grid[counter] =   "<<Aminus_grid[counter]<<endl;
-
-                //cout<<"betaplus_grid[counter] =  "<<betaplus_grid[counter]<<endl;
-                //cout<<"betaminus_grid[counter] =  "<<betaminus_grid[counter]<<endl;
-
-                //cout<<"lambda_i_plus_grid[counter] =  "<<lambda_i_plus_grid[counter]<<endl;
-                //cout<<"lambda_i_minus_grid[counter] =  "<<lambda_i_minus_grid[counter]<<endl;
-                //cout<<"lambda_o_plus_grid[counter] =  "<<lambda_o_plus_grid[counter]<<endl;
-                //cout<<"lambda_o_minus_grid[counter] =  "<<lambda_o_minus_grid[counter]<<endl;
-
-                //cout<<"lambda_e_plus_grid[counter][aa] =  "<<lambda_e_plus_grid[counter][0]<<endl;
-                //cout<<"lambda_e_minus_grid[counter][aa] =  "<<lambda_e_minus_grid[counter][0]<<endl;
-
-                //cout<<"nu_deformation[counter] =  "<<nu_deformation[counter]<<endl;
-                //cout<<"nu_piezoelectric[counter] =  "<<nu_piezoelectric[counter]<<endl;
-                //cout<<"nu_ionizedimpurity[counter] =  "<<nu_ionizedimpurity[counter]<<endl;
-                //cout<<"nu_dislocation[counter] =  "<<nu_dislocation[counter]<<endl;
-                //cout<<"nu_alloy[counter] =  "<<nu_alloy[counter]<<endl;
-                //cout<<"nu_neutralimpurity[counter] =  "<<nu_neutralimpurity[counter]<<endl;
-                //cout<<"nu_el[counter] = "<<nu_el[counter]<<endl;
-                //cout<<"df0dk_grid[counter] =  "<<df0dk_grid[counter]<<endl;
-                //cout<<"f_dist[counter]  =  "<<f_dist[counter]<<endl;
-                //cout<<"thermal_driving_force[counter] =  "<<thermal_driving_force[counter]<<endl;
-                //cout<<"f0x1_f0[counter] =  "<<f0x1_f0[counter]<<endl;
-                //cout<<"electric_driving_force[counter]  = "<<electric_driving_force[counter]<<endl;
-
-                //if (counter==100||counter==200||counter==300||counter==400||counter==500)
-                //    getchar();
-		//---------------------------- code to debug -------------------------------------------------------------
-
-            }
- 
-        if (scattering_mechanisms[8]==1)  // intravalley scattering
-        {
-		int len = sizeof(nu_iv_total)/sizeof(nu_iv_total[0]);	
-		for (int counter = 0;counter<len;counter++)
-			nu_iv_total[counter] = 0;
-
-		//cout<<endl<<"Inside"<<endl;
-		//cout<<" iv_number = "<<iv_number<<endl;
-            for (int counter = 0;counter<points;counter++)
-            {
-            	//cout<<"counter = "<<counter<<endl;
-		for (int aa = 0;aa<iv_number;aa++)
-		{
-		    //cout<<"aa = "<<aa<<endl;
-		    double k_minus = kminus(counter,we[aa],points);
-		    //cout<<"k_minus = "<<k_minus<<endl;
-
-		    double arr[points];
-		    for (int i=0;i<points;i++)
-			arr[i] = abs(k_grid[i] - k_minus);
-		    int minus_index =FindMinInd(arr,points);
-
-
-		    double k_plus = kplus(counter,we[aa],points);
-		    //cout<<"k_plus = "<<k_plus<<endl;
-
-		    for (int i=0;i<points;i++)
-			arr[i] = abs(k_grid[i] - k_plus);
-		    int plus_index =FindMinInd(arr,points);
-
-		    //cout<<"plus_index = "<<plus_index<<endl;
-
-		    double f_negative = f0(energy_n[minus_index],efef,T);
-		    double f_positive =  f0(energy_n[plus_index],efef,T);
-
-		    //cout<<"f_negative = "<<f_negative<<endl;
-		    //cout<<"f_positive = "<<f_positive<<endl;
-
-		    if (energy_n[counter] < h_bar*we[aa])
+		    //--------------------------- df0dz_integral -----------------------------------------
+		    int factr = 10;
+		    for(int counter = 0;counter<=points-2;counter++)
 		    {
-			    nu_iv[counter][aa] = (N_e[aa] + f_positive) *lambda_e_plus_grid[plus_index][aa];
+		        double dk = (k_grid[counter+1]-k_grid[counter])/factr;
+		        for (int ss = 0;ss<=factr-1;ss++)
+		        {
+		            integral_numerator = integral_numerator + dk*(pow(((k_grid[counter]+ss*dk)/pi),2))
+		                                *f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T))*energy_n[counter]/(k_B*T);
+		            // Part of equation (54) of Rode's book
+		            integral_denominator = integral_denominator + dk*pow(((k_grid[counter]+ss*dk)/pi),2)
+		            *f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T));
+		            // Part of equation (54) of Rode's book
+		        }
 		    }
-		    else
-		    {    
-			nu_iv[counter][aa] = (N_e[aa] + 1 - f_negative) * lambda_e_minus_grid[minus_index][aa] + 
-						(N_e[aa] + f_positive)*lambda_e_plus_grid[plus_index][aa];
-		    }
-		    
-		    nu_iv_total[counter] = nu_iv_total[counter] + nu_iv[counter][aa];            
-		    
-		    //cout<<"nu_iv[counter][aa] = "<<nu_iv[counter][aa]<<endl;
-		    //cout<<"nu_iv_total[counter] = "<<nu_iv_total[counter]<<endl;
-		    //getchar(); 	
-		     	
+
+		    df0dz_integral = integral_numerator/integral_denominator;
+		    //cout<<"df0dz_integral for n type = "<<df0dz_integral<<endl;
+		    //--------------------------- df0dz_integral calculated -----------------------------------------
+		    		    
+//--------------------------------------common terms calculated -------------------------------------------------------
+
+		for (int counter = 0;counter<points;counter++)
+		{
+			k_dum = k_grid[counter];
+			// unit 1/nm
+			//cout<<"counter+1 = "<<counter+1<<endl;
+			//cout<<"k_dum = "<<k_dum<<endl;
+
+		        df0dk_grid[counter] = df0dk(k_dum, T, efefn, coefficients_cond, kindex_cond, a11);
+			 // unit (nm)
+
+		        f_dist[counter] = f0(energy_n[counter],efefn,T);
+		        //cout<<"In between "<<endl;
+		        //cout<<"energy_n[counter]  = "<<energy_n[counter]<<endl;
+		        //cout<<"efefn = "<<efefn<<endl;
+		        //cout<<"T = "<<T<<endl;
+
+		        thermal_driving_force[counter] = -1*v_n[counter]*df0dz(k_dum, efefn, T, df0dz_integral,coefficients_cond, kindex_cond, a11);
+
+		        f0x1_f0[counter] = f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T));
+
+		        electric_driving_force[counter] = -(1*E/h_bar)*df0dk_grid[counter]*1e-7;
+			// unit is 1/s , hbar unit is eV-s so e i s not multiplied in numerator
+
+		        //cout<<"df0dk_grid[counter] =  "<<df0dk_grid[counter]<<endl;
+		        //cout<<"f_dist[counter]  =  "<<f_dist[counter]<<endl;
+		        //cout<<"thermal_driving_force[counter] =  "<<thermal_driving_force[counter]<<endl;
+		        //cout<<"f0x1_f0[counter] =  "<<f0x1_f0[counter]<<endl;
+		        //cout<<"electric_driving_force[counter]  = "<<electric_driving_force[counter]<<endl;
 		}
-		nu_el[counter] = nu_el[counter] + nu_iv_total[counter];  
-            }
-        }
 
-//------------------------------------ components for BTE END --------------------------------------------------------------
-// ----------------------------saving data ---------------------------------------------------
-            /*
-            FILE *fid1;
-            fid1 = fopen("Aplus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, Aplus_grid[i]);
+//--------------------------------------common terms calculated completed  --------------------------------------------
+
+//----------------------POP scattering rate --------------------------------------------------------------------
+			    
+		// pop scattering
+		if(scattering_mechanisms[1]==1)
+			nu_pop(T, efefn, ii, T_loop);
+//-------------------------------------------------------- nu_pop calculated---------------------------------------
+
+//----------------------POP scattering rate completed--------------------------------------------------------------------
+
+
+//----------------------Ionized Impurity scattering rate --------------------------------------------------------------------
+			        			
+		// ionized impourity scattering
+	        if (scattering_mechanisms[0]==1)
+	        {
+	        	nu_ii(epsilon_s[T_loop]);
+	        }
+//----------------------II scattering rate completed--------------------------------------------------------------------
+
+//----------------------Acoustic scattering rate --------------------------------------------------------------------
+		        
+		// acoustic scattering 
+	        if (scattering_mechanisms[3]==1)
+	        {
+            		nu_de(T);
+		}	
+//----------------------Acoustic scattering rate completed--------------------------------------------------------------------
+
+//----------------------PZ scattering rate --------------------------------------------------------------------
+		        
+		// Piezoelectric scattering
+	        if (scattering_mechanisms[4]==1)
+	        {
+         		nu_pe(T,P_piezo[T_loop],epsilon_s[T_loop]);
+		}
+//----------------------PZ scattering rate --------------------------------------------------------------------
+			
+//----------------------Disloaction scattering rate -------------------------------------------------------			
+		// Dislocation scattering
+	        if (scattering_mechanisms[6]==1)
+	        {
+			nu_dis(T,beta_constant,epsilon_s[T_loop]);
+		}
+//----------------------Disloaction scattering rate completed ------------------------------------------			
+
+//----------------------Alloy scattering rate ----------------------------------------------------			
+			
+		// Alloy scattering
+	        if (scattering_mechanisms[7]==1)
+	        {
+		        nu_alloy1();
+		}
+//----------------------Alloy scattering rate completed ------------------------------------------			
+
+			
+//---------------------- Neutral impurity scattering rate  ---- ------------------------------------------			
+
+		// neutral impurity
+	        if (scattering_mechanisms[9]==1)  
+		{						
+			nu_im(epsilon_s[T_loop],N_im[ii]);
+		}
+			
+//---------------------- Neutral impurity scattering rate  completed ------------------------------------------			
+
+
+//---------------------- Intervalley scattering rate  ---- ------------------------------------------			
+
+		// intravalley scattering	
+		if (scattering_mechanisms[8]==1)   
+		{
+			nu_iv_n(T);
+		}
+//------------------interavalley scattering rate completed ----------------------------
+		
+//----------------------  Interface roughness scattering ----------------------------------------------			
+
+	 	// Interface roughness scattering
+		if (scattering_mechanisms[11]==1)  
+		{
+			nu_ir(epsilon_s[T_loop]);						
+		}
+		
+		
+//--------------------------------------Interface roughness completed -------------------------------------------------------
+
+//--------------------------------------Skew scattering -------------------------------------------------------
+
+//----------------------  Skew scattering ----------------------------------------------			
+
+	 	// Skew scattering
+		if (scattering_mechanisms[12]==1)  
+		{
+			nu_skew();						
+		}
+		
+//--------------------------------------skew scattering completed -------------------------------------------------------
+
+
+
+		// total scattering rates calculated here
+		for(int counter=0;counter<points;counter++)
+		{
+		        nu_el[counter] = nu_ionizedimpurity[counter]*scattering_mechanisms[0] + 
+		        	nu_npop_total[counter] * scattering_mechanisms[2] + 
+		        	nu_deformation[counter]*scattering_mechanisms[3] + 
+		               nu_piezoelectric[counter]*scattering_mechanisms[4] + 
+		         	nu_dislocation[counter] * scattering_mechanisms[6] + 
+		         	nu_alloy[counter] * scattering_mechanisms[7] + 
+		         	nu_iv_total[counter] * scattering_mechanisms[8] +
+		         	nu_neutralimpurity[counter]*scattering_mechanisms[9] + 
+		         	nu_irs[counter]*scattering_mechanisms[11] + 
+		         	nu_skew_rate[counter]*scattering_mechanisms[12];
+
+			denom[counter] = (nu_pop_total[counter]*scattering_mechanisms[1] + nu_el[counter]);	
+			//cout<<"nu_el[counter] = "<<nu_el[counter]<<endl;
+		}			
+
+	 	
+//-----------------------------------------------------------------------------------------------------------------
+
+				
+	//------------------------------------ components for BTE END --------------------------------------------------------------
+	// ----------------------------saving data ---------------------------------------------------
+		    
+		    /*		    
+		    //FILE *fid1;
+		    fid1 = fopen("nu_el.txt","w");
+		    for (int i = 0; i < points; i++)
+		        fprintf(fid1,"%d    %e\n", i+1, nu_el[i]);
+		fclose(fid1);
+
+		    fid1 = fopen("df0dk_grid.txt","w");
+		    for (int i = 0; i < points; i++)
+		        fprintf(fid1,"%d    %e\n", i+1, df0dk_grid[i]);
+		fclose(fid1);
+
+		    fid1 = fopen("f_dist.txt","w");
+		    for (int i = 0; i < points; i++)
+		        fprintf(fid1,"%d    %e\n", i+1, f_dist[i]);
+		fclose(fid1);
+
+		    fid1 = fopen("thermal_driving_force.txt","w");
+		    for (int i = 0; i < points; i++)
+		        fprintf(fid1,"%d    %e\n", i+1, thermal_driving_force[i]);
+		fclose(fid1);
+
+		    fid1 = fopen("f0x1_f0.txt","w");
+		    for (int i = 0; i < points; i++)
+		        fprintf(fid1,"%d    %e\n", i+1, f0x1_f0[i]);
+		fclose(fid1);
+
+		    fid1 = fopen("elecgtric_driving_force.txt","w");
+		    for (int i = 0; i < points; i++)
+		        fprintf(fid1,"%d    %e\n", i+1, electric_driving_force[i]);
+		fclose(fid1);
+		    */
+		    //getchar();
+
+	// ----------------------------saving data ---------------------------------------------------
+
+	//------------------------------------------------------------------------------------------------------------------
+	}  // if condition for type 'n'
+	else if(geometry==1 && type == "p")
+	{
+				
+		//--------------------------- df0dz_integral -----------------------------------------
+		int factr = 10;
+		for(int counter = 0;counter<=points-2;counter++)
+		{
+			double dk = (k_grid[counter+1]-k_grid[counter])/factr;
+			for (int ss = 0;ss<=factr-1;ss++)
+			{
+			    integral_numerator = integral_numerator + dk*(pow(((k_grid[counter]+ss*dk)/pi),2))
+						*f0(energy_p[counter],efefp,T)*(1-f0(energy_p[counter],efefp,T))*energy_p[counter]/(k_B*T);
+			    // Part of equation (54) of Rode's book
+			    integral_denominator = integral_denominator + dk*pow(((k_grid[counter]+ss*dk)/pi),2)
+			    *f0(energy_p[counter],efefp,T)*(1-f0(energy_p[counter],efefp,T));
+			    // Part of equation (54) of Rode's book
+			}
+		}
+
+		df0dz_integral = integral_numerator/integral_denominator;
+		//cout<<"df0dz_integral for p type = "<<df0dz_integral<<endl;
+		//--------------------------- df0dz_integral calculated -----------------------------------------		    		    
+//--------------------------------------common terms calculated -------------------------------------------------------
+
+		for (int counter = 0;counter<points;counter++)
+		{
+			k_dum = k_grid[counter];
+			// unit 1/nm
+			//cout<<"counter+1 = "<<counter+1<<endl;
+			//cout<<"k_dum = "<<k_dum<<endl;
+
+		        df0dk_grid[counter] = df0dk(k_dum, T, efefp, coefficients_val, kindex_val, b11);
+			 // unit (nm)
+
+		        f_dist[counter] = f0(energy_p[counter],efefp,T);
+		        //cout<<"In between "<<endl;
+		        //cout<<"energy_p[counter]  = "<<energy_p[counter]<<endl;
+		        //cout<<"efefp = "<<efefp<<endl;
+		        //cout<<"T = "<<T<<endl;
+
+		        thermal_driving_force[counter] = -1*v_p[counter]*df0dz(k_dum, efefp, T, df0dz_integral,coefficients_val, kindex_val, b11);
+
+		        f0x1_f0[counter] = f0(energy_p[counter],efefp,T)*(1-f0(energy_p[counter],efefp,T));
+
+		        electric_driving_force[counter] = -(1*E/h_bar)*df0dk_grid[counter]*1e-7;
+			// unit is 1/s , hbar unit is eV-s so e is not multiplied in numerator
+
+		        //cout<<"df0dk_grid[counter] =  "<<df0dk_grid[counter]<<endl;
+		        //cout<<"f_dist[counter]  =  "<<f_dist[counter]<<endl;
+		        //cout<<"thermal_driving_force[counter] =  "<<thermal_driving_force[counter]<<endl;
+		        //cout<<"f0x1_f0[counter] =  "<<f0x1_f0[counter]<<endl;
+		        //cout<<"electric_driving_force[counter]  = "<<electric_driving_force[counter]<<endl;
+		}
+					
+	        if (scattering_mechanisms[0]==1)
+	        {
+	        	nu_ii_p_funct(T_loop);
+		}
+		
+		// POP scattering
+	        if (scattering_mechanisms[1]==1)
+		{
+			nu_pop_p_funct(T, T_loop);
+		}
+			
+		// npop scattering
+		if (scattering_mechanisms[2]==1)
+		{
+			nu_npop_p_funct(T);
+		}
+
+		// acoustic scattering
+		if (scattering_mechanisms[3]==1)
+		{
+			nu_de_p_funct(T_loop);
+		}
+
+
+		//*/
+
+		// total scattering rates calculated here
+		for(int counter=0;counter<points;counter++)
+		{
+		        nu_el[counter] = nu_ionizedimpurity_p[counter][0][0]*scattering_mechanisms[0] + 
+		        	nu_npop_p[counter][0][0] * scattering_mechanisms[2] + 
+		        	nu_deformation_p[counter][0][0]*scattering_mechanisms[3]; 
+		       
+			denom[counter] = (nu_So_p[counter][0][0]*scattering_mechanisms[1] + nu_el[counter]);	
+			//cout<<"nu_el[counter] = "<<nu_el[counter]<<endl;
+		}
+					
+	}
+	else if(geometry==2)
+	{
+//--------------------------------------common terms calculated -------------------------------------------------------
+		
+		//cout<<"Components  result for 2D "<<endl;
+		if(screening==1)
+			polarizability(T, ii);
+		
+		for (int counter = 0;counter<points;counter++)
+		{
+			k_dum = k_grid[counter];
+			// unit 1/nm
+			//cout<<"counter+1 = "<<counter+1<<endl;
+			//cout<<"k_dum = "<<k_dum<<endl;
+
+		        df0dk_grid[counter] = df0dk(k_dum, T, efefn, coefficients_cond, kindex_cond, a11);
+			 // unit (nm)
+
+		        f_dist[counter] = f0(energy_n[counter],efefn,T);
+		        //cout<<"In between "<<endl;
+		        //cout<<"energy_n[counter]  = "<<energy_n[counter]<<endl;
+		        //cout<<"efefn = "<<efefn<<endl;
+		        //cout<<"T = "<<T<<endl;
+
+
+		        f0x1_f0[counter] = f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T));
+
+		        electric_driving_force[counter] = -(1*E/h_bar)*df0dk_grid[counter]*1e-7;
+			// unit is 1/s , hbar unit is eV-s so e i s not multiplied in numerator
+			
+			
+		        //cout<<"df0dk_grid[counter] =  "<<df0dk_grid[counter]<<endl;
+		        //cout<<"f_dist[counter]  =  "<<f_dist[counter]<<endl;
+		        //cout<<"thermal_driving_force[counter] =  "<<thermal_driving_force[counter]<<endl;
+		        //cout<<"f0x1_f0[counter] =  "<<f0x1_f0[counter]<<endl;
+		        //cout<<"electric_driving_force[counter]  = "<<electric_driving_force[counter]<<endl;
+		}
+
+//--------------------------------------common terms calculated completed  --------------------------------------------
+		
+		// remote impurity scattering
+		if (scattering_mechanisms[0]==1)
+		{
+			nu_rim_2D(T);
+		}
+
+		// pop scattering
+		if (scattering_mechanisms[1]==1)
+		{
+			nu_pop_2D(T, T_loop);
+		}
+
+		// npop scattering
+		if (scattering_mechanisms[2]==1)
+		{
+			nu_npop_2D(T);
+		}
+
+		// acoustic scattering
+		if (scattering_mechanisms[3]==1)
+		{
+			nu_de_2D(T);
+		}
+		
+		
+		// so pop scattering
+		if (scattering_mechanisms[10]==1)
+		{
+			nu_so_pop_2D(T, T_loop);
+		}
+
+//----------------------  Interface roughness scattering ----------------------------------------------			
+
+	 	// Interface roughness scattering
+		if (scattering_mechanisms[11]==1)  
+		{
+			nu_ir(epsilon_s[T_loop]);						
+		}		
+		
+//--------------------------------------Interface roughness completed -------------------------------------------------------
+
+//----------------------  Skew scattering ----------------------------------------------			
+
+	 	// Skew scattering
+		if (scattering_mechanisms[12]==1)  
+		{
+			nu_skew();						
+		}
+		
+//--------------------------------------skew scattering completed -------------------------------------------------------
+
+		// total scattering rates calculated here
+		for(int i=0;i<points;i++)
+		{
+		        nu_el[i] = nu_ionizedimpurity[i]*scattering_mechanisms[0] + 
+		        	nu_npop_total[i] * scattering_mechanisms[2] + 
+		        	nu_deformation[i]*scattering_mechanisms[3] + 
+		               nu_piezoelectric[i]*scattering_mechanisms[4] +
+				nu_irs[i]*scattering_mechanisms[11] + 
+				nu_skew_rate[i]*scattering_mechanisms[12];
+
+			denom[i] = (nu_pop_total[i]*scattering_mechanisms[1] + nu_el[i] 
+			+ nu_so_pop_total[i]*scattering_mechanisms[10]);				
+			//cout<<"nu_el[i] = "<<nu_el[i]<<endl;
+			//cout<<"denom[i] = "<<denom[i]<<endl;
+			
+		}			
+
+		//--------------------------- df0dz_integral -----------------------------------------
+		int factr = 10;
+		integral_numerator = 0;
+		integral_denominator = 0;
+		/*
+		double de1;
+		for(int counter = 0;counter<=points-2;counter++)
+		{
+			de1 = energy_n[counter+1]- energy_n[counter];
+			if(de1<0)
+				de1 = 0;			
+			integral_numerator = integral_numerator + de1*(f0(energy_n[counter],efefn,T)*
+			(1-f0(energy_n[counter],efefn,T)))*energy_n[counter]/(k_B*T);
+			// Part of equation (54) of Rode's book
+
+			integral_denominator = integral_denominator + de1*f0(energy_n[counter],efefn,T)*
+			(1-f0(energy_n[counter],efefn,T));
+			// Part of equation (54) of Rode's book
+		}
+		*/		
+		double dk;
+		for(int counter = 0;counter<=points-2;counter++)
+		{
+			dk = (k_grid[counter+1]-k_grid[counter])/factr;
+			for (int ss = 0;ss<=factr-1;ss++)
+			{
+				integral_numerator = integral_numerator + dk*(((k_grid[counter]+ss*dk)/pi))
+						*f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T))*energy_n[counter]/(k_B*T);
+				// Part of equation (54) of Rode's book
+				integral_denominator = integral_denominator + dk*((k_grid[counter]+ss*dk)/pi)
+				*f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T));
+				// Part of equation (54) of Rode's book
+			}
+		}
+
+		df0dz_integral = integral_numerator/integral_denominator;
+		//cout<<"df0dz_integral for 2D geometry = "<<df0dz_integral<<endl;
+		//--------------------------- df0dz_integral calculated -----------------------------------------
+		
+		//------------------- thermal driving force ----------------------------------------------------
+		for (int counter = 0;counter<points;counter++)
+		{
+		        //cout<<"energy_n[counter]  = "<<energy_n[counter]<<endl;
+		        //cout<<"efefn = "<<efefn<<endl;
+		        //cout<<"T = "<<T<<endl;
+
+		        thermal_driving_force[counter] = -1*v_n[counter]*df0dz(k_dum, efefn, T, df0dz_integral,coefficients_cond,
+		        kindex_cond, a11);           
+		}		
+		//--------------------------------------------------------------------------------------------
+	}  // else if geometry==2;  2D material
+	
+	
+	
+	// Save componeents of scattering rate for diiferent scattering mechanism
+		
+	// save results
+	/*
+	FILE *fid1;
+	fid1 = fopen("electric_driving_force.txt","w");
+	
+	for (int i = 0; i < points; i++)
+		fprintf(fid1,"%e \n", electric_driving_force[i]);	
 	fclose(fid1);
 
-            fid1 = fopen("Aminus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, Aminus_grid[i]);
+
+	fid1 = fopen("df0dk.txt","w");		
+	for (int i = 0; i < points; i++)
+		fprintf(fid1,"%e \n", df0dk_grid[i]);	
 	fclose(fid1);
 
-            fid1 = fopen("betaplus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, betaplus_grid[i]);
+	fid1 = fopen("thermal_driving_force.txt","w");		
+	for (int i = 0; i < points; i++)
+		fprintf(fid1,"%e \n", thermal_driving_force[i]);	
 	fclose(fid1);
-
-            fid1 = fopen("betaminus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, betaminus_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("lambda_i_plus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, lambda_i_plus_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("lambda_i_minus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, lambda_i_minus_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("lambda_o_plus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, lambda_o_plus_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("lambda_o_minus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, lambda_o_minus_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("lambda_e_plus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, lambda_e_plus_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("lambda_e_minus.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, lambda_e_minus_grid[i]);
-	fclose(fid1);
-            */
-            
-	    /* 			
-            fid1 = fopen("nu_deformation.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_deformation[i]);
-	fclose(fid1);
-
-            fid1 = fopen("nu_piezoelectric.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_piezoelectric[i]);
-	fclose(fid1);
-
-            fid1 = fopen("nu_ionizedimpurity.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_ionizedimpurity[i]);
-	fclose(fid1);
-            
-            fid1 = fopen("nu_dislocation.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_dislocation[i]);
-	fclose(fid1);    
-
-            fid1 = fopen("nu_alloy.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_alloy[i]);
-	fclose(fid1);
-
-            fid1 = fopen("nu_neutralimpurity.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_neutralimpurity[i]);
-	fclose(fid1);
-	    
-            //FILE *fid1;
-            fid1 = fopen("nu_el.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, nu_el[i]);
-	fclose(fid1);
-
-            fid1 = fopen("df0dk_grid.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, df0dk_grid[i]);
-	fclose(fid1);
-
-            fid1 = fopen("f_dist.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, f_dist[i]);
-	fclose(fid1);
-
-            fid1 = fopen("thermal_driving_force.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, thermal_driving_force[i]);
-	fclose(fid1);
-
-            fid1 = fopen("f0x1_f0.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, f0x1_f0[i]);
-	fclose(fid1);
-
-            fid1 = fopen("elecgtric_driving_force.txt","w");
-            for (int i = 0; i < points; i++)
-                fprintf(fid1,"%d    %e\n", i+1, electric_driving_force[i]);
-	fclose(fid1);
-            */
-            //getchar();
-
-// ----------------------------saving data ---------------------------------------------------
-//------------------------------ reading data -----------------------------------------------
-            /*
-            fid1 = fopen("nu_deformation.txt","r");
-            for (int i = 0; i < points; i++)
-            {
-                fgets(line, 1000, fid1);
-                sscanf(line, "%lf", &nu_deformation[i]);
-            }
-	fclose(fid1);
-
-           fid1 = fopen("nu_ionizedimpurity.txt","r");
-            for (int i = 0; i < points; i++)
-            {
-                fgets(line, 1000, fid1);
-                sscanf(line, "%lf", &nu_ionizedimpurity[i]);
-            }
-	fclose(fid1);
-
-           fid1 = fopen("nu_piezoelectric.txt","r");
-            for (int i = 0; i < points; i++)
-            {
-                fgets(line, 1000, fid1);
-                sscanf(line, "%lf", &nu_piezoelectric[i]);
-            }
-	fclose(fid1);
-            */
-
-//------------------------------------------------------------------------------------------------------------------
+	
+	//*/
+	
 }
 
 

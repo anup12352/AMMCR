@@ -5,12 +5,9 @@ double lambda_o_plus(int counter,double omega,double A_plus, double epsilon_s,do
 // gives Lambda+_o in equations for inelastic optical phonon scattering; equation (117) of Rode's book
 {
     //cout<<endl<<"Inside lambda_o_plus"<<endl;
-    double k_plus = kplus(counter,omega,points);
+    double k_plus = kplus_grid_pop[0][counter];
 
-    double arr[points];
-    for (int i=0;i<points;i++)
-        arr[i] = abs(k_grid[i] - k_plus);
-    int plus_index =FindMinInd(arr,points);
+    int plus_index = plus_index_pop[0][counter];
 
     double l;
 

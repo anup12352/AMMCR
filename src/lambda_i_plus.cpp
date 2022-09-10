@@ -6,7 +6,7 @@ double lambda_i_plus(int counter,double omega,double A_plus,double epsilon_s, do
 {
     double l;
 
-    double k_plus = kplus(counter,omega,points);
+    double k_plus = kplus_grid_pop[0][counter];
     //cout<<endl<<"Inside lambda_i_plus"<<endl;
     //cout<<"A_plus = "<<A_plus<<endl;
     //cout<<"omega = "<<omega<<endl;
@@ -16,11 +16,7 @@ double lambda_i_plus(int counter,double omega,double A_plus,double epsilon_s, do
     //A_plus =  47.695069008345868;
     //omega =  3.694512960621596e+13;
 
-
-    double arr[points];
-    for (int i=0;i<points;i++)
-        arr[i] = abs(k_grid[i] - k_plus);
-    int plus_index =FindMinInd(arr,points);
+    int plus_index = plus_index_pop[0][counter];
 
     //cout<<"plus_index = "<<plus_index<<endl;
     //cout<<"c[plus_index] = "<<c[plus_index]<<endl;

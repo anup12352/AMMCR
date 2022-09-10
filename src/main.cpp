@@ -16,34 +16,30 @@ int main()
     read_input_file();	
     cout<<endl;
 	    
+   		
+    //VASP=1;	// read VASP files
+    //VASP=0;	// read from table
+    //VASP=2;	// tight binding
+
+    int jj=0;
 	
-//--------------------------------// reading outcar file --------------------------------------------------------------    	
-    read_OUTCAR();
-//--------------------------------------// reading ispin-----------------------------------------------------------------
-    	
-    read_ispin();
-    	
-    int jj;	
-    cout<<"ispin = "<<ispin<<endl;
-    //cout<<"Next "<<endl;
-    if (ispin == 1)    	
+			    	
+    if(VASP==1)    	
     {
-	cout<<"Material is non magnetic"<<endl;
-	jj = 0;
+	//--------------------------------// reading outcar file ----------------------------------  	
+	    read_OUTCAR();
+	//--------------------------------------// reading ispin ----------------------------------
+	    jj = read_ispin();	    	
+	//--------------------------------Reading ispin completed  --------------------------------
     }
-    else
-    {
-    	cout<<"Material is magnetic"<<endl;
-	jj = 1;
-    }
+    
+    else if(VASP==2)	
+	tight_binding_band_structure();
 
-//--------------------------------Reading ispin completed  -----------------------------------------------------------------------
-
-//----------------------------------------------generating output file -----------------------------------------------------------------
-
-   generate_output_files();
-   
-//---------------------------------------------saved output file ---------------------------------------------------------
+    //cout<<"thickness  =   "<<thickness<<endl;
+    //getchar();
+      	    
+//---------------------------------------------output file generated---------------------------------------------------------
 
     // running code for different ispin 		
     for (kk=0; kk<= jj ; kk++)
@@ -52,28 +48,36 @@ int main()
 		cout<<"-------------------- For up spin ----------------------------------------- "<<endl;
 
 	    if (ispin == 2 && kk==1)
-	    	cout<<"-------------------- For down spin ---------------------------------------"<<endl;
-
-	    //--------------------------------------------- finding cbm -----------------------------------------------	   		
-	    find_cbm_vbm(1,spin_orbit_coupling);   // 1 means for CB and 2 means for VB
+	    {
+	    cout<<"-------------------- For down spin ---------------------------------------"<<endl;
+	    cc  = -1;
+	    }	
+	    //--------------------------------------------- finding cbm and vbm --------------------------------------------
+	    	    		    		
+	    find_cbm_vbm(spin_orbit_coupling);   
 	    	
 	    kcbm[0]=kcbm1[0];
 	    kcbm[1]=kcbm1[1];
 	    kcbm[2]=kcbm1[2];
-
-	    //--------------------------------------------- finding vbm -----------------------------------------------	   		
-	    find_cbm_vbm(2,spin_orbit_coupling);   // 2 means for VB
 			
 	    kvbm[0]=kvbm1[0];
 	    kvbm[1]=kvbm1[1];
 	    kvbm[2]=kvbm1[2];
-
-	    cout<<endl<<"kcbm = "<<"   "<<kcbm[0]<<"   "<<kcbm[1]<<"   "<<kcbm[2]<<endl;
-	    cout<<endl<<"kvbm = "<<"   "<<kvbm[0]<<"   "<<kvbm[1]<<"   "<<kvbm[2]<<endl;
 	    
+	    
+	    // unnormalized form of kcbm and kvbm unit is 1/nm
+	    cout<<endl<<"kcbm = "<<"   "<<kcbm[0]<<"   "<<kcbm[1]<<"   "<<kcbm[2]<<"   1/nm "<<endl;
+	    cout<<endl<<"kvbm = "<<"   "<<kvbm[0]<<"   "<<kvbm[1]<<"   "<<kvbm[2]<<"   1/nm "<<endl;
+	    
+	    if(VASP==1)
+	    {
+		    cout<<endl<<"In normalized form kcbm = "<<"   "<<temp1[cbm_index][0]<<"   "<<temp1[cbm_index][1]<<"   "<<temp1[cbm_index][2]<<endl;
+		    cout<<endl<<"In normalized form  kvbm = "<<"   "<<temp1[vbm_index][0]<<"   "<<temp1[vbm_index][1]<<"   "<<temp1[vbm_index][2]<<endl;
+	    }
+
+
 	    //------------------------ reading procar file for wave function admixture ---------------------------------------
-	     	    		
-	    read_procar();
+            read_procar();
 
 	    //------------------------ reading EIGENVAL file for band structure ---------------------------------------		    		    
 	    // reading conduction band	
@@ -91,13 +95,15 @@ int main()
 	    cout<<"In main.cpp"<<endl;	
 	    cout<<endl<<"CBM = "<<CBM<<" eV"<<endl;
 	    cout<<endl<<"VBM = "<<VBM<<" eV"<<endl;
+	    
+
 	    if (Bgap[0]==0)
 	    {
 		int l = (sizeof(Bgap)/sizeof(*Bgap));
 		for (int i=0;i<l;i++)
 		    Bgap[i] = abs(CBM - VBM);
-		cout<<endl<<"Bgap = "<<Bgap[0]<<" eV"<<endl;
 	    }
+            cout<<endl<<"Bgap = "<<Bgap[0]<<" eV"<<endl;
 
 // ------------------------  analytical fitting of CB and VB bands -------------------------------------------------------- 	
 	    fitting_band();
@@ -120,6 +126,8 @@ int main()
 	    cout<<"Average electron effective mass, m*_e/m =  "<<m<<endl;
 	    cout<<"Average hole effective mass, m*_h/m =  "<<m_h<<endl;
 //--------------------------------------------------------------------------------------------------------------------		    
+    //cout<<"thickness    =  "<<thickness<<endl;
+    //getchar();
 	    
 	initialize_array();	
 //---------------------------------------------------- Runing loop for different doping variation ------------------
@@ -130,8 +138,8 @@ int main()
 		n0 = n_array[ii];
 		Nd1 = Nd[ii];
 		Na1 = Na[ii];
-		cout<<"Nd1 = "<<Nd1<<endl;
-		cout<<"Na1 = "<<Na1<<endl;
+		cout<<"Nd1 = "<<Nd1<<" per cm^3    "<<endl;
+		cout<<"Na1 = "<<Na1<<" per cm^3    "<<endl;
 
 //---------------------------------------------------- Runing loop for different temperature variation ------------------
 		for(int T_loop=0;T_loop<count_t;T_loop++)
@@ -160,21 +168,27 @@ int main()
 		    	                		
 		    efef_n = 0; // effective ef (fermi energy)
 		    efef_p = 0; // effective ef (fermi energy)
-
-		    efef_n = E_F;
-		    efef_p = -(E_F+Bgap[T_loop]);
-
+		    
+		    if(type=="n")	
+		    {
+			    efef_n = E_F;
+			    efef_p = -(E_F+Bgap[T_loop]);
+		    }
+		    else
+		    {
+			    efef_n = -(E_F+Bgap[T_loop]);
+			    efef_p = E_F;
+		    }	
 //-------------------------------------------------------------------------------------------------------------------
-		
-		     components_BTE(T, T_loop, efef_n, ii);
-
-		     solve_g(T);	
+		     components_BTE(T, T_loop, efef_n, efef_p, ii);
+			
+		     solve_g(T, T_loop, ii);	
 
 		     save_scattering_rate();
 
 		     save_perturbation();	
 
-		     calculate_mobility(T,ii);
+		     calculate_mobility(T, T_loop, ii);
 				
 		}   // temperature variation loop
 	    }   //  doping variation loop

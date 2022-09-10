@@ -1,18 +1,11 @@
 #include"main.h"
 
-int spin_orbit_coupling;
-double ion_mass1[5];
-double lm[10][10];
-int ion_numbers1[5];
-double volume1;
-double c_lattice;
-int number;
-
 void read_OUTCAR()
 {
-	char line[1000], temp[100], temp1[100], temp2[100];
+	char line[1000], temp[100], temp1[100], temp2[100], temp3[200], dummy;
 	char ion_mass[100], ion_numbers[100], volume[100], lattice_constant[100], c_a_ratio[100],str[100];
-	double lattice_constant1, c_a_ratio1;	
+	double lattice_constant1, c_a_ratio1;
+	int ions;	
 	FILE *fid;
 	fid = fopen("OUTCAR", "r");
 	int flag = 1, data_num=0, i;
@@ -51,6 +44,15 @@ void read_OUTCAR()
                     			{
 						spin_orbit_coupling = 0;
 					}
+				}
+				
+				if (strcmp(temp, "   number of dos  ")==0)
+				{
+					//cout<<"found"<<endl;
+					sscanf(line, "%s %s %s %s %s %s %s %s %s %s %s %d", &dummy, &dummy, &dummy, &dummy, &dummy,
+					&dummy, &dummy, &dummy, &dummy, &dummy, &dummy, &ions);
+					cout<<"Total no. of ions = "<<ions<<endl;
+					//getchar();
 				}
 				
 				strncpy(temp, line, 14);
@@ -164,6 +166,35 @@ void read_OUTCAR()
 					//printf("\n %s", line);
 					flag = 0;
 				}
+				if(geometry==2)   // 2D material
+				{
+					strncpy(temp3, line, 42);
+					temp3[42] = '\0';
+					if (strcmp(temp3, " position of ions in cartesian coordinates")==0)
+					{
+						// reading ions position z ccordinate
+						double z[ions], max=-1e6,min = 1e6, dummy1; 
+						for(int i=0;i<ions;i++)
+						{
+							fgets(line, 1000, (FILE*)fid);
+							sscanf(line, "%lf %lf %lf", &dummy1, &dummy1, &z[i]);
+							//cout<<"z[i] = "<<z[i]<<endl;
+						}
+						// finding max and min z coordinate
+						for(int i=0;i<ions;i++)
+						{
+							if(z[i]>max)					
+								max = z[i];
+							if(z[i]<min)
+								min = z[i];
+						}
+						thickness = max - min;
+						thickness = thickness*1e-10; // converted from A to m	
+						//cout<<"max = "<<max<<"   min = "<<min<<"  thickness = "<<thickness<<"  m "<<endl;
+						cout<<"  Thickness along z direction = "<<thickness<<"  m "<<endl;
+						//getchar();
+					}
+				}			
 			}
 		}
 
@@ -242,8 +273,11 @@ void read_OUTCAR()
         printf("\nion_mass =  %lf %lf %lf %lf\n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3]);     // unit amu
         printf("\nion_numbers =  %d %d %d %d\n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3]);
     }
-	printf("\nvolume =  %lf A^(-3)\n", volume1);
-	// unit Angestron^3  volume = a^3/4   (a -> lattice constant)
+    	
+    	volume1 = volume1/1e24;   // converted from A^3 to cm^3
+	printf("\nvolume =  %e cm^(-3)\n", volume1);
+	//getchar();
+	// unit 1/cm^3  volume = a^3/4   (a -> lattice constant)
 
     //cout<<"spin_orbit_coupling = "<<spin_orbit_coupling<<endl;
     if(spin_orbit_coupling == 0)
@@ -271,14 +305,16 @@ void read_OUTCAR()
 		    sum += (ion_mass1[i] * ion_numbers1[i]);
 			//cout<<"sum = "<<sum<<endl;
 		}
-		rho = (sum*1.67377e-27) / (volume1*1e-30);    // unit kg/m^3
-	    	cout<<endl<<"Calculated density = "<<rho/1000<<" g/cm^3"<<endl;       
+		rho = (sum*1.67377e-27) / (volume1*1e-6);    // unit kg/m^3
+		if(geometry==1)   // for 3D bulk
+	    		cout<<endl<<"Calculated density = "<<rho/1000<<" g/cm^3"<<endl;
+	        else  // for 2D bulk
+	        {
+	        	rho = rho * thickness;  // unit kg/m^2
+	        	cout<<endl<<"Calculated density = "<<rho/10<<" g/cm^2"<<endl;
+	        }	   
 	}
-	else	
-	{
-		rho = rho*1000;   // to convert g/cm^3 to kg/cm^3
-				  // user has given density into g/cm^3 in calculation kg/m^3 is used	
-	}
+
 	if (scattering_mechanisms[6]==1)   // dislocation scattering 
 	{
 		cout<<endl<<"c_lattice constant = "<<c_lattice<<" nm"<<endl;       		

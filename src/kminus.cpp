@@ -1,9 +1,9 @@
 
 #include"main.h"
 
-double kminus(int counter, double omega, int points)
+double kminus(int counter, double omega, int points, double energy[])
 {
-    double E0 = energy_n[counter];
+    double E0 = energy[counter];
     double E1 = E0 - h_bar*omega;
 
     double arr[points];
@@ -11,7 +11,7 @@ double kminus(int counter, double omega, int points)
     if (E0>h_bar*omega)
     {
         for (int i=0;i<points;i++)
-            arr[i] = abs(energy_n[i] - E1);
+            arr[i] = abs(energy[i] - E1);
         int index =FindMinInd(arr,points);
         kk = k_grid[index];
     }

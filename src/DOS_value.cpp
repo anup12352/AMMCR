@@ -62,6 +62,6 @@ double DOS_value(double energy, int a)
         energy_earlier = DOS[index_earlier][0];
         ds = slope * (energy - energy_earlier) + DOS[index_earlier][1];
     }
-
+    
     return ds;
 }

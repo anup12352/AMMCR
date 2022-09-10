@@ -12,12 +12,12 @@ double max_array(double band[],int county)
 }
 
 
-double Aplus(int counter,double omega, int points)
+double Aplus(int counter,double omega, int points, double energy[])
 {
-    double k_plus = kplus(counter,omega,points);
+    double k_plus = kplus(counter,omega,points,energy);
     double AA;
-    double max1 = max_array(energy_n,points);
-    if (max1 < energy_n[counter] + h_bar*omega)
+    double max1 = max_array(energy,points);
+    if (max1 < energy[counter] + h_bar*omega)
         AA =0;
     else
     {

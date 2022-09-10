@@ -165,9 +165,9 @@ void fitting_band()
 
 
     cout<<"coefficient of valence band"<<endl;
-    for (int i = 0; i < b11[0]+1; i++)
+    for (int i = 0; i < b11[1]+1; i++)
 	{
-		for (int j = 0; j < b11[1]+1; j++)
+		for (int j = 0; j < b11[0]+1; j++)
 			cout<<coefficients_val[i][j]<<"     ";
         cout<<endl;
     }

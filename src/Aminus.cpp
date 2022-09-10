@@ -1,10 +1,10 @@
 #include"main.h"
 
-double Aminus(int counter, double omega, int points)
+double Aminus(int counter, double omega, int points, double energy[])
 {
-    double k_minus =kminus(counter,omega,points);
+    double k_minus =kminus(counter,omega,points,energy);
     double AA;
-    if (energy_n[counter] < h_bar*omega)
+    if (energy[counter] < h_bar*omega)
         AA =0;
     else
     {
