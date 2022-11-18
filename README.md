@@ -68,10 +68,10 @@ Once the loop converges for g(k), all the transport co-efficients are calculated
 Electrical and magneto-transport in the 2D semiconducting MXene Ti2CO2. Journal of Materials Chemistry C, 10(23), 9062-9072, https://doi.org/10.1039/D2TC01279K.
 
 Results obtained with AMMCR
-![01](mobility.gif)
-![02](conductivity.gif)
-![03](hall_factor.gif)
-![04](hall_factor_3D_new.jpg)
+![01](https://github.com/anup12352/AMMCR/blob/main/figures/conductivity.gif)
+![02](https://github.com/anup12352/AMMCR/blob/main/figures/mobility.gif)
+![03](https://github.com/anup12352/AMMCR/blob/main/figures/hall_factor.gif)
+![04](https://github.com/anup12352/AMMCR/blob/main/figures/hall_factor_3D_new.jpg)
 
 2. Mandia, A. K., Patnaik, R., Muralidharan, B., Lee, S. C., & Bhattacharjee, S. (2019). 
 Ab initio semi-classical electronic transport in ZnSe: the role of inelastic scattering mechanisms. 
