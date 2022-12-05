@@ -14,6 +14,9 @@ int decompose_wave_p()
     
 	double kpoints_BZ[limit3][3], s_total[limit3]={0}, p_total[limit3]={0}, d_total[limit3]={0};
 
+	//cout<<"Reached before in p"<<endl;
+	//getchar();
+
 	if(VASP==1)		
 	{
 		int num_bands1, num_ions,band_number;
@@ -26,8 +29,8 @@ int decompose_wave_p()
 
 		if (fid==NULL)
 		{
-		cout<<"PROCAR is not present. Program is running by assuming valence band to be p-like"<<endl;
-		return 0;
+			cout<<"PROCAR is not present. Program is running by assuming valence band to be p-like"<<endl;
+			return 0;
 		}
 		fgets(line, 1000, fid);
 		fgets(line, 1000, fid);
@@ -218,102 +221,147 @@ int decompose_wave_p()
 
 		for(int k=0;k<num_kpoints;k++)
 		{
-		//cout<<"kpoint no. = "<<k<<endl;
-		fgets(line, 1000, fid);
-		fgets(line, 1000, fid);
-		//cout<<"line = "<<line<<endl;
-		//getchar();
-		i=0;
-		l = strlen(line);
-		while(line[i]!=':')
-		    i++;
-		i++;
-
-		j=i;
-
-		while(line[i]!='w')
-		{
-		    data[i-j] = line[i];
-		    i++;
-		}
-
-		sscanf(data, "%lf %lf %lf", &kpoints[k][0], &kpoints[k][1], &kpoints[k][2]);
-
-		while(line[i]!='=')
-		    i++;
-		i++;
-		j=i;
-		while(i!=l)
-		{
-		    data[i-j] = line[i];
-		    i++;
-		}
-
-		sscanf(data, "%lf ", &kpoints[k][3]);
-
-		//cout<<"kpoints = "<<kpoints[k][0]<<"   "<<kpoints[k][0]<<"   "<<kpoints[k][1]
-		//<<"   "<<kpoints[k][2]<<"   "<<kpoints[k][2]<<endl;
-		//getchar();
-
-		for (nb=0;nb<num_bands1;nb++)
-		{
-		    //cout<<"band number =  "<<nb<<endl;
-		    fgets(line, 1000, fid);
-		    fgets(line, 1000, fid);
-		    i =19;
-		    j=i;
-		    while(line[i]!='#')
-		    {
-			data[i-j]=line[i];
-			i++;
-		    }
-		    data[i-j]='\0';
-		    sscanf(data, "%lf ", &band_energies[nb][k]);
-		    //cout<<"energy = "<<band_energies[nb][k]<<"     end"<<endl;
-		    //getchar();
-		    fgets(line, 1000, fid);
-		    fgets(line, 1000, fid);
-		    fgets(line, 1000, fid);
-		    //cout<<line<<endl<<"ssss";
-		    //getchar();
-		    for(i=0;i<num_ions;i++)
-		    {
-			sscanf(line, "%d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &dummy, &s[i][nb][k],
-			   &py[i][nb][k], &pz[i][nb][k], &px[i][nb][k], &dxy[i][nb][k], &dyz[i][nb][k], &dz2[i][nb][k],
-			   &dxz[i][nb][k], &dx2[i][nb][k], &ion_total[i][nb][k]);
-
-			/*
-			cout<<dummy<<"  "<<s[i][nb][k]<<"  "<<py[i][nb][k]<<"  "<<pz[i][nb][k]<<"  "<<px[i][nb][k]<<"   "<<dxy[i][nb][k]
-			 <<"  "<<dyz[i][nb][k]<<"  "<<dz2[i][nb][k]<<"  "<<dxz[i][nb][k]<<"  "<<dx2[i][nb][k]<<"  "<<ion_total[i][nb][k]<<endl;
-			getchar();
-			*/
-			//cout<<"check  "<<endl;
+			//cout<<"kpoint no. = "<<k<<endl;
+			
 			fgets(line, 1000, fid);
-			//cout<<line<<"xxxx"<<endl;
+			fgets(line, 1000, fid);
+
+			if(line[1]!='k')
+				fgets(line, 1000, fid);
+
+			//cout<<"line = "<<line<<endl;
 			//getchar();
-		    }
-		    l = strlen(line);
-		    for (i=3;i<l;i++)
-			data[i-3] = line[i];
-		    sscanf(data, " %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf ", &s_total1[nb][k], &py_total[nb][k], &pz_total[nb][k],
-			   &px_total[nb][k], &dxy_total[nb][k], &dyz_total[nb][k], &dz2_total[nb][k],
-			   &dxz_total[nb][k], &dx2_total[nb][k], &total[nb][k]);
+			
+			i=0;
+			l = strlen(line);
+			while(line[i]!=':')
+			    i++;
+			i++;
 
-		    p_total1[nb][k] = py_total[nb][k]+ px_total[nb][k] + pz_total[nb][k];
-		    d_total1[nb][k] = dxy_total[nb][k]+ dyz_total[nb][k] + dz2_total[nb][k] + dxz_total[nb][k] + dx2_total[nb][k];
+			j=i;
 
-		    //cout<<"Here total"<<endl;
-		    //cout<<s_total1[nb][k]<<"    "<<p_total1[nb][k]<<"    "<<d_total1[nb][k]<<"    "<<endl;
-		    //getchar();
+			while(line[i]!='w')
+			{
+			    //cout<<"i = "<<i<<endl;
+			    //cout<<"line[i] = "<<line[i]<<endl;
+			    //getchar();
+			    
+			    if(line[i]=='-')
+			    {
+			    	data[i-j] = ' ';
+			    	i++;
+			    	data[i-j] = line[i-1];
+			    	
+			    	//cout<<"line[i-1] = "<<line[i-1]<<endl;
+			    	
+			    	//cout<<"Inside if "<<endl;
+			    	//cout<<"data[i-j-1] =   a"<<data[i-j-1]<<"a    data[i-j] = "<<data[i-j]<<endl;
+			    	//getchar();
+			    	
+			    	i++;
+			    }
+			    else
+			    {
+			    	//cout<<"Inside else "<<endl;			
+			    	data[i-j] = line[i];
+			    	i++;
+			    }
+			}
 
-		    if (spin_orbit_coupling == 1)
-		    {
-			//cout<<"ssshoww"<<endl;
-			for (int skp=1;skp<=3*(num_ions+1);skp++)
+			sscanf(data, "%lf %lf %lf", &kpoints[k][0], &kpoints[k][1], &kpoints[k][2]);
+
+			while(line[i]!='=')
+			    i++;
+			i++;
+			j=i;
+
+			while(i!=l)
+			{
+			    data[i-j] = line[i];
+			    i++;
+			}
+
+			sscanf(data, "%lf ", &kpoints[k][3]);
+
+			//cout<<"kpoints = "<<kpoints[k][0]<<"   "<<kpoints[k][1]<<"   "<<kpoints[k][2]<<"   "<<kpoints[k][3]<<endl;
+			//getchar();
+
+			for (nb=0;nb<num_bands1;nb++)
+			{
+			    //cout<<"band number =  "<<nb<<endl;
+			    //getchar();
+			    
 			    fgets(line, 1000, fid);
-		    }
-		}
-		fgets(line, 1000, fid);
+			    fgets(line, 1000, fid);
+			    
+			    if(line[0]!='b')
+			    {
+			    	//cout<<"Inside first if "<<endl;
+			    	fgets(line, 1000, fid);
+			    	//cout<<"line = "<<line<<endl;
+			    	//getchar();
+			    }	
+
+			    i =19;
+			    j=i;
+			    while(line[i]!='#')
+			    {
+				data[i-j]=line[i];
+				i++;
+			    }
+			    data[i-j]='\0';
+			    sscanf(data, "%lf ", &band_energies[nb][k]);
+			    
+			    //cout<<"energy = "<<band_energies[nb][k]<<"     end"<<endl;
+			    //getchar();
+			    
+			    fgets(line, 1000, fid);
+			    fgets(line, 1000, fid);
+			    fgets(line, 1000, fid);
+			    
+			    //cout<<line<<endl<<"ssss";
+			    //getchar();
+			    
+			    for(i=0;i<num_ions;i++)
+			    {
+			    	//cout<<"Here total"<<endl;
+				sscanf(line, "%d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &dummy, &s[i][nb][k],
+				   &py[i][nb][k], &pz[i][nb][k], &px[i][nb][k], &dxy[i][nb][k], &dyz[i][nb][k], &dz2[i][nb][k],
+				   &dxz[i][nb][k], &dx2[i][nb][k], &ion_total[i][nb][k]);
+
+				/*
+				cout<<dummy<<"  "<<s[i][nb][k]<<"  "<<py[i][nb][k]<<"  "<<pz[i][nb][k]<<"  "<<px[i][nb][k]<<"   "<<dxy[i][nb][k]
+				 <<"  "<<dyz[i][nb][k]<<"  "<<dz2[i][nb][k]<<"  "<<dxz[i][nb][k]<<"  "<<dx2[i][nb][k]<<"  "<<ion_total[i][nb][k]<<endl;
+				getchar();
+				*/
+				//cout<<"check  "<<endl;
+				fgets(line, 1000, fid);
+				//cout<<line<<"xxxx"<<endl;
+				//getchar();
+			    }
+
+			    l = strlen(line);
+			    for (i=3;i<l;i++)
+				data[i-3] = line[i];
+			    sscanf(data, " %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf ", &s_total1[nb][k], &py_total[nb][k], &pz_total[nb][k],
+				   &px_total[nb][k], &dxy_total[nb][k], &dyz_total[nb][k], &dz2_total[nb][k],
+				   &dxz_total[nb][k], &dx2_total[nb][k], &total[nb][k]);
+
+			    p_total1[nb][k] = py_total[nb][k]+ px_total[nb][k] + pz_total[nb][k];
+			    d_total1[nb][k] = dxy_total[nb][k]+ dyz_total[nb][k] + dz2_total[nb][k] + dxz_total[nb][k] + dx2_total[nb][k];
+
+			    //cout<<"Here total"<<endl;
+			    //cout<<s_total1[nb][k]<<"    "<<p_total1[nb][k]<<"    "<<d_total1[nb][k]<<"    "<<endl;
+			    //getchar();
+
+			    if (spin_orbit_coupling == 1)
+			    {
+				//cout<<"ssshoww"<<endl;
+				for (int skp=1;skp<=3*(num_ions+1);skp++)
+				    fgets(line, 1000, fid);
+			    }
+			}
+			fgets(line, 1000, fid);
 		}
 
 
@@ -324,11 +372,11 @@ int decompose_wave_p()
 
 		for(int i=0;i<num_kpoints;i++)
 		{
-		kpoints_BZ[i][0] = (kpoints[i][0] * lm[0][3] + kpoints[i][1] * lm[1][3] + kpoints[i][2] * lm[2][3]) * 2. * 3.14159265359 * 10;
-		kpoints_BZ[i][1] = (kpoints[i][0] * lm[0][4] + kpoints[i][1] * lm[1][4] + kpoints[i][2] * lm[2][4]) * 2. * 3.14159265359 * 10;
-		kpoints_BZ[i][2] = (kpoints[i][0] * lm[0][5] + kpoints[i][1] * lm[1][5] + kpoints[i][2] * lm[2][5]) * 2. * 3.14159265359 * 10;
-		//cout<<kpoints_BZ[i][0]<<"    "<<kpoints_BZ[i][1]<<"    "<<kpoints_BZ[i][2]<<endl;
-		//getchar();
+			kpoints_BZ[i][0] = (kpoints[i][0] * lm[0][3] + kpoints[i][1] * lm[1][3] + kpoints[i][2] * lm[2][3]) * 2. * 3.14159265359 * 10;
+			kpoints_BZ[i][1] = (kpoints[i][0] * lm[0][4] + kpoints[i][1] * lm[1][4] + kpoints[i][2] * lm[2][4]) * 2. * 3.14159265359 * 10;
+			kpoints_BZ[i][2] = (kpoints[i][0] * lm[0][5] + kpoints[i][1] * lm[1][5] + kpoints[i][2] * lm[2][5]) * 2. * 3.14159265359 * 10;
+			//cout<<kpoints_BZ[i][0]<<"    "<<kpoints_BZ[i][1]<<"    "<<kpoints_BZ[i][2]<<endl;
+			//getchar();
 		}
 		
 		for(int i=0;i<num_kpoints;i++)
@@ -337,6 +385,10 @@ int decompose_wave_p()
 			p_total[i] = p_total1[band_number-1][i];
 			d_total[i] = d_total1[band_number-1][i];
 		}
+
+		//cout<<"Reached outside in p"<<endl;
+		//getchar();
+
 		/*
 		//--------------------------------------- save wave function admixture ---------------------------------
 		fid2 = fopen("WAVE_ADMIXTURE_VB.dat","w");

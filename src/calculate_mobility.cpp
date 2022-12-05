@@ -158,7 +158,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 					cout<<"mobility_de for LA = "<<calc_mobility_de[cc][2]<<" cm^2/(V-s)"<<endl;
 					
 					for (int counter = 0;counter<points;counter++)
-						dummy[counter] = nu_def[counter][1] ;
+						dummy[counter] = nu_def[1][counter] ;
 
 					calc_mobility_de[cc][3]  = mu_elastic(E_F,T,coefficients_cond,kindex_cond,dummy,points,a11,energy_n,v_n,Ds_n);
 					cout<<"mobility_de for TA = "<<calc_mobility_de[cc][3]<<" cm^2/(V-s)"<<endl;
@@ -166,7 +166,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 					if(de_number==3)
 					{
 						for (int counter = 0;counter<points;counter++)
-						dummy[counter] = nu_def[counter][2] ;
+						dummy[counter] = nu_def[2][counter] ;
 
 						calc_mobility_de[cc][4]  = mu_elastic(E_F,T,coefficients_cond,kindex_cond,dummy,points,a11,energy_n,v_n,Ds_n);
 						cout<<"mobility_de for ZA = "<<calc_mobility_de[cc][4]<<" cm^2/(V-s)"<<endl;
