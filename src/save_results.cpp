@@ -85,7 +85,7 @@ void save_results()
 	}
 	else if (geometry==1 && type=="p")
 	{
-		fprintf(fid1,"  Mobility(cm^2/V-s)    Mobility_rta     Mobility_remote_ii   Mobility_po  Mobility_npop   Mobility_de\n");
+		fprintf(fid1,"  Mobility(cm^2/V-s)    Mobility_rta     Mobility_ii   Mobility_po  Mobility_npop   Mobility_de\n");
 
 		for (int i = 0; i <count ; i++)
 		fprintf(fid1,"%e     %e          %e          %e     %e    %e    %e    \n",

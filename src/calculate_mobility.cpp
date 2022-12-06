@@ -600,7 +600,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 		} // if condiction for type n completed 
 		else   // for p type
 		{
-
+			// ii impurity scattering
 			if (scattering_mechanisms[0]==1)
 			{
 
@@ -609,6 +609,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 
 				mobility_ii = mu_elastic(E_F,T,coefficients_val,kindex_val,dummy,points,b11,energy_p,v_p,Ds_p);
 				cout<<"mobility_ii = "<<mobility_ii<<" cm^2/(V-s)"<<endl;
+				
+				calc_mobility_ii[cc][1] = mobility_ii;
 			}
 			else
 				mobility_ii = 1e10;
@@ -858,6 +860,29 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 
 		//----------------------------------calculated hall mobility ----------------------------------------
 
+			calc_mobility[cc][1] = mobility;
+			calc_mobility_rta[cc][1] = mobility_rta;
+			calc_sigma[cc][1] = sigma;
+			calc_sigma_rta[cc][1] = sigma_rta;
+
+
+			if(Bfield!=0)
+			{
+
+			    calc_mobility_hall[cc][1] = mobility_hall;
+			    calc_mobility_hall_rta[cc][1] = mobility_hall_rta;
+			    calc_sigma_hall[cc][1] = sigma_hall;
+			    calc_sigma_hall_rta[cc][1] = sigma_hall_rta;
+
+
+			    calc_mobility_hall_ii[cc][1] = mobility_hall_ii;
+			    calc_mobility_hall_po[cc][1] = mobility_hall_po;
+			    calc_mobility_hall_npop[cc][1] = mobility_hall_npop;
+			    calc_mobility_hall_de[cc][1] = mobility_hall_de;
+		    
+			    hall_factor[cc][1] = hall_factor1; 
+			    hall_factor_rta[cc][1] = hall_factor_rta1; 
+			}
 
 		///---------------------------------------------------------------------------------------------------------------------
 		} // else condition for type p completed	
