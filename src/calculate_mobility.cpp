@@ -90,13 +90,15 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 				mobility_ii = 1e10;
 
 
+
+
 			    // POP scattering
 			    if (scattering_mechanisms[1]==1)
 			    {
 				mobility_po = mu_po(E_F,T,coefficients_cond,kindex_cond,g_pop,g,nu_el,points,a11,energy_n,v_n,Ds_n);
 				cout<<"mobility_po = "<<mobility_po<<" cm^2/(V-s)"<<endl;
 				
-				calc_mobility_po[cc][1] = mobility_po;
+				//calc_mobility_po[cc][1] = mobility_po;
 				
 				if(pop_number>1) 
 				{
@@ -114,13 +116,15 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    else
 				mobility_po=1e10;
 
+
+
 			    // npop scattering
 			    if (scattering_mechanisms[2]==1)
 			    {
 				mobility_npop = mu_elastic(E_F,T,coefficients_cond,kindex_cond,nu_npop_total,points,a11, energy_n, v_n, Ds_n);
 				cout<<"mobility_npop = "<<mobility_npop<<" cm^2/(V-s)"<<endl;
 				
-				calc_mobility_npop[cc][1] = mobility_npop;
+				//calc_mobility_npop[cc][1] = mobility_npop;
 				
 				if(npop_number>1) 
 				{
@@ -140,13 +144,14 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 
 
 
+
 			    // Acoustic deformation scattering
 			    if (scattering_mechanisms[3]==1)
 			    {
 				mobility_de = mu_elastic(E_F,T,coefficients_cond,kindex_cond,nu_deformation,points,a11,energy_n,v_n,Ds_n);
 				cout<<"mobility_de = "<<mobility_de<<" cm^2/(V-s)"<<endl;
 				
-				calc_mobility_de[cc][1] = mobility_de;
+				//calc_mobility_de[cc][1] = mobility_de;
 				
 				if(de_number>1) 
 				{
@@ -177,6 +182,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 				mobility_de=1e10;
 			    
 			    	
+
 			    // piezoelectric scattering
 			    if (scattering_mechanisms[4]==1)
 			    {
@@ -186,6 +192,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    else
 				mobility_pe=1e10;
 
+			   //calc_mobility_pe[cc][1] = mobility_e;
+			   
 
 			   // Transverse optical POP scattering 
 			    if (scattering_mechanisms[5]==1)
@@ -210,6 +218,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    }
 			    
 
+
+
 			    // dislocation scattering
 			    if (scattering_mechanisms[6]==1)
 			    {
@@ -221,6 +231,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 
 			    
 
+
 			    // alloy scattering
 			    if (scattering_mechanisms[7]==1)
 			    {
@@ -229,6 +240,9 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    }
 			    else
 				mobility_alloy=1e10;
+
+
+
 
 			    // inter-valley scattering
 			    if (scattering_mechanisms[8]==1)
@@ -255,6 +269,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    else
 				mobility_iv=1e10;
 
+
+
 			    // neutral impurity scattering
 			    if (scattering_mechanisms[9]==1)
 			    {
@@ -266,6 +282,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 				mobility_neutral=1e10;
 
 			    double nu_to[points]={0};
+
+			    			    
 			    			    
 			    // Interface roughness scattering
 			    if (scattering_mechanisms[11]==1)
@@ -275,8 +293,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    }
 			    else
 				mobility_ir = 1e10;
-
-
+				
+			
 			    // skew scattering
 			    if (scattering_mechanisms[12]==1)
 			    {
@@ -284,8 +302,10 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 				cout<<"mobility_skew = "<<mobility_skew<<" cm^2/(V-s)"<<endl;
 			    }
 			    else
+			    {
+			
 				mobility_skew=1e10;
-
+			    }	
 
 			    mobility_all[0] = mobility_ii;
 			    mobility_all[1] = mobility_po;
@@ -299,6 +319,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    mobility_all[9] = mobility_neutral;
 			    mobility_all[11] = mobility_ir;
 			    mobility_all[12] = mobility_skew;
+
 
 			    //scattering_mechanisms
 			    double sum =0 ;
@@ -318,6 +339,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    mobility_rta = mu_overall(E_F,T,coefficients_cond,kindex_cond,g_rta,nu_el,points,a11,energy_n,v_n,Ds_n);
 			     // unit cm^2/(V-s)
 			     	
+
 			    if (omega_TO > 0.0)
 				mobility = 1 / (1/mobility + 1/mobility_to);
 				// unit cm^2/(V-s)
@@ -564,10 +586,13 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 
 			calc_mobility_ii[cc][1] = mobility_ii;
 			calc_mobility_po[cc][1] = mobility_po;
+			calc_mobility_npop[cc][1] = mobility_npop;
+			calc_mobility_de[cc][1] = mobility_de;
 			calc_mobility_pe[cc][1] = mobility_pe;
 			calc_mobility_to[cc][1] = mobility_to;
 			calc_mobility_dis[cc][1] = mobility_dis;
 			calc_mobility_alloy[cc][1] = mobility_alloy;
+              	        calc_mobility_iv[cc][1] = mobility_iv;
 			calc_mobility_neutral[cc][1] = mobility_neutral;
 			calc_mobility_ir[cc][1] = mobility_ir;
 			calc_mobility_skew[cc][1] = mobility_skew;
@@ -597,6 +622,21 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    hall_factor[cc][1] = hall_factor1; 
 			    hall_factor_rta[cc][1] = hall_factor_rta1; 
 			}
+			
+			/*
+			cout<<"cc = "<<cc<<endl;
+			cout<<"calc_mobility[cc][0] = "<<calc_mobility[cc][0]<<endl;
+			cout<<"calc_mobility[cc][1] =  "<<calc_mobility[cc][1]<<endl;
+			cout<<"calc_mobility_rta[cc][1] =  "<<calc_mobility_rta[cc][1]<<endl;
+			cout<<"calc_mobility_ii[cc][1] =  "<<calc_mobility_ii[cc][1]<<endl;
+			cout<<"calc_mobility_po[cc][1] =  "<<calc_mobility_po[cc][1]<<endl;
+			cout<<"calc_mobility_npop[cc][1] =  "<<calc_mobility_npop[cc][1]<<endl;
+			cout<<"calc_mobility_de[cc][1] =  "<<calc_mobility_de[cc][1]<<endl;
+			cout<<"calc_mobility_pe[cc][1] =  "<<calc_mobility_pe[cc][1]<<endl;
+			getchar();
+			//*/
+
+			
 		} // if condiction for type n completed 
 		else   // for p type
 		{
@@ -1209,15 +1249,15 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 		
 		/*
 		cout<<"cc = "<<cc<<endl;
-		cout<<"calc_mobility[i][0] = "<<calc_mobility[cc][0]<<endl;
-		cout<<"calc_mobility[i][1] =  "<<calc_mobility[cc][1]<<endl;
-		cout<<"calc_mobility_rta[i][1] =  "<<calc_mobility_rta[cc][1]<<endl;
-		cout<<"calc_mobility_ii[i][1] =  "<<calc_mobility_ii[cc][1]<<endl;
-		cout<<"calc_mobility_po[i][1] =  "<<calc_mobility_po[cc][1]<<endl;
-		cout<<"calc_mobility_npop[i][1] =  "<<calc_mobility_npop[cc][1]<<endl;
-		cout<<"calc_mobility_de[i][1] =  "<<calc_mobility_de[cc][1]<<endl;
-		cout<<"calc_mobility_pe[i][1] =  "<<calc_mobility_pe[cc][1]<<endl;
-		cout<<"calc_mobility_so_pop[i][1] =  "<<calc_mobility_so_pop[cc][1]<<endl;
+		cout<<"calc_mobility[cc][0] = "<<calc_mobility[cc][0]<<endl;
+		cout<<"calc_mobility[cc][1] =  "<<calc_mobility[cc][1]<<endl;
+		cout<<"calc_mobility_rta[cc][1] =  "<<calc_mobility_rta[cc][1]<<endl;
+		cout<<"calc_mobility_ii[cc][1] =  "<<calc_mobility_ii[cc][1]<<endl;
+		cout<<"calc_mobility_po[cc][1] =  "<<calc_mobility_po[cc][1]<<endl;
+		cout<<"calc_mobility_npop[cc][1] =  "<<calc_mobility_npop[cc][1]<<endl;
+		cout<<"calc_mobility_de[cc][1] =  "<<calc_mobility_de[cc][1]<<endl;
+		cout<<"calc_mobility_pe[cc][1] =  "<<calc_mobility_pe[cc][1]<<endl;
+		cout<<"calc_mobility_so_pop[cc][1] =  "<<calc_mobility_so_pop[cc][1]<<endl;
 		getchar();
 		//*/
 

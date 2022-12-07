@@ -21,6 +21,7 @@ string TB_material;
 double vf, vf_cb, vf_vb;
 int linear_fit=0, SORT=0, save_data=0;
 //---------------------------------------------------------------------------------------------------------------
+double lambda_so;  // effective spin orbit coupling
 
 //---------------------------------------------------------------------------------------------------------------
 double Efield_time[limit1];
@@ -147,7 +148,7 @@ double result_gH[limit2][limit8+1], result_hH[limit2][limit8+1];
 
 double S_o_gridH[limit2]={0}, S_o_grid_totalH[limit2]={0};
 
-double mobility_all[12]={0} , calc_mobility[limit10][2] = {0}, calc_mobility_rta[limit10][2] = {0};
+double mobility_all[13]={0} , calc_mobility[limit10][2] = {0}, calc_mobility_rta[limit10][2] = {0};
 double calc_thermopower[limit10][2] = {0}, calc_sigma[limit10][2] = {0}, calc_sigma_rta[limit10][2] = {0};
 double calc_peltier[limit10][2]={0}, calc_thermal_conductivity[limit10][2]={0} ;
 
@@ -1374,6 +1375,17 @@ void read_input_file()
 			cout<< "SORTING is selected   "<<endl;
 		}
 		
+		if(str=="Effective_spin_orbit_coupling")     // leave it
+		{
+			getline(in,ss);
+			stringstream tmp(ss);
+			tmp>>lambda_so;
+			cout<< " Effective spin orbit coupling =   " <<lambda_so<<"  A^2 "<<endl;	
+			
+			lambda_so = lambda_so*1e-20;  //converted from A^2 to m^2
+			  
+		}
+
 		//------------------------------------------- --------------------------------------------------------------------
 		
 		//---------------------time variation input read part ---------------------------------------------------		

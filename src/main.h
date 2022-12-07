@@ -157,6 +157,7 @@ void nu_iv_n(double T);
 void nu_im(double epsilon_s, double N_im);
 void nu_skew();
 
+
 void generate_required_data(double T);
 
 double df0dk(double k,double T,double e_f, double coefficients[5][7],double kindex[], int aa[]);
@@ -344,6 +345,8 @@ extern double nu_neutralimpurity[limit2], nu_iv[limit4][limit2], nu_iv_total[lim
 extern double nu_npop_total[limit2], nu_irs[limit2], nu_skew_rate[limit2];
 extern double denom[limit2];
 
+extern double lambda_so; 
+
 extern double nu_deformation_p[limit2][2][2], nu_ionizedimpurity_p[limit2][2][2], nu_el_p[limit2][2][2];
 extern double nu_npop_p[limit2][2][2];
 extern double nu_So_p[limit2][2][2];
@@ -394,7 +397,7 @@ extern double hall_factor1, hall_factor_rta1;
 extern double sigma_hall_rta, sigma_hall, thermopower, sigma, sigma_rta, peltier, thermal_conductivity;
 
 
-extern double mobility_all[12] , calc_mobility[limit10][2] , calc_mobility_rta[limit10][2] ;
+extern double mobility_all[13] , calc_mobility[limit10][2] , calc_mobility_rta[limit10][2] ;
 extern double calc_thermopower[limit10][2] , calc_sigma[limit10][2] , calc_sigma_rta[limit10][2];
 extern double calc_peltier[limit10][2], calc_thermal_conductivity[limit10][2];
 

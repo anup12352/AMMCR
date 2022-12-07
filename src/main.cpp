@@ -146,6 +146,7 @@ int main()
 		{
 		     T = T_array[T_loop];
 
+
 		     printf("\nFor Temperature = %f ",T);
 		     printf("\nFor Doping = %e \n",n_array[ii]);
 	 		
@@ -180,16 +181,22 @@ int main()
 			    efef_p = E_F;
 		    }	
 //-------------------------------------------------------------------------------------------------------------------
+
 		     components_BTE(T, T_loop, efef_n, efef_p, ii);
 			
+
 		     solve_g(T, T_loop, ii);	
+
 
 		     save_scattering_rate();
 
+
 		     save_perturbation();	
+
 
 		     calculate_mobility(T, T_loop, ii);
 				
+
 		}   // temperature variation loop
 	    }   //  doping variation loop
 	    

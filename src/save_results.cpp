@@ -63,23 +63,34 @@ void save_results()
 	
 	if(geometry==1 && type=="n")
 	{
+		
 		fprintf(fid1,"Mobility(cm^2/V-s)    Mobility_rta          Mobility_ii      Mobility_po      Mobility_npop	 Mobility_de     Mobility_pe     Mobility_dis    Mobility_to     Mobility_alloy  Mobility_iv   Mobility_neutral   Mobility_ir  Mobility_skew   \n");
 
 		for (int i = 0; i <count ; i++)
+		{
+
+		//cout<<"calc_mobility[i][0]   =   "<<calc_mobility[i][0]<<endl;
+		//getchar();
+		
 		fprintf(fid1,"%e     %e          %e          %e     %e    %e    %e    %e    %e    %e    %e    %e    %e    %e      %e \n",
 		calc_mobility[i][0], calc_mobility[i][1], calc_mobility_rta[i][1], calc_mobility_ii[i][1], calc_mobility_po[i][1], calc_mobility_npop[i][1], calc_mobility_de[i][1], calc_mobility_pe[i][1], calc_mobility_dis[i][1], calc_mobility_to[i][1],
 		calc_mobility_alloy[i][1], calc_mobility_iv[i][1], calc_mobility_neutral[i][1], calc_mobility_ir[i][1], calc_mobility_skew[i][1]);
-
+		}
 
 		if(Bfield!=0)
 		{
 						
 		fprintf(fid2,"Mobility(cm^2/V-s)    Mobility_rta          Mobility_ii      Mobility_po      Mobility_npop	 Mobility_de     Mobility_pe     Mobility_dis    Mobility_to     Mobility_alloy  Mobility_iv   Mobility_neutral   Mobility_ir  mobility_skew   \n");
 			for (int i = 0; i <count ; i++)
+			{
+				//cout<<"calc_mobility_hall[i][0]   =   "<<calc_mobility_hall[i][0]<<endl;
+				//getchar();
+					 
 			    fprintf(fid2,"%e     %e          %e          %e     %e    %e    %e    %e    %e    %e    %e    %e    %e    %e    %e  \n",
 				    calc_mobility_hall[i][0], calc_mobility_hall[i][1], calc_mobility_hall_rta[i][1], calc_mobility_hall_ii[i][1], calc_mobility_hall_po[i][1], calc_mobility_hall_npop[i][1], 
 				    calc_mobility_hall_de[i][1], calc_mobility_hall_pe[i][1], calc_mobility_hall_dis[i][1], calc_mobility_hall_to[i][1],
 				    calc_mobility_hall_alloy[i][1], calc_mobility_hall_iv[i][1], calc_mobility_hall_neutral[i][1], calc_mobility_hall_ir[i][1],  calc_mobility_hall_skew[i][1]);
+			}
 			fclose(fid2);
 		}
 	}

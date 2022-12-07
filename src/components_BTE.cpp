@@ -155,18 +155,6 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 		
 //--------------------------------------Interface roughness completed -------------------------------------------------------
 
-//--------------------------------------Skew scattering -------------------------------------------------------
-
-//----------------------  Skew scattering ----------------------------------------------			
-
-	 	// Skew scattering
-		if (scattering_mechanisms[12]==1)  
-		{
-			nu_skew();						
-		}
-		
-//--------------------------------------skew scattering completed -------------------------------------------------------
-
 
 
 		// total scattering rates calculated here
@@ -180,12 +168,23 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 		         	nu_alloy[counter] * scattering_mechanisms[7] + 
 		         	nu_iv_total[counter] * scattering_mechanisms[8] +
 		         	nu_neutralimpurity[counter]*scattering_mechanisms[9] + 
-		         	nu_irs[counter]*scattering_mechanisms[11] + 
-		         	nu_skew_rate[counter]*scattering_mechanisms[12];
+		         	nu_irs[counter]*scattering_mechanisms[11];
 
 			denom[counter] = (nu_pop_total[counter]*scattering_mechanisms[1] + nu_el[counter]);	
 			//cout<<"nu_el[counter] = "<<nu_el[counter]<<endl;
 		}			
+
+//--------------------------------------Skew scattering -------------------------------------------------------
+
+//----------------------  Skew scattering ----------------------------------------------			
+
+	 	// Skew scattering
+		if (scattering_mechanisms[12]==1)  
+		{
+			nu_skew();						
+		}
+		
+//--------------------------------------skew scattering completed -------------------------------------------------------
 
 	 	
 //-----------------------------------------------------------------------------------------------------------------
@@ -422,8 +421,7 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 		        	nu_npop_total[i] * scattering_mechanisms[2] + 
 		        	nu_deformation[i]*scattering_mechanisms[3] + 
 		               nu_piezoelectric[i]*scattering_mechanisms[4] +
-				nu_irs[i]*scattering_mechanisms[11] + 
-				nu_skew_rate[i]*scattering_mechanisms[12];
+				nu_irs[i]*scattering_mechanisms[11];
 
 			denom[i] = (nu_pop_total[i]*scattering_mechanisms[1] + nu_el[i] 
 			+ nu_so_pop_total[i]*scattering_mechanisms[10]);				

@@ -99,6 +99,10 @@ void initialize_array()
 		    calc_hall_coeff[i][0] = T_array[i];
 		    calc_long_restivity[i][0] = T_array[i];
 		    calc_mg_resist[i][0] = T_array[i];
+		    
+		    //cout<<"i = "<<i<<endl;
+		    //cout<<"calc_mobility[i][0] = "<<calc_mobility[i][0]<<endl;
+		    //getchar();
 		}
 	    }
 //----------------------------------------------- varaibles for doping or temperature variation generated-------------------------
