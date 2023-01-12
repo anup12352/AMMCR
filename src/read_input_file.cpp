@@ -57,7 +57,7 @@ double beta1[limit2], gH[limit2], hH[limit2], gH_rta[limit2], hH_rta[limit2];
 double gH_pop[limit2], hH_pop[limit2], gH_so_pop[limit2], hH_so_pop[limit2], Si_grid_g[limit2], Si_grid_h[limit2];
 double Si_pop_grid_g[limit2], Si_pop_grid_h[limit2], Si_so_pop_grid_g[limit2], Si_so_pop_grid_h[limit2];
 
-double Si_pop_parts[limit5][limit2], Si_so_pop_parts[limit5][limit2],  g_pop_parts[limit5][limit2], g_so_pop_parts[limit5][limit2];
+double Si_pop_parts[limit5][limit2], Si_so_pop_parts[limit5][limit2],  g_pop_parts[limit5][limit2]={0}, g_so_pop_parts[limit5][limit2]={0};
 
 double g[limit2], g_rta[limit2], g_old[limit2], g_iv[limit2], g_so_pop[limit2], g_pop[limit2];
 double g_th[limit2], g_th_old[limit2], g_th_pop[limit2], g_th_so_pop[limit2];

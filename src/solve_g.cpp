@@ -18,7 +18,9 @@ void solve_g(double T, int T_loop, int ii)
 	double Si_grid_all_fqi[points][iterations+1]={0};
 	
 	double a1[points], a2[points];
-
+	
+	//memset(g_pop_parts, 0, sizeof(g_pop_parts));
+	
 	if(geometry==1)
 	{	
 
@@ -103,7 +105,7 @@ void solve_g(double T, int T_loop, int ii)
 			{
 				for (int i = 0;i < points;i++)
 				{
-
+					
 					for (int m3 = 0;m3 < pop_number;m3++)
 					{	            
 
@@ -112,8 +114,27 @@ void solve_g(double T, int T_loop, int ii)
 
 						Si_pop_grid[i] = Si_pop_grid[i] + Sa_pop[m3][i]*g_pop[minus_index_pop[m3][i]] +
 						Se_pop[m3][i]*g_pop[plus_index_pop[m3][i]];
-
-
+						
+						/*
+						if(iteration!=0)
+						{
+							cout<<"i = "<<i<<endl;
+							cout<<"m3 = "<<m3<<endl;
+							cout<<"Si_grid[i] = "<<Si_grid[i]<<endl;
+							cout<<"Si_pop_grid[i] = "<<Si_pop_grid[i]<<endl;
+							
+							cout<<"plus_index_pop[m3][i] = "<<plus_index_pop[m3][i]<<endl;
+							cout<<"minus_index_pop[m3][i] = "<<minus_index_pop[m3][i]<<endl;
+							
+							cout<<"Sa_pop[m3][i] = "<<Sa_pop[m3][i]<<endl;
+							cout<<"Se_pop[m3][i] = "<<Se_pop[m3][i]<<endl;
+							
+							cout<<"g_pop[plus_index_pop[m3][i]] = "<<g_pop[plus_index_pop[m3][i]]<<endl;
+							cout<<"g_pop[minus_index_pop[m3][i]] = "<<g_pop[minus_index_pop[m3][i]]<<endl;
+							getchar();
+						}
+						//*/
+						
 						Si_th_grid[i] = Si_th_grid[i] + Sa_pop[m3][i]*g_th[minus_index_pop[m3][i]] +
 						Se_pop[m3][i]*g_th[plus_index_pop[m3][i]];
 
@@ -121,20 +142,37 @@ void solve_g(double T, int T_loop, int ii)
 						Si_th_pop_grid[i] = Si_th_pop_grid[i] + Sa_pop[m3][i]*g_th_pop[minus_index_pop[m3][i]] +
 						Se_pop[m3][i]*g_th_pop[plus_index_pop[m3][i]];
 					}
+					
 				}
-				
+				//getchar();
 				
 				if(pop_number>1)
 				{	
 					for (int i = 0;i < points;i++)
 					{
-
 						for (int m3 = 0;m3 < pop_number;m3++)
 						{	            
 							Si_pop_parts[m3][i] = Sa_pop[m3][i]*g_pop_parts[m3][minus_index_pop[m3][i]] + Se_pop[m3][i]*g_pop_parts[m3][plus_index_pop[m3][i]];
+							
+							/*
+							if(iteration!=0)
+							{	
+								cout<<"i = "<<i<<endl;
+								cout<<"m3 = "<<m3<<endl;
+								cout<<"Si_pop_parts[m3][i] = "<<Si_pop_parts[m3][i]<<endl;
+								
+								cout<<"plus_index_pop[m3][i] = "<<plus_index_pop[m3][i]<<endl;
+								cout<<"minus_index_pop[m3][i] = "<<minus_index_pop[m3][i]<<endl;
+								
+								cout<<"g_pop_parts[plus_index_pop[m3][i]] = "<<g_pop_parts[m3][plus_index_pop[m3][i]]<<endl;
+								cout<<"g_pop_parts[minus_index_pop[m3][i]] = "<<g_pop_parts[m3][minus_index_pop[m3][i]]<<endl;
+								getchar();
+							}
+							*/
 						}
 					}
 				}
+				//getchar();
 			}
 
 
@@ -145,8 +183,16 @@ void solve_g(double T, int T_loop, int ii)
 				
 				g[i] = (Si_grid[i]+electric_driving_force[i])/(denom[i]);
 				g_th[i] = (Si_th_grid[i] + thermal_driving_force[i])/(denom[i]);
+				
+				/*
+				cout<<"i = "<<i<<"     g[i] = "<<g[i]<<endl;
+				cout<<"i = "<<i<<"     Si_grid[i] = "<<Si_grid[i]<<endl;
+				cout<<"i = "<<i<<"     electric_driving_force[i] = "<<electric_driving_force[i]<<endl;
+				cout<<"i = "<<i<<"     denom[i] = "<<denom[i]<<endl<<endl;
+				//*/
+				
 			}
-
+			//getchar();
 
 			// If POP scattering is included
 			if (scattering_mechanisms[1] == 1)
@@ -161,8 +207,11 @@ void solve_g(double T, int T_loop, int ii)
 				{
 					g_pop[i] = (Si_pop_grid[i] + electric_driving_force[i])/nu_pop_total[i];
 					g_th_pop[i] = (Si_th_pop_grid[i] + thermal_driving_force[i])/nu_pop_total[i];
+
+					//cout<<"i = "<<i<<"    g_pop[i] = "<<g_pop[i]<<endl;
+
 				}
-				
+				//getchar();
 				
 				if(pop_number>1)
 				{
@@ -1219,7 +1268,9 @@ void solve_g(double T, int T_loop, int ii)
 		fprintf(fid1," \n");
 	}
 	fclose(fid1);
-
+	*/
+	
+	/*
 	// pop scattering 
 	if (scattering_mechanisms[1] == 1)
 	{

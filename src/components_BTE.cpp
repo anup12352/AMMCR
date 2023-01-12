@@ -57,16 +57,19 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 
 		        f0x1_f0[counter] = f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T));
 
-		        electric_driving_force[counter] = -(1*E/h_bar)*df0dk_grid[counter]*1e-7;
+		        electric_driving_force[counter] = abs(-(1*E/h_bar)*df0dk_grid[counter]*1e-7);
 			// unit is 1/s , hbar unit is eV-s so e i s not multiplied in numerator
-
+			
+			//cout<<"counter  =   "<<counter<<endl;
 		        //cout<<"df0dk_grid[counter] =  "<<df0dk_grid[counter]<<endl;
 		        //cout<<"f_dist[counter]  =  "<<f_dist[counter]<<endl;
 		        //cout<<"thermal_driving_force[counter] =  "<<thermal_driving_force[counter]<<endl;
 		        //cout<<"f0x1_f0[counter] =  "<<f0x1_f0[counter]<<endl;
 		        //cout<<"electric_driving_force[counter]  = "<<electric_driving_force[counter]<<endl;
+		        //getchar();
 		}
-
+		//getchar();
+		
 //--------------------------------------common terms calculated completed  --------------------------------------------
 
 //----------------------POP scattering rate --------------------------------------------------------------------
@@ -171,9 +174,13 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 		         	nu_irs[counter]*scattering_mechanisms[11];
 
 			denom[counter] = (nu_pop_total[counter]*scattering_mechanisms[1] + nu_el[counter]);	
-			//cout<<"nu_el[counter] = "<<nu_el[counter]<<endl;
+			/*
+			cout<<"counter   =  "<<counter<<endl;
+			cout<<"nu_el[counter] = "<<nu_el[counter]<<endl;
+			cout<<"denom[counter] = "<<denom[counter]<<endl;
+			*/
 		}			
-
+		//getchar();
 //--------------------------------------Skew scattering -------------------------------------------------------
 
 //----------------------  Skew scattering ----------------------------------------------			
@@ -193,8 +200,8 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 	//------------------------------------ components for BTE END --------------------------------------------------------------
 	// ----------------------------saving data ---------------------------------------------------
 		    
-		    /*		    
-		    //FILE *fid1;
+		    /*	    
+		    FILE *fid1;
 		    fid1 = fopen("nu_el.txt","w");
 		    for (int i = 0; i < points; i++)
 		        fprintf(fid1,"%d    %e\n", i+1, nu_el[i]);
@@ -204,7 +211,8 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 		    for (int i = 0; i < points; i++)
 		        fprintf(fid1,"%d    %e\n", i+1, df0dk_grid[i]);
 		fclose(fid1);
-
+		
+		    /*
 		    fid1 = fopen("f_dist.txt","w");
 		    for (int i = 0; i < points; i++)
 		        fprintf(fid1,"%d    %e\n", i+1, f_dist[i]);
@@ -219,12 +227,14 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 		    for (int i = 0; i < points; i++)
 		        fprintf(fid1,"%d    %e\n", i+1, f0x1_f0[i]);
 		fclose(fid1);
-
+			*/
+			
+			/*
 		    fid1 = fopen("elecgtric_driving_force.txt","w");
 		    for (int i = 0; i < points; i++)
 		        fprintf(fid1,"%d    %e\n", i+1, electric_driving_force[i]);
 		fclose(fid1);
-		    */
+		    //*/
 		    //getchar();
 
 	// ----------------------------saving data ---------------------------------------------------

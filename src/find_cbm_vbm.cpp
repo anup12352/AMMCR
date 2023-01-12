@@ -55,7 +55,8 @@ void find_cbm_vbm(int spin_orbit_coupling)
 			
 		//cout<<"line = "<<line<<endl;
 		//cout<<"kpoints = "<<kpoints[i][0]<<"   "<<kpoints[i][1]<<"   "<<kpoints[i][2]<<"   "<<kpoints[i][3]<<endl;
-
+		//getchar();
+		
 			for (j = 0; j<NBTOT; j++)
 			{
 			    //cout<<"j = "<<j<<endl;

@@ -4,7 +4,7 @@
 #include<iostream>
 using namespace std;
 
-double orbital_decomposedd_p[1000][4];
+double orbital_decomposedd_p[5000][4];
 
 int decompose_wave_p()
 {

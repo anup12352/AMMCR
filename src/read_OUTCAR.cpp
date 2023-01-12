@@ -104,21 +104,24 @@ void read_OUTCAR()
 				}
 
 
-				strncpy(temp1, line, 12);
-				temp1[12] = '\0';
-
+				//strncpy(temp1, line, 12);
+				//temp1[12] = '\0';
 				//printf("%s", temp1); getchar();
-				if (strcmp(temp1, "   POMASS = ")== 0)
+				//if (strcmp(temp1, "   POMASS = ")== 0)
+				
+				strncpy(temp1, line, 20);
+				temp1[20] = '\0';
+				
+				if (strcmp(temp1,"  Mass of Ions in am")==0)
                 		{
-					if (line[20] != ';')
+                			//printf("%s", temp1); getchar();
+                			fgets(line, 1000, (FILE*)fid);  // read next line  	
+					count++;
+					for (i = 12; i < strlen(line); i++)
 					{
-						count++;
-						for (i = 12; i < strlen(line); i++)
-						{
-							ion_mass[i - 12] = line[i];
-						}
-						ion_mass[i-12] = '\0';
+						ion_mass[i - 12] = line[i];
 					}
+					ion_mass[i-12] = '\0';
 				}
 
 
@@ -211,7 +214,9 @@ void read_OUTCAR()
 		    number++;
 		i++;
     	}
-
+	
+	
+	
 	if (number==1)
 	{	
 		sscanf(ion_numbers, "%d", &ion_numbers1[0]);
@@ -241,6 +246,16 @@ void read_OUTCAR()
 	{
     		exit(EXIT_FAILURE);
 	}
+	//*/
+	
+	/*
+	for(int i=0;i<numbers-1;i++)
+	{
+		sscanf(ion_numbers, "%d", &ion_numbers1[i]);
+		sscanf(ion_mass, "%lf", &ion_mass1[i]);
+	}
+	*/
+	
 	sscanf(volume, "%lf", &volume1);
 
 //------------------------// showing outcar data ---------------------------------------------------------------------------------
@@ -268,10 +283,10 @@ void read_OUTCAR()
         printf("\nion_mass =  %lf %lf %lf %lf\n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3]);   // unit amu
         printf("\nion_numbers =  %d %d %d %d\n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3]);
     }
-    else
+    else if (number==5)
     {
-        printf("\nion_mass =  %lf %lf %lf %lf\n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3]);     // unit amu
-        printf("\nion_numbers =  %d %d %d %d\n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3]);
+        printf("\nion_mass =  %lf %lf %lf %lf %lf \n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3], ion_mass1[4]);     // unit amu
+        printf("\nion_numbers =  %d %d %d %d %d \n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3], ion_numbers1[4]);
     }
     	
     	volume1 = volume1/1e24;   // converted from A^3 to cm^3

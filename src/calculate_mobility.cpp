@@ -95,7 +95,7 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 			    // POP scattering
 			    if (scattering_mechanisms[1]==1)
 			    {
-				mobility_po = mu_po(E_F,T,coefficients_cond,kindex_cond,g_pop,g,nu_el,points,a11,energy_n,v_n,Ds_n);
+				mobility_po = mu_po(E_F,T,coefficients_cond, kindex_cond, g_pop, g, nu_el, points,a11,energy_n,v_n,Ds_n);
 				cout<<"mobility_po = "<<mobility_po<<" cm^2/(V-s)"<<endl;
 				
 				//calc_mobility_po[cc][1] = mobility_po;
@@ -108,7 +108,9 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 						for (int counter = 0;counter<points;counter++)
 							dummy[counter] = g_pop_parts[aa][counter];
 
-						calc_mobility_po[cc][aa+2] = mu_po(E_F,T,coefficients_cond,kindex_cond,dummy,g,nu_el,points,a11,energy_n,v_n,Ds_n);;
+						calc_mobility_po[cc][aa+2] = mu_po(E_F,T,coefficients_cond,kindex_cond, dummy,g,nu_el,points,a11,energy_n,v_n,Ds_n);
+						printf("Mobility for POP frequency no.   %d    =   %e     cm^2/(V-s)  \n", aa+1, calc_mobility_po[cc][aa+2]);
+						//cout<<"mobility for POP "<<"   "<<calc_mobility_de[cc][2]<<" cm^2/(V-s)"<<endl;
 					}
 				}	
 				
@@ -135,6 +137,8 @@ void calculate_mobility(double T, int T_loop, int d_loop)
 							dummy[counter] = nu_npop[aa][counter] ;
 
 						calc_mobility_npop[cc][aa+2] = mu_elastic(E_F,T,coefficients_cond,kindex_cond,dummy,points,a11,energy_n,v_n,Ds_n);
+						printf("Mobility for NPOP frequency no.   %d    =   %e     cm^2/(V-s) \n ",aa+1, calc_mobility_npop[cc][aa+2]);
+						
 					}
 				}	
 

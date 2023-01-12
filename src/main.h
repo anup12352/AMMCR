@@ -303,7 +303,7 @@ extern int len_T,len_n;
 extern double ecbm,evbm,kcbm1[3],kvbm1[3];
 extern double kcbm[3],kvbm[3],VBM,CBM;
 extern int NKPTS,NBVAL,NBTOT;
-extern double orbital_decomposedd[1000][4], orbital_decomposedd_p[1000][4];
+extern double orbital_decomposedd[5000][4], orbital_decomposedd_p[5000][4];
 extern int ispin;
 extern double DOS_n[limit2][2],DOS_p[limit2][2];
 extern double fermi;

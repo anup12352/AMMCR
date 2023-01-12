@@ -6,7 +6,7 @@ void nu_pop(double T, double efef, int ii, int T_loop)
 
 	int minus_index, plus_index;
 	double arr[points];
-
+	
 	for(int m3=0; m3<pop_number; m3++)
 	{			
 		N_poph_atT[m3] = N_poph(we_pop[m3],T);
@@ -28,12 +28,16 @@ void nu_pop(double T, double efef, int ii, int T_loop)
 			plus_index_pop[m3][counter1] = plus_index;
 			minus_index_pop[m3][counter1] = minus_index;
 		    
-		    //cout<<"counter1 = "<<counter1<<endl;
-		    //cout<<"plus_index_pop[m3][counter1] = "<<plus_index_pop[m3][counter1]<<endl;
-		    //cout<<"minus_index_pop[m3][counter1] = "<<minus_index_pop[m3][counter1]<<endl;	
-		    //cout<<"kplus_grid_pop[m3][counter1] = "<<kplus_grid_pop[m3][counter1]<<endl;
-		    //cout<<"kminus_grid_pop[m3][counter1] = "<<kminus_grid_pop[m3][counter1]<<endl;
-		    //getchar();	
+		    /*
+		    cout<<"counter1 = "<<counter1<<endl;
+		    cout<<"points = "<<points<<endl;
+		    cout<<"plus_index_pop[m3][counter1] = "<<plus_index_pop[m3][counter1]<<endl;
+		    cout<<"minus_index_pop[m3][counter1] = "<<minus_index_pop[m3][counter1]<<endl;	
+		    cout<<"kplus_grid_pop[m3][counter1] = "<<kplus_grid_pop[m3][counter1]<<endl;
+		    cout<<"kminus_grid_pop[m3][counter1] = "<<kminus_grid_pop[m3][counter1]<<endl;
+		    getchar();	
+		    */
+		    
 		}
 	}
 								
