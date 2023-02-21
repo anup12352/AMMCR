@@ -9,7 +9,14 @@ int main()
     cout.precision(15);
     FILE *fid1;
     FILE *fid2;
-
+	
+	
+	if(iterations > 20)
+	{
+		cout<<"No. of iterations are higher than maximul limit of 20. No. of itertions set to maximum limit of 20"<<endl;
+		iterations = 20;
+	}	
+	
 //------------------// read input file  ------------------------------------------------------------------------------
     	
     copyright();	

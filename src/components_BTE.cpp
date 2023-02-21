@@ -57,7 +57,8 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 
 		        f0x1_f0[counter] = f0(energy_n[counter],efefn,T)*(1-f0(energy_n[counter],efefn,T));
 
-		        electric_driving_force[counter] = abs(-(1*E/h_bar)*df0dk_grid[counter]*1e-7);
+		        //electric_driving_force[counter] = abs(-(1*E/h_bar)*df0dk_grid[counter]*1e-7);
+		        electric_driving_force[counter] = (-(1*E/h_bar)*df0dk_grid[counter]*1e-7);
 			// unit is 1/s , hbar unit is eV-s so e i s not multiplied in numerator
 			
 			//cout<<"counter  =   "<<counter<<endl;
