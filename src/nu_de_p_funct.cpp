@@ -12,8 +12,11 @@ void nu_de_p_funct(int T_loop)
 	//double nu[limit2][de_number]={0};
 
 	for (int counter = 0;counter<points;counter++)
+	{
 		nu_deformation[counter] = 0;
-
+		nu_deformation_p[counter][0][0] = 0;
+		
+	}
 	//cout<< "temp  "<<T<< endl;
 	//cout<<"C_long = "<<C_long<<" dyme/cm^2"<<endl;	
 	for (int counter = 0;counter<points;counter++)
