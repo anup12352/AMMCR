@@ -1,0 +1,29 @@
+# input file for aluminium
+# From thesis page no. 19
+Eta_sss -1.40
+Eta_sps 1.84
+Eta_pps 3.24
+Eta_ppp -0.81
+
+#Eta_sds -3.16
+#Eta_pds -2.95
+#Eta_pdp 1.36
+#Eta_dds -16.2
+#Eta_ddp 8.75
+#Eta_ddd 0
+
+#lattice constant in angestron from internet
+lattice_constant 4.0479
+
+# on site energy in eV
+# From harrison book page no. 50 table 2.2
+Es0 10.11
+Ep0 4.86
+
+
+
+
+
+
+ 
+
