@@ -44,21 +44,21 @@ By: Anup Kumar Mandia, anup12352@gmail.com
   
   
 \section{Introduction}
-Ab initio model for mobility and conductivity calculation by using Rode Algorithm (AMMCR) is a module to calculate various transport coefficients at low electric field with inputs calculated from first principles. AMMCR, solves Boltzmann transport equation within Rode's iterative scheme. For more detailed information, see \cite{anup1,anup2,anup3}. It is written in C++. Currently it is interfaced with Vienna Ab initio Simulation Package (VASP). It is very simple to use. Once compiled, it produces an executable file called AMMCR. The executable can be run in a directory where four VASP output files: OUTCAR, EIGENVAL, PROCAR and DOSCAR are present. \\
+Ab initio model for mobility and conductivity calculation by using the Rode Algorithm (AMMCR) is a module to calculate various transport coefficients at low electric field with inputs calculated from first principles. AMMCR solves the Boltzmann transport equation within Rode's iterative scheme. For more detailed information, see \cite{anup1,anup2,anup3}. It is written in C++. Currently, it is interfaced with the Vienna Ab initio Simulation Package (VASP). It is very simple to use. Once compiled, it produces an executable file called AMMCR. The executable can be run in a directory where four VASP output files, OUTCAR, EIGENVAL, PROCAR, and DOSCAR, are present. \\
 
 \begin{figure}[!t]
 	\centering
 	{\includegraphics[height=0.85\textwidth,width=0.85\textwidth]{flowchart.pdf}}
 	\quad
-	\caption{Flowchart for transport coefficient calculation from input calculated from DFT. For more detail refer to \cite{anup1, anup2, anup3}. }
+	\caption{Flowchart for transport coefficient calculation from input calculated from DFT. For more detail, refer to \cite{anup1, anup2, anup3}. }
 	\label{flowchart}
 \end{figure}
 
-If the band structure calculation is done in spin-polarized mode, the code automatically detects it, and produces two sets of results: For majority and minority spin electrons. \\
+If the band structure calculation is done in spin-polarized mode, the code automatically detects it and produces two sets of results: For majority and minority spin electrons. \\
 
-The specification of the simulation conditions such as temperature, doping concentration, external electric field etc., as well as the materials constants are provided in a file called \textbf{input.dat}. \\
+The specification of the simulation conditions, such as temperature, doping concentration, external electric field, etc., as well as the materials constants, are provided in a file called \textbf{input.dat}. \\
 
-There is also an youtube video about how to compile and run the AMMCR code: \\ \href{https://youtu.be/II-7I68iPnI}{https://youtu.be/II-7I68iPnI}. \\ 
+There is also a YouTube video about how to compile and run the AMMCR code: \\ \href{https://youtu.be/II-7I68iPnI}{https://youtu.be/II-7I68iPnI}. \\ 
 
 If you use AMMCR for your research, please cite the following article: \\
 \textbf{Anup Kumar Mandia, Bhaskaran Muralidharan, Jung-Hae Choi, Seung-Cheol Lee and Satadeep Bhattacharjee, AMMCR: Ab initio model for mobility and conductivity calculation by using Rode Algorithm, Computer Physics Communications, Volume 259, 2021, 107697, ISSN 0010-4655, \href{https://doi.org/10.1016/j.cpc.2020.107697}{ https://doi.org/10.1016/j.cpc.2020.107697.}} \\ 
@@ -73,14 +73,14 @@ We have implemented the Rode algorithm in the AMMCR code, which is valid for the
 
 Where $f_0(k)$ is the equilibrium distribution function and $g(k)$ is the perturbation (out of equilibrium part of the distribution function). The factor x defines the angle between the electric field and the direction of the crystal momentum $k$.
 
-The flow-chart of the code is shown in the figure \ref{flowchart}. First, one has to calculate all the required inputs using the first - principles method. The typical inputs are energy band dispersion curve, density of states, the phonon frequencies and the elastic constants.
+The flowchart of the code is shown in the figure \ref{flowchart}. First, one has to calculate all the required inputs using the first-principles method. The typical inputs are the energy band dispersion curve, the density of states, the phonon frequencies, and the elastic constants.
 
-We then perform the analytical fitting of the band structure to obtain smooth curves to calculate the group velocity. For a given doping concentration, the Fermi energy is calculated. Then we calculate various scattering rates (discussed below). Finally a loop is used to obtain the out of equilibrium part, g(k) of the distribution function. For more detail refer to the papers \cite{anup1,anup2,anup3}.
+We then perform the analytical fitting of the band structure to obtain smooth curves to calculate the group velocity. For a given doping concentration, the Fermi energy is calculated. Then, we calculate various scattering rates (discussed below). Finally, a loop is used to obtain the out-of-equilibrium part, g(k) of the distribution function. For more detail, refer to the papers \cite{anup1,anup2,anup3}.
 
 %\newpage 
 %\pagebreak
 \section{What AMMCR module can do?} \label{capability}
-The AMMCR module is capable to calculate following transport coefficients:
+The AMMCR module is capable to calculate the following transport coefficients:
 
 \begin{enumerate}
     \item Drift Mobility
@@ -95,22 +95,22 @@ The AMMCR module is capable to calculate following transport coefficients:
 \end{enumerate}
 
 %This code is to calculate drift mobility, conductivity, hall factor, hall coefficient and magneto resistance of 3D bulk and 2D semiconductors by using ab-initio band structure and inputs and it is based on Rode \cite{rode1,rode2,rode3, rode4} algorithm. \\
-%In this code, ionized impurity, polar optical phonon scattering due to longitudinal phonon, acoustic deformation scattering, piezoelectric scattering, dislocation scattering, alloy scattering, intravalley scattering and neutral impurity scattering are included. Out of these eight scattering mechanisms, any scattering mechanism can be included or excluded in the simulation.
+%In this code, ionized impurity, polar optical phonon scattering due to longitudinal phonon, acoustic deformation scattering, piezoelectric scattering, dislocation scattering, alloy scattering, intervalley scattering and neutral impurity scattering are included. Out of these eight scattering mechanisms, any scattering mechanism can be included or excluded in the simulation.
 
 \textbf{This module can be used for 3D bulk (for both n-type and p-type) and 2D semiconductors (for n-type only)}.
 \\
 For 3D bulk of p-type, it will simulate by including one valence band. \\ \\
 
 \textbf{This manual is organised as follows:} \\
-\textbf{In section \ref{installation}}, we have discussed that for simulation of tool AMMCR what prerequisites are required to run the tool AMMCR and how to install required GNU GCC compiler.  \\  \\
-\textbf{In section \ref{getting_started}}, we have explained the organisation of different folders given with tool and how to simulate the module. \\ \\
+\textbf{In section \ref{installation}}, we have discussed that for the simulation of tool AMMCR, what prerequisites are required to run the tool AMMCR and how to install the required GNU GCC compiler.  \\  \\
+\textbf{In section \ref{getting_started}}, we have explained the organisation of different folders given with the tool and how to simulate the module. \\ \\
 \textbf{In section \ref{scattering}}, we present the various scattering mechanisms included in the module. \\ \\
 \textbf{In section \ref{input_files}}, we present the various input files required for the simulation. \\ \\
-\textbf{In the section \ref{output_files}}, we have discussed the various output files gets generated on simulation. \\
+\textbf{In the section \ref{output_files}}, we have discussed the various output files generated on simulation. \\
 
 \section{Installation and Prerequisites} \label{installation}
-To simulate the code Unix/Linux operating system is required with GNU GCC compiler installed. The Program is tested with gcc version 5.4.0.
-\newline To check whether gcc compiler is already installed or not installed on your operating system run the following command at the terminal:
+To simulate the code Unix/Linux operating system is required with the GNU GCC compiler installed. The Program is tested with the gcc version 5.4.0.
+\newline To check whether the gcc compiler is already installed or not installed on your operating system, run the following command at the terminal:
 
 \begin{quote}
 \begin{verbatim}
@@ -118,7 +118,7 @@ gcc -v
 \end{verbatim}
 \end{quote}
 
-If gcc compiler is not installed, then run following command at the terminal to install gcc compiler: 
+If the gcc compiler is not installed, then run the following command at the terminal to install the gcc compiler: 
 
 \begin{quote}
 \begin{verbatim}
@@ -129,7 +129,7 @@ sudo apt-get install gcc
 
 \section{Getting Started} \label{getting_started}
 
-Steps to run the above code are follows
+The steps to run the above code are as follows.
 
 \begin{enumerate}
 
@@ -139,27 +139,27 @@ Steps to run the above code are follows
 
 \item \lq \textbf{utility}\rq \hspace{0.5mm} folder contains a file 'k\_point\_generator.cpp', this file has a program that is used to generate a 'k\_points\_file', that will give the k-point file required for DFT simulation of the band structure. This k-point file should be used while doing the DFT calculation of band structure for materials.   
 
-\item \lq \textbf{Examples}\rq \hspace{0.5mm} folder contains three folders, \lq \textbf{ZnSe}\rq, \lq \textbf{CdS}\rq \hspace{0.5mm} and \lq \textbf{Ti2Co2}\rq \hspace{0.5mm}. These three folder contain files required to test code for these materials ZnSe, CdS and Ti\textsubscript{2}CO\textsubscript{2}. How to simulate the code with these input files for ZnSe, CdS and Ti\textsubscript{2}CO\textsubscript{2} is explained in section \ref{examples}.  
+\item \lq \textbf{Examples}\rq \hspace{0.5mm} folder contains three folders, \lq \textbf{ZnSe}\rq, \lq \textbf{CdS}\rq \hspace{0.5mm} and \lq \textbf{Ti2Co2}\rq \hspace{0.5mm}. These three folders contain files required to test code for these materials: ZnSe, CdS, and Ti\textsubscript{2}CO\textsubscript{2}. How to simulate the code with these input files for ZnSe, CdS, and Ti\textsubscript{2}CO\textsubscript{2} is explained in section \ref{examples}.  
 
-%\item There are five input files input.dat, EIGENVAL, OUTCAR, DOSCAR and PROCAR are used by the program out of which three files input.dat, EIGENVAL and PROCAR are essential. So these files are first to be generated to run the code. EIGENVAL, OUTCAR, DOSCAR and PROCAR are generated by using the VASP program\cite{ref4,ref5,ref6}. input.dat file contains values of different constant required for calculation. Format and form of input.dat file is explained later in section \ref{input_files} in this manual.  
+%\item There are five input files input.dat, EIGENVAL, OUTCAR, DOSCAR and PROCAR are used by the program out of which three files input.dat, EIGENVAL and PROCAR are essential. So these files are first to be generated to run the code. EIGENVAL, OUTCAR, DOSCAR and PROCAR are generated by using the VASP program\cite{ref4,ref5,ref6}. input.dat file contains values of different constants required for calculation. Format and form of input.dat file is explained later in section \ref{input_files} in this manual.  
 
-\item The distribution included a makefile for simulating the program by using gnu gcc compiler.  To compile the program, open the terminal in the folder 'code' and run the command \textbf{make}. It will compile different .cpp files inside the folder. It will generate an executable file \lq \textbf{AMMCR}\rq .
+\item The distribution included a makefile for simulating the program by using the gnu gcc compiler.  To compile the program, open the terminal in the folder 'code' and run the command \textbf{make}. It will compile different .cpp files inside the folder. It will generate an executable file \lq \textbf{AMMCR}\rq .
 
-\item To simulate the program, run command \textbf{./AMMCR} at the terminal. It will run the program and generate different output files. Some input files are needed for simulation and it produces different output files on simulation. Description of the input and output files are explained in the section \ref{input_files} and section \ref{output_files}. 
+\item To simulate the program, run command \textbf{./AMMCR} at the terminal. It will run the program and generate different output files. Some input files are needed for simulation, and it produces different output files on simulation. Description of the input and output files are explained in the section \ref{input_files} and section \ref{output_files}. 
 
 \end{enumerate} 
 
 
 \section{Scattering Mechanisms} \label{scattering}
-In this section we are going to discuss the various scattering mechanisms included in the module AMMCR. 
-Table below \ref{scattering} shows the various scattering mechanisms included in the module AMMCR.
+In this section, we are going to discuss the various scattering mechanisms included in the module AMMCR. 
+The table below \ref{scattering} shows the various scattering mechanisms included in the module AMMCR.
 
 \begin{table} [H]
 \caption{ Scattering mechanisms included in the Module AMMCR}
 \label{scattering_table}
 \begin{tabular}{|l|l|l|l|}
 \hline
-S.No. & 3D (N Type) & 3D (P Type) & 2D (N Type)   \\
+S.No. & 3D (N-Type) & 3D (P Type) & 2D (N-Type)   \\
 \hline                                      
 1. & Ionized impurity   &  Ionized Impurity & Ionized Impurity \\
 \hline
@@ -177,7 +177,7 @@ S.No. & 3D (N Type) & 3D (P Type) & 2D (N Type)   \\
 \hline
 8. & Dislocation & & \\
 \hline
-9. & Intravalley* & & \\
+9. & Intervalley* & & \\
 \hline
 10. & Alloy & & \\
 \hline
@@ -195,10 +195,10 @@ Acoustic deformation occurs due to the coupling of electrons with non-polar acou
 \frac{1}{\tau_{ac}(k)} = \frac{e^2 k_B T D_A^2 k^2}{3\pi\hbar^2 c_{el}v(k)}[3 - 8c^2(k)+6c^4(k)] ,
 \label{acoustic deformation}
 \end{equation}
-where c(k) is the contribution of the p-type orbital to the wave function of the conduction band, $c_{el}$ is spherically averaged elastic constant and $D_A$ is acoustic deformation potential and is given by conduction band shift (in eV) per unit strain due to acoustic waves.  For \textit{ab-initio} calculations, the wave function admixture $c(k)$ is obtained through projecting the Kohn-Sham wavefunctions onto the spherical harmonics which are non-zero only within spheres centering the ions and is implemented in \textsl{VASP} package. \\
+where c(k) is the contribution of the p-type orbital to the wave function of the conduction band, $c_{el}$ is spherically averaged elastic constant, and $D_A$ is acoustic deformation potential and is given by conduction band shift (in eV) per unit strain due to acoustic waves.  For \textit{ab-initio} calculations, the wave function admixture $c(k)$ is obtained through projecting the Kohn-Sham wavefunctions onto the spherical harmonics, which are non-zero only within spheres centering the ions and is implemented in \textsl{VASP} package. \\
 
 \subsubsection{Ionized impurity scattering}
-The momentum relaxation rate for ionized impurity mechanism with its abinito counterpart is given by following expression \cite{anup1}
+The momentum relaxation rate for the ionized impurity mechanism with its abinito counterpart is given by the following expression \cite{anup1}
 \begin{equation}
 \frac{1}{\tau_{ii}(k)} = \frac{e^4 N }{8\pi \kappa_0^2 \epsilon_0^2\hbar^2 k^2 v(k)}[D(k)ln(1+\frac{4k^2}{\beta^2})-B(k)] ,
 \label{Ionized impurity}
@@ -208,12 +208,12 @@ where $\epsilon_0$ is the permittivity of free space, $\kappa_0$ is the low freq
 \beta^2 = \frac{e^2}{\kappa_0 \epsilon_0 k_B T}\int D_s(E) f(1-f)dE,
 \label{beta square}
 \end{equation}
-Here f represents the Fermi level, $D_s(E)$ represents the density of states at energy E, T is temperature, $k_B$ is Boltzmann constant, N is the concentration of ionized impurity and it is given by
+Here, f represents the Fermi level, $D_s(E)$ represents the density of states at energy E, T is temperature, $k_B$ is Boltzmann constant,, N is the concentration of ionized impurity, and it is given by
 \begin{equation}
 \ N = N_A + N_D
 \label{impurity}
 \end{equation} 
-here $N_A$ and $N_D$ are the acceptor and donor concentrations respectively. The expressions for D(k) and B(k) are taken from equations (91) and (92) of Ref. \cite{rode1}. \\
+here $N_A$ and $N_D$ are the acceptor and donor concentrations, respectively. The expressions for D(k) and B(k) are taken from equations (91) and (92) of Ref. \cite{rode1}. \\
 
 \begin{equation}
 \ D(k) = 1 + \frac{2 \beta^2 c^2}{k^2} + \frac{3 \beta^4 c^4}{4 k^4}
@@ -225,8 +225,8 @@ here $N_A$ and $N_D$ are the acceptor and donor concentrations respectively. The
 \label{B(k)}
 \end{equation} 
 
-\subsubsection{Non polar optical phonon scattering}
-The momentum relaxation rate for Non polar optical phonon (NPOP) scattering is given by \cite{rode3}
+\subsubsection{Non-polar optical phonon scattering}
+The momentum relaxation rate for Non-polar optical phonon (NPOP) scattering is given by \cite{rode3}
 
 \begin{equation}
 \frac{1}{\tau_{op}(k)} = (N_{op} + 1 - f^-) \lambda_{op}^- + (N_{op} + f^+) \lambda_{op}^+ 
@@ -256,13 +256,13 @@ where $D_{op}$ is the NPOP deformation potential (units of electron volts per me
 
 \subsubsection{Piezoelectric scattering}
 
-Chemical bonds in compound semiconductors such as ZnSe are partly ionic in nature. Zn atom has a slight positive and Se atom has a slight negative charge. The magnitude of this charge is determined by the degree of the ionic nature of the bond, and it is a fraction of electronic charge \cite{ridley2013quantum}. The vibrations of atoms cause changes in the lattice constant. This perturbs the dipole moment between the atoms that eventually scatter the electrons. The of polar scattering due to the long-wavelength acoustic phonons is called piezoelectric scattering and the polar scattering due to optical phonons is called polar optical phonon (POP) scattering. Piezoelectric scattering is important at low temperatures and at low doping densities in polar materials. The momentum relaxation rate for piezoelectric scattering with ab-inito parameters as input is given by \cite{rode1}
+Chemical bonds in compound semiconductors such as ZnSe are partly ionic in nature. Zn atom has a slight positive, and Se atom has a slight negative charge. The magnitude of this charge is determined by the degree of the ionic nature of the bond, and it is a fraction of electronic charge \cite{ridley2013quantum}. The vibrations of atoms cause changes in the lattice constant. This perturbs the dipole moment between the atoms that eventually scatter the electrons. The polar scattering due to the long-wavelength acoustic phonons is called piezoelectric scattering, and the polar scattering due to optical phonons is called polar optical phonon (POP) scattering. Piezoelectric scattering is important at low temperatures and at low doping densities in polar materials. The momentum relaxation rate for piezoelectric scattering with ab-inito parameters as input is given by \cite{rode1}
 
 \begin{equation}
 \frac{1}{\tau_{pz}(k)} = \frac{e^2 k_B T P^2 }{6\pi \kappa_0 \epsilon_0\hbar^2 v(k)}[3 - 6c^2(k)+4c^4(k)] 
 \label{pz}
 \end{equation}
-where $P$ is dimensionless piezoelectric coefficien. It is isotropic for zinc blende structure and anisotropic for wurtzite structure. For zinc blende structure piezoelectric coefficient is given by \cite{rode1}
+where $P$ is a dimensionless piezoelectric coefficient. It is isotropic for zinc blende structure and anisotropic for wurtzite structure. For zinc blende structure, the piezoelectric coefficient is given by \cite{rode1}
 \begin{equation}
 \ P^2 = h_{14}^2 \kappa_0 \epsilon_0 \left[ \frac{12}{c_l} + \frac{16}{c_t}\right] \frac{1}{35} 
 \label{pzcoeff}
@@ -278,7 +278,7 @@ where $h_{14}$ is one element of piezoelectric stress tensor and  $c_l$, $c_t$ a
 \label{ct}
 \end{equation}
 where $c_{11}$, $c_{12}$ and $c_{44}$ are three independent elastic constants. \\
-For wurtzite structure, we use piezoelectric coefficients $P_\parallel$ and $P_\perp$ for mobility measured with electric field parallel and perpendicular to the c axis of the crystal. For wurtzite structure piezoelectric coefficients $P_\parallel$ and $P_\perp$ are given by \cite{rode1,rode3}
+For the wurtzite structure, we use piezoelectric coefficients $P_\parallel$ and $P_\perp$ for mobility measured with an electric field parallel and perpendicular to the c axis of the crystal. For wurtzite structure piezoelectric coefficients $P_\parallel$ and $P_\perp$ are given by \cite{rode1,rode3}
 \begin{equation}
 \ P_{\parallel}^2 = 2 \epsilon_0 \frac{(21 h_{15}^2 + 18 h_{15} h_{x } + 5 h_x^2)}{105c_t} + \epsilon_0 \frac{(63 h_{33}^2 - 36 h_{33} h_x + 8 h_x^2)}{105c_l}  
 \label{pzcoeff_para}
@@ -323,13 +323,13 @@ S_{o} = ( N_{po} + 1 - \textit{f}^- ) \lambda^{-}_0 + ( N_{po} + \textit{f}^+) \
 A^+ = aa^+ + \frac{(k^+)^2 + k^2}{2 k^+ k} cc^+,
 \label{Apositive}
 \end{equation}
-where $\kappa_\infty$ represents the high frequency dielectric constant and the subscript plus denotes the scattering out by absorption so it is to be evaluated at an energy $E + \hbar \omega_{po} $ and the subscript minus denotes scattering out by emission so that it is to be evaluated at energy  $E - \hbar \omega_{po} $. If energy is less than $ \hbar \omega_{po} $, then the emission of phonons is not possible and hence $\lambda^{-}_0$ is to be considered to be zero, 
+where $\kappa_\infty$ represents the high-frequency dielectric constant and the subscript plus denotes the scattering out by absorption so it is to be evaluated at an energy $E + \hbar \omega_{po} $ and the subscript minus denotes scattering out by emission so that it is to be evaluated at energy  $E - \hbar \omega_{po} $. If energy is less than $ \hbar \omega_{po} $, then the emission of phonons is not possible and hence $\lambda^{-}_0$ is to be considered to be zero, 
 $N_{po} $ is the number of phonons and is given by 
 \begin{equation}
 N_{po} = \frac{1}{exp(\hbar \omega_{po}/k_B T)-1} .
 \label{Npo}
 \end{equation}
-The in scattering operator for POP is given by \cite{rode1}
+The in-scattering operator for POP is given by \cite{rode1}
 \begin{equation}
 S_{i} = ( N_{po} + \textit{f} ) \lambda^{-}_i g^- + ( N_{po} + 1 - \textit{f}) \lambda^{+}_i g^+ 
 \label{Si}
@@ -357,9 +357,9 @@ In alloys, there is one more scattering mechanism due to atomic disorder, known 
 where $U_{alloy}$ represents alloy potential (unit is eV), $V_0$ represents volume of the primitive cell and $\chi$ represents mole fraction of atoms of the element.
 
 
-\subsubsection{Intra-valley scattering}
+\subsubsection{Inter-valley scattering}
 
-The momentum relaxation rate for intra-valley scattering is given by \cite{rode3}
+The momentum relaxation rate for inter-valley scattering is given by \cite{rode3}
 \begin{equation}
 \frac{1}{\tau_{iv}(k)} = (N_{iv} + 1 - f^-) \lambda_{iv}^- + (N_{iv} + f^+) \lambda_{iv}^+ 
 \label{iv}
@@ -383,31 +383,31 @@ where $Z$ is the number of equivalent valleys, $D_{iv}$ is the intervalley defor
 
 
 \subsubsection{Neutral impurity scattering}
-There is one impurity scattering due to non-ionized donors called neutral impurity scattering. Neutral impurity scattering is essential at higher doping concentration and low temperature. For neutral impurity scattering, we have used Erginsoy model\cite{erginsoy}. The momentum relaxation rate of neutral impurity scattering is given by
+There is one impurity scattering due to non-ionized donors called neutral impurity scattering. Neutral impurity scattering is essential at higher doping concentrations and low temperatures. For neutral impurity scattering, we have used the Erginsoy model\cite{erginsoy}. The momentum relaxation rate of neutral impurity scattering is given by
 \begin{equation}
 \frac{1}{\tau_{ni}} = \frac{80 \pi \epsilon_0 \kappa_0 \hbar v(k)^2 N_n}{e^2 k^2}
 \label{neutral_impurity}
 \end{equation}  
-where $N_n$ is concentration of neutral impurities in semiconductor.  
+where $N_n$ is the concentration of neutral impurities in the semiconductor.  
 
 
 \subsubsection{Interface roughness scattering}
-Momentum relaxation rate for interface roughness scattering is given by \cite{goodnick1985surface, ferry2016semiconductor}
+The momentum relaxation rate for interface roughness scattering is given by \cite{goodnick1985surface, ferry2016semiconductor}
 
 \begin{equation}
     \frac{1}{\tau_{ir}} = \frac{\Delta^2 L^2  e^4 k}{\hbar^2 v(k) \epsilon_0^2 \kappa_0^2} \left( N_{d} + \frac{n_s}{2} \right)^2 \frac{1}{\sqrt{1+k^2L^2}} El(\frac{kL}{\sqrt{1+k^2L^2}})
     \label{ir}
 \end{equation}
 
-here $El$ is complete elliptical integral, $\Delta$ is the average height of the fluctuations in the interface, $L$ is the correlation length for the fluctuations, $n_s$ is the sheet carrier density in the inversion (or accumulation) layer in per $m^2$, $N_{d}$ is the areal density of space charge in per $m^2$.
+here $El$ is the complete elliptical integral, $\Delta$ is the average height of the fluctuations in the interface, $L$ is the correlation length for the fluctuations, $n_s$ is the sheet carrier density in the inversion (or accumulation) layer in per $m^2$, $N_{d}$ is the areal density of space charge in per $m^2$.
 \subsubsection{Skew scattering}
 
 
 \subsection{3D Bulk (P-type)}
-We have included following scattering mechanisms for 3D bulk semiconductor of p-type: 
+We have included the following scattering mechanisms for the 3D bulk semiconductors of p-type: 
 
 \subsubsection{Ionized impurity scattering}
-The momentum relaxation rate for ionized impurity scattering mechanism with its abinito counterpart is given by following expression \cite{ramu2011thermoelectric}
+The momentum relaxation rate for the ionized impurity scattering mechanism with its abinito counterpart is given by the following expression \cite{ramu2011thermoelectric}
 
 \begin{equation}
 \frac{1}{\tau_{ii}(k)} = \frac{e^4 N }{32\pi \kappa_0^2 \epsilon_0^2\hbar^2 k^2 v(k)} \left|  (3A-1)^2 log \left|  \frac{A+1}{A-1} \right|  -2 (9A-6+ \frac{4}{A+1}) \right|  ,
@@ -420,15 +420,15 @@ A = \frac{1}{2} \left(2 + \frac{\beta^2}{k^2}\right),
 \end{equation}
 
 \subsubsection{Acoustic phonon scattering}
-The momentum relaxation rate for acoustic phonon scattering mechanism is given by following expression \cite{ramu2011thermoelectric}
+The momentum relaxation rate for the acoustic phonon scattering mechanism is given by the following expression \cite{ramu2011thermoelectric}
 
 \begin{equation}
 \frac{1}{\tau_{ac}(k)} = \frac{k_B T D_A^2 k^2}{2\pi\hbar^2 c_{el}v(k)} ,
 \label{acoustic_deformation_p}
 \end{equation}
 
-\subsubsection{Non polar optical phonon scattering}
-The momentum relaxation rate for NPOP scattering mechanism is given by following expression \cite{ramu2011thermoelectric} 
+\subsubsection{Non-polar optical phonon scattering}
+The momentum relaxation rate for the NPOP scattering mechanism is given by the following expression \cite{ramu2011thermoelectric} 
 
 \begin{multline}
 \frac{1}{\tau_{npop}(k)} = \frac{D_{op}^2 w_{op}kk^+}{2\pi \hbar v(k) \bar{c}} \left[ N_{op}(1-f^+) + (N_{op}+1) f^+ \right] \\ + \frac{D_{op}^2 w_{op}kk^-}{2\pi \hbar v(k) \bar{c}} \left[ (N_{op}+1)(1-f^-) + N_{op} f^- \right]
@@ -459,7 +459,7 @@ c_i^{\pm} =  \frac{k_i^2 + k_i^{\pm^2}} {2k_i k_i^{\pm} }
 \label{c_i}
 \end{equation}
 
-The in scattering operator for POP is given by \cite{ramu2011thermoelectric}
+The in-scattering operator for POP is given by \cite{ramu2011thermoelectric}
 
 \begin{multline}
     S_i = \frac{e^2 w_{op}}{16\pi \hbar v(k) \epsilon_0}  \left( \frac{1}{\kappa_\infty} - \frac{1}{\kappa_0} \right) \{ g_i(k^+) (C^+)  \left( (N_{pop}+1)(1-f) + N_{pop} f \right) + \\ g_i(k^-) (C^-) \left( N_{pop}(1-f) + (N_{pop}+1) f \right) \}
@@ -473,7 +473,7 @@ C^{\pm} = \left( \frac{(c_i^{\pm}+3c_i^{\pm^3})}{2} log \Bigg|  \frac{1+c_i^{\pm
 
 
 \subsection{2D Semiconductors (N-type)}
-We have included following scattering mechanisms for 2D semiconductor of n-type: 
+We have included the following scattering mechanisms for 2D semiconductors of n-type: 
 
 \subsubsection{Remote impurity scattering}
 \begin{equation}
@@ -490,7 +490,7 @@ q = 2 k \hspace{0.1cm} sin \left( \frac{\theta}{2} \right)
 \kappa_{avg}^0 = \frac{\kappa_{sub}^0 + \kappa_{up}^0}{2} 
 \end{equation}
 
-where $\theta $ is angle between initial wave vector and final wave vector, $N$ is aerial density of impurities (unit per $m^2$),   $\kappa_{sub}^0$ is static dielectric constant of substrate, $\kappa_{up}^0$ is static dielectric constant of oxide layer lies above 2D sheet. For remote impurity scattering, we assume that impurities stay in a plane a distance $d$ from 2D sheet in the substrate.
+where $\theta $ is the angle between the initial wave vector and the final wave vector, $N$ is the aerial density of impurities (unit per $m^2$),   $\kappa_{sub}^0$ is the static dielectric constant of the substrate, $\kappa_{up}^0$ is the static dielectric constant of oxide layer lies above the 2D sheet. For remote impurity scattering, we assume that impurities stay in a plane a distance $d$ from the 2D sheet in the substrate.
 
 \subsubsection{Acoustic phonon scattering}
 
@@ -544,7 +544,7 @@ C_{pop} = \frac{e^2 \omega_{pop}}{8 \pi \hbar \epsilon_0} \times \left( \frac{1}
 
 $\kappa_{\infty}$ and $\kappa_{0}$ represents high frequency and low frequency dielectric constant.
  
-In scattering contribution due to polar optical phonon scattering can be represented by the sum of in-scattering due to absorption and emission of polar optical phonons 
+The In-scattering contribution due to polar optical phonon scattering can be represented by the sum of in-scattering due to the absorption and emission of polar optical phonons. 
 
 \begin{equation}
 S_i^{in}(k) = S_a^{in}(k) + S_e^{in}(k)
@@ -589,7 +589,7 @@ q_{i,e} = \left( \left( k^{+}\right)^2 + k^2  - 2k k^{+} cos \theta \right)
 \label{q_em}
 \end{equation}
 
-\subsubsection{Non polar optical phonon scattering}
+\subsubsection{Non-polar optical phonon scattering}
 \begin{equation}
 So = \frac{D_{op}^2 g_d}{4\pi\hbar\rho\omega_{npop}} \frac{N_{op}}{1-f} \left[  \frac{(1-f^+)k^+ I^-}{v^+} + \frac{(1-f^-)k^- I^-}{v^-}  \right]
     \label{So}
@@ -599,7 +599,7 @@ So = \frac{D_{op}^2 g_d}{4\pi\hbar\rho\omega_{npop}} \frac{N_{op}}{1-f} \left[  
 I^+ = I^- = \int_0^{2\pi}(a^2 + c^2 cos\theta) d\theta
     \label{I_plus}
 \end{equation}
-where $g_d$ is number of final valleys for NPOP scattering and $D_{op}$ is deformation potential (units of electron volts per meter) for NPOP scattering .
+where $g_d$ is the number of final valleys for NPOP scattering and $D_{op}$ is deformation potential (units of electron volts per meter) for NPOP scattering.
 
 \subsubsection{Piezoelectric scattering}
 Piezoelectric scattering. The piezoelectric scattering rates \cite{kaasbjerg2013acoustic} are calculated as follows: 
@@ -655,9 +655,9 @@ F_v^2 = \frac{\hbar \omega_{so}}{2 \epsilon_0 } \left( \frac{1}{\kappa_{sub}^{\i
 \label{so_const}
 \end{equation}
 
-$\kappa_{sub}^{\infty}$, $\kappa_{sub}^{0}$ represents high frequency and low frequency dielectric constant of substrate and $\kappa_{sub}^{\infty}$, $\kappa_{sub}^{0}$ represents high frequency and low frequency dielectric constant of oxide layer lies over 2D material sheet.
+$\kappa_{sub}^{\infty}$, $\kappa_{sub}^{0}$ represents high-frequency and low-frequency dielectric constant of substrate and $\kappa_{up}^{\infty}$, $\kappa_{up}^{0}$ represents high frequency and low-frequency dielectric constant of oxide layer lies over 2D material sheet.
  
-In scattering contribution due to surface optical phonon scattering can be represented by the sum of in-scattering due to absorption and emission of surface optical phonons 
+The in-scattering contribution due to surface optical phonon scattering can be represented by the sum of in-scattering due to the absorption and emission of surface optical phonons. 
 
 \begin{equation}
 S_i^{in}(k) = S_a^{in}(k) + S_e^{in}(k)
@@ -707,30 +707,30 @@ For remote impurity scattering for 2D we have used the expression of equation \r
 
 
 \section{Input files:-} \label{input_files}
-In this section we are going to discuss the various input files required for running to module AMMCR. First we are going to discuss the format of "input.dat" file. "input.dat" is necessary to run to tool. There are few more input files are required to run the tool. We are to discuss the other input files later. 
+In this section, we are going to discuss the various input files required for running the module AMMCR. First, we are going to discuss the format of the "input.dat" file. "input.dat" is necessary to run the tool. There are few more input files are required to run the tool. We are to discuss the other input files later. 
 
 \subsection{List of commands for input.dat file}
-In the input.dat file values of various constants required for simulation are are stored in the proper format. In this section, we report the complete list of the commands available in the AMMCR scripting language. The commands are reported in alphabetical order. Every command has its own syntax. For every command, a description is also reported along with an example and an explanation of that example.
+In the input.dat file, values of various constants required for simulation are stored in the proper format. In this section, we report the complete list of the commands available in the AMMCR scripting language. The commands are reported in alphabetical order. Every command has its own syntax. For every command, a description is also reported along with an example and an explanation of that example.
 
-\textbf{Note}: AMMCR scripting language is case sensitive. This means that, for example, two words like TEMPERATURE and Temperature are not considered as equivalent in AMMCR.
-Second any line started with \# is considered as comment line and the line is ignored by the code.
+\textbf{Note}: AMMCR scripting language is case-sensitive. This means that, for example, two words like TEMPERATURE and Temperature are not considered as equivalent in AMMCR.
+Second, any line starting with \# is considered as comment line, and the code ignores the line.
 
 \begin{enumerate}
     \item \textbf{ACOUSTIC} \\ \\
     \textit{Syntax}: \\
     \textbf{ACOUSTIC} DP\_1 CEL\_1 DP\_2 CEL\_2 DP\_3 CEL\_3  \\ \\
     \textit{Description:} \\
-    This command sets the value of different constants required for acoustic phonon scattering. Here DP refers to acoustic deformation potential ($D_A$ unit is eV), CEL refers to elastic constant ($c_{el}$) and its is $dyne/cm^2$ for 3D bulk material and $dyne/cm$ for 2D materials. Multiple values of inputs can be given (Maximum limit is 3). \\ \\ 
+    This command sets the value of different constants required for acoustic phonon scattering. Here DP refers to acoustic deformation potential ($D_A$ unit is eV), CEL refers to elastic constant ($c_{el}$), and it is $dyne/cm^2$ for 3D bulk material and $dyne/cm$ for 2D materials. Multiple values of inputs can be given (Maximum limit is 3). \\ \\ 
     \textit{Example:}\\
     ACOUSTIC 3.2 3.578e11 4.3 4.128e11 \\ \\
     \textit{Meaning:}\\
-    For acoustic phonon scattering two sets of inputs are given. In first one, deformation potential is set to 3.2 $eV$ and elastic constant is set to $3.578 \times 10^{11} dyne/cm^2 $. In second one, deformation potential is set to 4.3 $eV$ and elastic constant is set to $4.128 \times 10^{11} dyne/cm^2 $. \\ \\
+    For acoustic phonon scattering, two sets of inputs are given. In the first one, the deformation potential is set to 3.2 $eV$, and the elastic constant is set to $3.578 \times 10^{11} dyne/cm^2 $. In the second one, the deformation potential is set to 4.3 $eV$, and the elastic constant is set to $4.128 \times 10^{11} dyne/cm^2 $. \\ \\
     
     \item \textbf{ACCEPTOR\_DOPING}\\ \\
     \textit{Syntax:} \\
     \textbf{ACCEPTOR\_DOPING} doping\_1 doping\_2 \ doping\_3 doping\_4 \\ \\
     \textit{Description:} \\
-    For ionized impurity scattering we have to specify the doping concentration of acceptor atoms. Its unit is $cm^{-3}$. Multiple values of acceptor doping concentration can be given. Maximum number of 30 values for acceptor doping concentration can be given. \\ \\
+    We have to specify the doping concentration of acceptor atoms for ionized impurity scattering. Its unit is $cm^{-3}$. Multiple values of acceptor doping concentration can be given. The maximum number of 30 values for acceptor doping concentration can be given. \\ \\
     \textit{Example:} \\
     ACCEPTOR\_DOPING 1e14 2e14 3e14 4e15 5e16 \\ \\
     \textit{Meaning:} \\ 
@@ -740,27 +740,27 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{ALLOY} POTENTIAL VOLUME FRACTION \\ \\
     \textit{Description:} \\
-    This command sets the value of different constants required for alloy scattering. POTENTIAL refers to alloy potential $U_0$ (unit is $eV$). VOLUME refers the volume of the primitive cell of alloy ($V_0$ unit is $nm^3$). FRACTION refers to value of fraction of atoms $x$ in the alloy material. \\ \\
+    This command sets the value of different constants required for alloy scattering. POTENTIAL refers to alloy potential $U_0$ (unit is $eV$). VOLUME refers to the volume of the primitive cell of alloy ($V_0$ unit is $nm^3$). FRACTION refers to the value of the fraction of atoms $x$ in the alloy material. \\ \\
     \textit{Example:} \\ 
     ALLOY 3.4 4.3 0.4 \\ \\
     \textit{Meaning:} \\    
-    For alloy scattering, alloy potential $U_0$is set to 3.4 $eV$, volume $V_0$ is set to $4.3 nm^3$ and fraction of atoms $x$ of alloy atoms are set to 0.4. \\ \\
+    For alloy scattering, alloy potential $U_0$ is set to 3.4 $eV$, volume $V_0$ is set to $4.3 nm^3$, and a fraction of atoms $x$ of alloy atoms are set to 0.4. \\ \\
   
     \item \textbf{BAND\_GAP} \\ \\
     \textit{Syntax:} \\
     \textbf{BAND\_GAP} VALUE \\ \\
     \textit{Description:} \\
-    It specify the energy band gap of the semiconductor. It’s unit is $eV$. It is not necessary to specify the band gap of the material. In that case, the program will calculate the energy band gap from the difference between conduction band minima and valence band maxima of band structure data given as input. If some value is specified, then that value is used for calculation. \\ \\
+    It specifies the energy band gap of the semiconductor. It’s unit is $eV$. It is not necessary to specify the band gap of the material. In that case, the program will calculate the energy band gap from the difference between conduction band minima and valence band maxima of band structure data given as input. If some value is specified, then that value is used for calculation. \\ \\
     \textit{Example:} \\
     BAND\_GAP 1.5 \\ \\
     \textit{Meaning:} \\  
-    Band gap of material is 1.5 $eV$. \\ \\
+    The band gap of the material is 1.5 $eV$. \\ \\
 
     \item \textbf{CBAR} \\ \\
     \textit{Syntax:} \\
     \textbf{CBAR} VALUE \\ \\
     \textit{Description:} \\
-    It specify the $c_{bar}$ \ref{c_bar} required for NPOP scattering rate calculation for 3D bulk material of p-type. Its unit is $dyne/cm^2$. \\ \\
+    It specifies the $c_{bar}$ \ref{c_bar} required for NPOP scattering rate calculation for 3D bulk material of p-type. Its unit is $dyne/cm^2$. \\ \\
     \textit{Example:} \\
     CBAR 9.578e+11 \\ \\
     \textit{Meaning:} \\ 
@@ -771,11 +771,11 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{DENSITY\_OF\_SEMICONDUCTOR} VALUE \\ \\
     \textit{Description:} \\
-    Its specify the density of semiconductor material. Its unit is $g/cm^3$ for 3D bulk materials and $g/cm^2$ for 2D material. If VASP is given as input, then it is not necessary to specify the density of the material and program will calculate density of material from VASP output files. But if some value is specified then that value is used for simulation. \\ \\
+    It specifies the density of semiconductor material. Its unit is $g/cm^3$ for 3D bulk materials and $g/cm^2$ for 2D material. If VASP is given as input, then it is unnecessary to specify the density of the material, and the program will calculate the density of the material from VASP output files. But if some value is specified, that value is used for simulation. \\ \\
     \textit{Example:} \\
     DENSITY\_OF\_SEMICONDUCTOR 4.5 \\ \\
     \textit{Meaning:} \\ 
-    Density of semiconductor is set to 4.5 $g/cm^3$ or 4.5 $g/cm^2$. \\ \\
+    The density of the semiconductor is set to 4.5 $g/cm^3$ or 4.5 $g/cm^2$. \\ \\
 
     \item \textbf{DIELECTRIC\_CONST\_HF} \\ \\
     \textit{Syntax:} \\
@@ -785,7 +785,7 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Example:} \\
     DIELECTRIC\_CONST\_HF 7.6 \\ \\
     \textit{Meaning:} \\    
-    The high frequency dielectric constant is set to 7.6. \\ \\
+    The high-frequency dielectric constant is set to 7.6. \\ \\
 
     \item \textbf{DIELECTRIC\_CONST\_LF} \\ \\
     \textit{Syntax:} \\
@@ -795,7 +795,7 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Example:} \\
     DIELECTRIC\_CONST\_LF 4.3 \\ \\
     \textit{Meaning:} \\    
-    The low frequency dielectric constant is set to 4.3.\\ \\
+    The low-frequency dielectric constant is set to 4.3.\\ \\
 
     \item \textbf{DISLOCATION\_DENSITY} \\ \\
     \textit{Syntax:} \\
@@ -811,27 +811,27 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{DISTANCE\_FROM\_SHEET} VALUE \\ \\
     \textit{Description:} \\
-    The command is used to specify the value of average distance $d$ of ionized carriers from 2D sheet. It is required for remote impurity scattering rate calculation for 2D materials. Its unit is $nm$. \\ \\
+    The command is used to specify the value of the average distance $d$ of ionized carriers from the 2D sheet. It is required for remote impurity scattering rate calculation for 2D materials. Its unit is $nm$. \\ \\
     \textit{Example:} \\
     DISTANCE\_FROM\_SHEET 3.2 \\ \\
     \textit{Meaning:} \\    
-    Average distance of charge carriers from 2D sheet is set to 3.2 $nm$. \\ \\
+    The average distance of charge carriers from the 2D sheet is set to 3.2 $nm$. \\ \\
     
     \item \textbf{DOS}  \\ \\
     \textit{Syntax:} \\
     \textbf{DOS} VALUE \\ \\ 
     \textit{Description:} \\
-    The command is used to set whether density of states are used according to DOSCAR file or free electron density is used for calculation. If value is given as 0, then DOSCAR is used for the density of states calculation or if value is given as 1, then free electron density of states is used for simulation. If DOSCAR is not given and then the program will automatically simulate with the free electron density of states. \\ \\
+    The command is used to set whether the density of states is used according to the DOSCAR file or free electron density is used for calculation. If the value is given as 0, then DOSCAR is used for the density of states calculation, or if the value is given as 1, then the free electron density of states is used for simulation. If DOSCAR is not given, then the program will automatically simulate with the free electron density of states. By default, DOS is set to 0. \\ \\
     \textit{Example:} \\
     DOS 0 \\ \\
     \textit{Meaning:} \\    
-    Density of states are read from DOSCAR file. \\ \\
+    The density of states is read from the DOSCAR file. \\ \\
     
     \item \textbf{DONOR\_DOPING} \\ \\
     \textit{Syntax:} \\
     \textbf{DONOR\_DOPING} VALUE\_1 VALUE\_2 VALUE\_3 ... \\ \\ 
     \textit{Description:} \\
-    The command is used to set the concentration of donor atoms. Its unit is $cm^{-3}$ (for 3D bulk materials) or $cm^{-2}$ (for 2D materials). Multiple values of donor doping can be given. Maximum number of 30 donor doping concentration can be given. \\ \\  
+    The command is used to set the concentration of donor atoms. Its unit is $cm^{-3}$ (for 3D bulk materials) or $cm^{-2}$ (for 2D materials). Multiple values of donor doping can be given. A maximum number of 30 donor doping concentrations can be given. \\ \\  
     \textit{Example:} \\
     DONOR\_DOPING 1e12 2e12 3e12 4e12 \\ \\
     \textit{Meaning:} \\  
@@ -849,34 +849,34 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{GEOMETRY} TYPE \\ \\
     \textit{Description:} \\
-    The command is used to specify the geometry of material. We have included two types of geometry (3D or 2D) in the module till now. \\ \\
+    The command is used to specify the geometry of the material. We have included two types of geometry (3D or 2D) in the module till now. \\ \\
     \textit{Example:} \\
     GEOMETRY 3D \\
     GEOMETRY 2D \\ \\
     \textit{Meaning:} \\   
-    We have written two examples. First one set the simulation for 3D material and second one set the simulation for 2D material. \\ \\
+    We have written two examples. The first one sets the simulation for 3D material, and the second one sets the simulation for 2D material. \\ \\
 
     \item \textbf{INPUT}   \\ \\
     \textit{Syntax:} \\
     \textbf{INPUT} MODEL \\ \\
     \textit{Description:} \\
-    The command is used to set the model for input. We have included following models in the module \\
+    The command is used to set the model for input. We have included the following models in the module \\
     \begin{enumerate}
         \item \textbf{VASP} \\
-        If input model is VASP then module read band structure, density and other input from files generated by using VASP module (EIGENVAL, DOSCAR, PROCAR and OUTCAR). If this model is chosen as input then four more input files EIGENVAL, DOSCAR, PROCAR and OUTCAR should be given as input. Out of these four input files two input files  EIGENVAL and OUTCAR files are necessary for simulation. \\
+        If the input model is VASP, then the module reads band structure, density, and other input from files generated by using the VASP module (EIGENVAL, DOSCAR, PROCAR, and OUTCAR). If this model is chosen as input, then four more input files, EIGENVAL, DOSCAR, PROCAR and OUTCAR, should be given as input. Out of these four input files, two input files, EIGENVAL and OUTCAR files are necessary for simulation. \\
         \item \textbf{TABLE\_FORM} \\
-        if input model is TABLE\_FORM is given then we have to give three more input files (EK\_CB.dat, EK\_CB.dat and DOS.dat) for simulation. Format of the input files for this model are follows:-
+        if the input model is TABLE\_FORM is given, then we have to give three more input files (EK\_CB.dat, EK\_CB.dat, and DOS.dat) for simulation. The format of the input files for this model is as follows:-
         \begin{enumerate}
             \item \textbf{Format of EK\_CB.dat} \\
-            EK\_CB.dat specify the E-k values of conduction band. Its first line is skipped by the program and treated as comment line. From second line afterwards, it lists k-points and energy values at different kpoints of the conduction band. It has four columns. First three columns lists the values of kx, ky and kz (unit is $cm^{-1}$) respectively and fourth lines lists the value of energy (in $eV$).  \\
+            EK\_CB.dat specifies the E-k values of the conduction band. Its first line is skipped by the program and treated as a comment line. From the second line afterward, it lists k-points and energy values at different kpoints of the conduction band. It has four columns. The first three columns list the values of kx, ky and kz (unit is $cm^{-1}$), respectively and the fourth lines list the value of energy (in $eV$).  \\
             \item \textbf{Format of EK\_VB.dat} \\
-            EK\_VB.dat lists the E-k values of valence band. Its format is same as like EK\_CB.dat. \\
+            EK\_VB.dat lists the E-k values of the valence band. Its format is the same as EK\_CB.dat. \\
             \item \textbf{Format of DOS.dat} \\
-            It lists the value of density of states with energy. Its first line is skipped by the program and treated as comment line. From second line afterwards, it lists the energy and density of states. It has two columns. First column lists the energy (in $eV$) and second column lists the density of states (per $eV$ per $cm^3$). 
+            It lists the value of the density of states with energy. Its first line is skipped by the program and treated as a comment line. From the second line afterward, it lists the energy and density of states. It has two columns. The first column lists the energy (in $eV$), and the second column lists the density of states (per $eV$ per $cm^3$). 
         \end{enumerate}
           
         \item \textbf{TIGHT\_BINDING\_BAND\_STRUCTURE} \\
-        In this model, tight binding band structure is generated for different materials. User has to just specify the material for simulation. There is separate command \textbf{TBS\_MATERIAL} to select material for tight binding band structure. This command is discussed later in the manual. 
+        This model generates a tight binding band structure for different materials. The user has to specify the material for the simulation. There is a separate command \textbf{TBS\_MATERIAL} to select material for tight binding band structure. This command is discussed later in the manual. 
     \end{enumerate}
     
     \textit{Example:} \\ 
@@ -884,15 +884,25 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Meaning:} \\    
     The simulation will read input from files EIGENVAL, DOSCAR, PROCAR and OUTCAR generated by using module VASP. \\ \\
 
-    \item \textbf{INTRAVALLEY}   \\ \\
+    \item \textbf{INTERFACE\_ROUGHNESS}  \\ \\
     \textit{Syntax:} \\
-    \textbf{INTRAVALLEY} FREQ\_1 CONST\_1 NFV\_1 FREQ\_2 CONST\_2 NFV\_2 FREQ\_3 CONST\_3 NFV\_3 \\ \\
+    \textbf{INTERFACE\_ROUGHNESS} CL RMS $N_d$ $N_s$ \\ \\
     \textit{Description:} \\
-    This command set the values of different constants required for intravalley phonon scattering rate calculation. FREQ denotes the intravalley phonon frequency ($w_{iv}$ unit is $THz$), CONST denotes the coupling constant ($D_{iv} $ unit is $10^8 eV/cm$) and NFV denotes the number of final valleys for intravalley scattering. Multiple values of inputs can be given (maximum limit is 5). \\ \\
+    This command sets the value of inputs required for interface roughness scattering rate calculation. CL set the value of correlation length $L$ for the fluctuations (unit is $nm$), RMS specifies the value of RMS (or average) height of fluctuations $\Delta$ (unit is $nm$), $N_d$ specify the value of doping density of carriers $N_d$ of the space charge region (unit is $cm^{-2}$) and $N_s$ specify the value of sheet carrier density $n_s$ of the inversion (or accumulation) layer (unit is $cm^{-2}$). \\ \\  
     \textit{Example:} \\
-    INTRAVALLEY 3.2 4.5 3 2.3 1.2 4 \\ \\
+    INTERFACE\_ROUGHNESS 5 0.4 1e12 2e13 \\ \\
+    \textit{Meaning:} \\    
+    For interface roughness scattering correlation length $L$ is set to 5 $nm$, RMS height of fluctuations $\delta$ is set to 0.4 $nm$, doping density of carriers $N_d$ of the space charge region is set to $1 \times 10^{12} \; cm^{-2}$ and value of sheet carrier density $n_s$ is set to $2 \times 10^{13} \; cm^{-2}$. \\ \\
+
+    \item \textbf{INTERVALLEY}   \\ \\
+    \textit{Syntax:} \\
+    \textbf{INTERVALLEY} FREQ\_1 CONST\_1 NFV\_1 FREQ\_2 CONST\_2 NFV\_2 FREQ\_3 CONST\_3 NFV\_3 \\ \\
+    \textit{Description:} \\
+    This command set the values of different constants required for intervalley phonon scattering rate calculation. FREQ denotes the intervalley phonon frequency ($w_{iv}$ unit is $THz$), CONST denotes the coupling constant ($D_{iv} $ unit is $10^8 eV/cm$) and NFV denotes the number of final valleys for intervalley scattering. Multiple values of inputs can be given (maximum limit is 5). \\ \\
+    \textit{Example:} \\
+    INTERVALLEY 3.2 4.5 3 2.3 1.2 4 \\ \\
     \textit{Meaning:} \\  
-    For intravalley scattering two sets of inputs are given. In first one, frequency of phonon is set to 3.2 $THz$, coupling constant value is $4.5 \times 10^{8} \; eV/cm$ and number of final valleys for scattering is 3. In second one, frequency of phonon is set to 2.3 $THz$, coupling constant value is $1.2 \times 10^{8} \; eV/cm$ and number of final valleys for scattering is 4. \\ \\    
+    For intervalley scattering, two sets of inputs are given. In the first one, the phonon frequency is set to 3.2 $THz$, and the coupling constant value is $4.5 \times 10^{8} \; eV/cm$, and the number of final valleys for scattering is 3. In the second one, the frequency of the phonon is set to 2.3 $THz$, and the coupling constant value is $1.2 \times 10^{8} \; eV/cm$ and the number of final valleys for scattering is 4. \\ \\    
 
 
     %\item \textbf{K\_SEGMENT}   \\
@@ -906,27 +916,27 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{LATTICE\_CONSTANT} value \\ \\
     \textit{Description:} \\
-    This command set the value of lattice constant $a_l$. Its unit is $nm$. This is required for dislocation scattering rate calculation. \\ \\
+    This command sets the value of lattice constant $a_l$. Its unit is $nm$. This is required for dislocation scattering rate calculation. \\ \\
     \textit{Example:} \\
     LATTICE\_CONSTANT 0.451 \\ \\
     \textit{Meaning:} \\    
-    Lattice constant is set to 0.451 $nm$. \\ \\
+    The lattice constant is set to 0.451 $nm$. \\ \\
 
     \item \textbf{MAGNETIC\_FIELD}   \\ \\
     \textit{Syntax:} \\
     \textbf{MAGNETIC\_FIELD} VALUE \\
     \textit{Description:} \\
-    This command sets the value of magnetic field for simulation. Its unit is $Tesla$. This is required for calculation of hall factor, hall mobility, hall coefficient and magneto-resistance.\\ \\
+    This command sets the value of the magnetic field for simulation. Its unit is $Tesla$. This is required for the calculation of hall factor, hall mobility, hall coefficient, and magneto-resistance.\\ \\
     \textit{Example:} \\
     TESLA 0.4 \\ \\
     \textit{Meaning:} \\    
-    Magnetic field is set to 0.4 Tesla. \\  \\
+    The magnetic field is set to 0.4 Tesla. \\  \\
 
     \item \textbf{NEUTRAL\_IMPURITY}   \\ \\
     \textit{Syntax:} \\
     \textbf{NEUTRAL\_IMPURITY} VALUE\_1 VALUE\_2 VALUE\_3 ... \\ \\
     \textit{Description:} \\
-    This command sets the values of neutral impurity concentration in the material. Its unit is $cm^{-3}$ for 3D bulk material or $cm^{-2}$ for 2D materials. Multiple values of neutral impurity concentrations can be given (maximum limit is 30). The number of neutral impurity concentrations given must be same as donor and acceptor impurity concentrations. It is not necessary to input the value of neutral impurity concentration. \\ \\
+    This command sets the values of neutral impurity concentration in the material. Its unit is $cm^{-3}$ for 3D bulk material or $cm^{-2}$ for 2D materials. Multiple values of neutral impurity concentrations can be given (the maximum limit is 30). The number of neutral impurity concentrations given must be the same as donor and acceptor concentrations. It is not necessary to input the value of neutral impurity concentration. \\ \\
     \textit{Example:} \\
     NEUTRAL\_IMPURITY 1e12 1e13 1e14 1e15 \\ \\
     \textit{Meaning:} \\   
@@ -941,7 +951,7 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Example:} \\
     NPOP\_3D 1.4 3.2 2.1 3.4 \\ \\
     \textit{Meaning:} \\   
-    For NPOP scattering for 3D bulk materials two sets of inputs are given. In first one, frequency of phonon is set to 1.4 $THz$ and coupling constant value is $3.2 \times 10^{8} \; eV/cm$. In second one, frequency of phonon is set to 2.1 $THz$ and coupling constant value is $3.4 \times 10^{8} \; eV/cm$. \\ \\     
+    Two sets of inputs are given for NPOP scattering for 3D bulk materials. The first one sets the phonon frequency to 1.4 $THz$ and the coupling constant value to $3.2 \times 10^{8} \; eV/cm$. The second one sets the phonon frequency to 2.1 $THz$ and the coupling constant value to $3.4 \times 10^{8} \; eV/cm$. \\ \\     
     \item \textbf{NPOP\_2D}   \\ \\
     \textit{Syntax:} \\
     \textbf{NPOP\_2D} FREQ\_1 CONST\_1 NFV\_1 FREQ\_2 CONST\_2 NFV\_2 FREQ\_3 CONST\_3 NFV\_3 \\ \\
@@ -950,23 +960,23 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Example:} \\
     NPOP\_2D 1.4 3.2 3 2.1 3.4 4  \\ \\
     \textit{Meaning:} \\  
-    For NPOP scattering for 2D materials two sets of inputs are given. In first one, frequency of phonon is set to 1.4 $THz$, coupling constant value is $3.2 \times 10^{8} \; eV/cm$ and number of final valleys for scattering is 3. In second one, frequency of phonon is set to 2.1 $THz$, coupling constant value is $3.4 \times 10^{8} \; eV/cm$ and number of final valleys for scattering is 4.    \\ \\
+    For NPOP scattering for 2D materials, two sets of inputs are given. In the first one, the frequency of the phonon is set to 1.4 $THz$, and the coupling constant value is $3.2 \times 10^{8} \; eV/cm$, and the number of final valleys for scattering is 3. In the second one, the frequency of the phonon is set to 2.1 $THz$, and the coupling constant value is $3.4 \times 10^{8} \; eV/cm$ and the number of final valleys for scattering is 4.    \\ \\
     
     \item \textbf{NUMBER\_OF\_ITERATIONS }     \\ \\
     \textit{Syntax:} \\
     \textbf{NUMBER\_OF\_ITERATIONS} VALUE \\ \\
     \textit{Description:} \\
-    This command sets the number of iterations for calculation of perturbation of distribution function. Typically in 5 to 6 iterations perturbation in distribution function gets converged. \\ \\
+    This command sets the number of iterations for the calculation of the perturbation of the distribution function. Typically, in 5 to 6 iterations, perturbation in the distribution function gets converged. \\ \\
     \textit{Example:} \\
     NUMBER\_OF\_ITERATIONS 10 \\ \\
     \textit{Meaning:} \\    
-    Number of iterations is set to 10 for calculation of perturbation in distribution function. \\ \\
+    The number of iterations is set to 10 for the calculation of perturbation in the distribution function. \\ \\
     
     \item \textbf{OMEGA}   \\ \\
     \textit{Syntax:} \\
     \textbf{OMEGA} VALUE\_1 VALUE\_2 VALUE\_3 VALUE\_4 .... \\ \\
     \textit{Description:} \\
-    This command sets the value of frequencies (unit is Hz) for calculation of conductivity and mobility. Multiple values of frequency can be given (Maximum limit is 30). \\
+    This command sets the value of frequencies (unit is Hz) for calculating conductivity and mobility. Multiple values of frequency can be given (Maximum limit is 30). \\
     \textit{Example:} \\
     OMEGA 1e12 1e13 1e14 1e15 \\ \\
     \textit{Meaning:} \\    
@@ -977,57 +987,47 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{POP\_FREQUENCY} VALUE \\ \\
     \textit{Description:} \\
-    This command sets the value of frequency of polar optical phonon (unit is $THz$). This is required for polar optical phonon scattering rate calculation. \\ \\
+    This command sets the value of the frequency of the polar optical phonon (unit is $THz$). This is required for polar optical phonon scattering rate calculation. \\ \\
     \textit{Example:} \\
     POP\_FREQUENCY 1.4 \\ \\
     \textit{Meaning:} \\   
-    Frequency of POP is set to 1.4 $THz$. \\ \\ 
+    The frequency of POP is set to 1.4 $THz$. \\ \\ 
 
     \item \textbf{POP\_FREQUENCY\_SUBSTRATE}   \\ \\
     \textit{Syntax:} \\
     \textbf{POP\_FREQUENCY\_SUBSTRATE} VALUE \\ \\
     \textit{Description:} \\
-    This command sets the value of frequency of polar optical phonon of substrate (unit is $THz$). This is required for remote interfacial phonon scattering rate calculation for 2D materials. \\ \\
+    This command sets the frequency value of the polar optical phonon of the substrate (unit is $THz$). This is required for remote interfacial phonon scattering rate calculation for 2D materials. \\ \\
     \textit{Example:} \\
     POP\_FREQUENCY\_SUBSTRATE 3.2 \\ \\
     \textit{Meaning:} \\   
-    Frequency of remote interfacial phonon of substrate is set to 3.2 $THz$. \\ \\ 
+    The frequency of the remote interfacial phonon of the substrate is set to 3.2 $THz$. \\ \\ 
 
     \item \textbf{PZ\_COEFFICIENT}   \\ \\
     \textit{Syntax:} \\
     \textbf{PZ\_COEFFICIENT} VALUE \\ \\
     \textit{Description:} \\
-    This command specify the value of piezoelectric coefficient ( $P$ unitless for 3D materials and $e_{11}$ its unit is $Cm^{-1}$ for 2D materials) and it is required for piezoelectric scattering rate calculation. \\ \\
+    This command specifies the value of the piezoelectric coefficient ( $P$ unitless for 3D materials and $e_{11}$ its unit is $Cm^{-1}$ for 2D materials), and it is required for piezoelectric scattering rate calculation. \\ \\
     \textit{Example:} \\
     PZ\_COEFFICIENT 3e-13 \\
     \textit{Meaning:} \\  
-    Piezoelectric coefficient is set to $3 \times 10^{-13}$. \\ \\
+    The piezoelectric coefficient is set to $3 \times 10^{-13}$. \\ \\
 
     \item \textbf{REMOTE\_IMPURITY\_CONCENTRATION} \\ \\
     \textit{Syntax:} \\
     \textbf{REMOTE\_IMPURITY\_CONCENTRATION} VALUE \\ \\
     \textit{Description:} \\
-    This command specify the value of remote impurity concentration lies inside the substrate (unit is $cm^{-2}$).\\ \\
+    This command specifies the value of remote impurity concentration that lies inside the substrate (unit is $cm^{-2}$).\\ \\
     \textit{Example:} \\
     REMOTE\_IMPURITY\_CONCENTRATION 1e12 \\ \\
     \textit{Meaning:} \\  
-    Concentration of remote impurities is set to $1 \times 10^{12} \; cm^{-2}$. \\ \\
-
-    \item \textbf{INTERFACE\_ROUGHNESS}  \\ \\
-    \textit{Syntax:} \\
-    \textbf{INTERFACE\_ROUGHNESS} CL RMS $N_d$ $N_s$ \\ \\
-    \textit{Description:} \\
-    This commands sets the value of different inputs required for interface roughness scattering rate calculation. CL set the value of correlation length $L$ for the fluctuations (unit is $nm$), RMS specify the value of RMS (or average) height of fluctuations $\Delta$ (unit is $nm$), $N_d$ specify the value of doping density of carriers $N_d$ of the space charge region (unit is $cm^{-2}$) and $N_s$ specify the value of sheet carrier density $n_s$ of the inversion (or accumulation) layer (unit is $cm^{-2}$). \\ \\  
-    \textit{Example:} \\
-    INTERFACE\_ROUGHNESS 5 0.4 1e12 2e13 \\ \\
-    \textit{Meaning:} \\    
-    For interface roughness scattering correlation length $L$ is set to 5 $nm$, RMS height of fluctuations $\delta$ is set to 0.4 $nm$, doping density of carriers $N_d$ of the space charge region is set to $1 \times 10^{12} \; cm^{-2}$ and value of sheet carrier density $n_s$ is set to $2 \times 10^{13} \; cm^{-2}$. \\ \\
+    The concentration of remote impurities is set to $1 \times 10^{12} \; cm^{-2}$. \\ \\
     
     \item \textbf{SCATTERING\_MECHANISM\_CONTROL}  \\ \\
     \textit{Syntax:} \\
-    \textbf{SCATTERING\_MECHANISM\_CONTROL} II POP NPOP AC PZ DIS ALLOY INTRA NEUTRAL SO\_POP IR \\ \\
+    \textbf{SCATTERING\_MECHANISM\_CONTROL} II POP NPOP AC PZ DIS ALLOY INTER NEUTRAL SO\_POP IR \\ \\
     \textit{Description:} \\
-    This command specify the scattering mechanisms to be included in the simulation. The value of different elements in this command control the different scattering mechanisms that will be included in the simulation. If an element is zero, then corresponding scattering mechanism is not included in the simulation and if an element is one then, that particular scattering mechanism is included in the simulation. Order of different scattering mechanism is follows 
+    This command specifies the scattering mechanisms to be included in the simulation. The value of different elements in this command controls the different scattering mechanisms included in the simulation. If an element is zero, then the corresponding scattering mechanism is not included in the simulation, and if an element is one, then that particular scattering mechanism is included in the simulation. The order of different scattering mechanisms is as follows 
     \begin{enumerate}
         \item II - Ionized impurity scattering.
         \item POP - Polar optical phonon scattering.
@@ -1036,7 +1036,7 @@ Second any line started with \# is considered as comment line and the line is ig
         \item PZ - Piezoelectric scattering.
         \item DIS - Dislocation scattering.
         \item ALLOY - Alloy scattering.
-        \item INTRA - Intravalley scattering.
+        \item INTER - Intervalley scattering.
         \item NEUTRAL - Neutral impurity scattering. 
         \item SO\_POP - Remote interfacial phonon or surface optical phonon scattering.
         \item IR - Interface roughness scattering.
@@ -1051,65 +1051,78 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Syntax:} \\
     \textbf{SUBSTRATE\_DIELECTRIC\_CONST\_LF} VALUE \\ \\
     \textit{Description:} \\
-    This command sets the value of low frequency dielectric constant ($\kappa_{sub}^0$) of the substrate. This value is required for remote impurity and remote interfacial phonon scattering rate calculation for 2D materials. \\ \\
+    This command sets the value of the low-frequency dielectric constant ($\kappa_{sub}^0$) of the substrate. This value is required for remote impurity and remote interfacial phonon scattering rate calculation for 2D materials. \\ \\
     \textit{Example:} \\
     SUBSTRATE\_DIELECTRIC\_CONST\_LF 6.7 \\ \\
     \textit{Meaning:} \\    
-    The low frequency dielectric constant ($\kappa_{sub}^0$) of the substrate is set to 6.7. \\ \\ 
+    The low-frequency dielectric constant ($\kappa_{sub}^0$) of the substrate is set to 6.7. \\ \\ 
     
     \item \textbf{SUBSTRATE\_DIELECTRIC\_CONST\_HF}  \\ \\ \\
     \textit{Syntax:} \\
     \textbf{SUBSTRATE\_DIELECTRIC\_CONST\_HF} VALUE \\ \\
     \textit{Description:} \\
-    This command sets the value of high frequency dielectric constant ($\kappa_{sub}^{\infty}$) of the substrate. This value is required for remote interfacial phonon scattering rate calculation for 2D materials. \\ \\
+    This command sets the value of the high-frequency dielectric constant ($\kappa_{sub}^{\infty}$) of the substrate. This value is required for remote interfacial phonon scattering rate calculation for 2D materials. \\ \\
     \textit{Example:} \\
     SUBSTRATE\_DIELECTRIC\_CONST\_HF 3.2 \\ \\
     \textit{Meaning:} \\    
-    The high frequency dielectric constant ($\kappa_{sub}^{\infty}$) of the substrate is set to 3.2. \\ \\
+    The high-frequency dielectric constant ($\kappa_{sub}^{\infty}$) of the substrate is set to 3.2. \\ \\
     
     \item \textbf{TBS\_MATERIAL}   \\ \\
     \textit{Syntax:} \\
     \textbf{TBS\_MATERIAL} MATERIAL \\ \\
     \textit{Description:} \\
-    This command specify the material for tight binding band structure calculation. We have included following materials in the code
+    This command specifies the material for tight binding band structure calculation. We have included the following materials in the code
     \begin{enumerate}
         \item GRAPHENE
         \item SILICENE 
         \item GERMANENE
         \item STANENE 
     \end{enumerate}
-    User can select any one material out of these four materials. \\ \\
+    Users can select any one material out of these four materials. \\ \\
     \textit{Example:} \\
     TBS\_MATERIAL GERMANENE \\ \\
     \textit{Meaning:} \\   
-    Germanene is selected as input material for tight binding band structure calculation. \\ \\ 
+    Germanene is selected as the input material for tight binding band structure calculation. \\ \\ 
 
+    \item 
+    \textbf{TEMPERATURE}
+    \textit{Syntax:} \\
+    \textbf{TEMPERATURE} VALUE\_1 VALUE\_2 VALUE\_3 VALUE\_4 VALUE\_5 \\
+    
+    \textit{Description:} \\
+    This command sets the value of temperature for simulation. Its unit is Kelvin. A maximum number of 30 values for temperature can be given. \\
+    \textit{Example:} \\
+    TEMPERATURE 50 100 150 200 250 300 \\ \\
+    \textit{Meaning:} \\  The temperature for simulation is set to 50, 100, 150, 200, 250 and 300 Kelvin.
+     \\ \\    
+
+    
     \item \textbf{TOP\_OXIDE\_DIELECTRIC\_CONST\_HF} \\  \\
     \textit{Syntax:} \\
     \textbf{TOP\_OXIDE\_DIELECTRIC\_CONST\_HF} VALUE \\ \\
     \textit{Description:} \\
-    This command sets the value of high frequency dielectric constant ($\kappa_{up}^{\infty}$) of the oxide layer lies above 2D sheet of semiconductor. This value is required for interfacial phonon scattering rate calculation for 2D materials. \\ \\
+    This command sets the value of the high-frequency dielectric constant ($\kappa_{up}^{\infty}$) of the oxide layer that lies above 2D sheet of semiconductor. This value is required for interfacial phonon scattering rate calculation for 2D materials. \\ \\
     \textit{Example:} \\
     SUBSTRATE\_DIELECTRIC\_CONST\_HF 6.7 \\ \\
     \textit{Meaning:} \\    
-    The high frequency dielectric constant ($\kappa_{sub}^{\infty}$) of the substrate is set to 6.7. \\ \\
+    The high-frequency dielectric constant ($\kappa_{sub}^{\infty}$) of the substrate is set to 6.7. \\ \\
    
     \item \textbf{TOP\_OXIDE\_DIELECTRIC\_CONST\_LF}   \\ \\
     \textit{Syntax:} \\
     \textbf{TOP\_OXIDE\_DIELECTRIC\_CONST\_LF} VALUE  \\ \\
     \textit{Description:} \\
-    This command sets the value of low frequency dielectric constant ($\kappa_{up}^0$) of the oxide layer lies above 2D sheet of semiconductor. This value is required for interfacial phonon scattering rate calculation for 2D materials. \\ \\
+    This command sets the value of the low-frequency dielectric constant ($\kappa_{up}^0$) of the oxide layer that lies above a 2D sheet of semiconductor. This value is required for interfacial phonon scattering rate calculation for 2D materials. \\ \\
     \textit{Example:} \\
     TOP\_OXIDE\_DIELECTRIC\_CONST\_LF 3.4 \\ \\
     \textit{Meaning:} \\    
-    The low frequency dielectric constant ($\kappa_{sub}^{0}$) of the substrate is set to 3.4. \\ \\
+    The low-frequency dielectric constant ($\kappa_{sub}^{0}$) of the substrate is set to 3.4. \\ \\
 
  
     \item \textbf{TYPE} \\ \\
     \textit{Syntax:} \\
     \textbf{TYPE} VALUE \\ \\
     \textit{Description:} \\
-    This command specify the input type of the material for simulation. There are two types 
+    This command specifies the input type of the material for simulation. There are two types 
     \begin{enumerate}
         \item N
         \item P
@@ -1117,19 +1130,19 @@ Second any line started with \# is considered as comment line and the line is ig
     \textit{Example:} \\
     TYPE N \\ \\
     \textit{Meaning:} \\    
-    It means that input material is of n-type doped. \\ \\
+    It means that the input material is of n-type doped. \\ \\
 
 \end{enumerate}
 
     \textbf{NOTE}:-
     \begin{enumerate}
 
-    \item Out of temperature and doping array, one must be of length one. If temperature and doping array both are greater than one length, then the program would stop. 
-    \item The length of donor, acceptor and neutral impurity array concentration must be the same. 
+    \item Out of temperature and doping array, one must be of length one. If the temperature and doping array both are greater than one length, then the program will stop. 
+    \item The donor, acceptor, and neutral impurity array concentration length must be the same. 
     \end{enumerate}
     
     \subsection{Input Files Required for Simulation}  
-    Table below \ref{input_files_table} lists the various input files required for different input models.
+    The table below \ref{input_files_table} lists the various input files required for different input models.
     
 \begin{table} [H]
 \caption{ Input file required for different Models}
@@ -1154,37 +1167,39 @@ The program will generate the following different output files on simulation.
 \begin{enumerate}
 
 \item mobility.dat
-\newline File \lq \textbf{mobility.dat}\rq \hspace{0.5mm} contains drift mobility of electron at different temperature or doping and also contains the contribution of mobility from different scattering mechanisms.
+\newline File \lq \textbf{mobility.dat}\rq \hspace{0.5mm} contains drift mobility of electrons at different temperatures or doping and also contains the contribution of mobility from different scattering mechanisms.
 
 \item mobility\_hall.dat
-\newline File \lq \textbf{mobility\_hall.dat}\rq \hspace{0.5mm} contains hall mobility of electron at different temperature or doping and also contains the contribution of hall mobility from different scattering mechanisms. This file is generated only if magnetic field is given as input.
+\newline File \lq \textbf{mobility\_hall.dat}\rq \hspace{0.5mm} contains hall mobility of electrons at different temperatures or doping and also contains the contribution of hall mobility from different scattering mechanisms. This file is generated only if the magnetic field is given as input.
 
 \item conductivity.dat
-\newline File \lq \textbf{conductivity.dat}\rq \hspace{0.5mm} shows conductivity calculated by using Rode and RTA (relaxation time approximation) method for different temperatures or doping concentrations. 
+\newline File \lq \textbf{conductivity.dat}\rq \hspace{0.5mm} shows conductivity calculated by using the Rode and RTA (relaxation time approximation) method for different temperatures or doping concentrations. 
 
 \item conductivity\_hall.dat 
 \newline File \lq \textbf{conductivity\_hall.dat}\rq \hspace{0.5mm} shows conductivity calculated from hall mobility using Rode and RTA (relaxation time approximation) method for different temperatures or doping concentrations. 
 
 \item hall\_factor.dat
-\newline File \lq \textbf{hall\_factor.dat}\rq \hspace{0.5mm} shows the value of hall factor calculated using Rode and RTA method for different temperature or doping concentrations.
+\newline File \lq \textbf{hall\_factor.dat}\rq \hspace{0.5mm} shows the value of the hall factor calculated using the Rode and RTA method for different temperatures or doping concentrations.
 
 \item conductivity\_freq.dat \\
 File \lq \textbf{conductivity\_freq.dat}\rq \hspace{0.5mm} shows the real and imaginary parts of conductivity and mobility calculated for different input frequencies.
 
+\begin{comment}
 \item themopower.dat
 \newline File \lq \textbf{thermopower.dat}\rq \hspace{0.5mm} shows thermopower at different temperatures or doping concentrations.
+\end{comment}
 
 \item mean\_free\_path.dat
-\newline File \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm} specifies the value of mean free (in nm) at different values of energy.
+\newline File \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm} specifies the value of mean free path (in nm) at different values of energy.
 
 \item scattering\_rate.dat
-\newline File \lq \textbf{scattering\_rate.dat}\rq \hspace{0.5mm} contains the scattering rate of different scattering mechanisms included in the simulation as well as the total relaxation time obtained by applying the Matthiessen rule. It will show the scattering rate for only the last element of the temperature array. For example, we are doing a simulation for temperature array 120 150 180 200; then it will contain scattering rate for only the last element of temperature array at 200 K. 
+\newline File \lq \textbf{scattering\_rate.dat}\rq \hspace{0.5mm} contains the scattering rate of different scattering mechanisms included in the simulation as well as the total relaxation time obtained by applying the Matthiessen rule. It will show the scattering rate for only the last element of the temperature array. For example, we are doing a simulation for temperature array 120 150 180 200; then it will contain the scattering rate for only the last element of the temperature array at 200 K. 
 
 \item g.dat
-\newline File \lq \textbf{g.dat}\rq \hspace{0.5mm} contains perturbation in distribution function for different values of energy of conduction band. It will show perturbation in the distribution function for only the last element of the temperature array. This perturbation is obtained while doing simulation for drift mobility \cite{rode1}.
+\newline File \lq \textbf{g.dat}\rq \hspace{0.5mm} contains perturbation in the distribution function for different values of energy of the conduction band. It will show perturbation in the distribution function for only the last element of the temperature array. This perturbation is obtained while doing a simulation for drift mobility \cite{rode1}.
 
 \item gH.dat or hH.dat
-\newline File \lq \textbf{gH.dat}\rq \hspace{0.5mm} and \lq \textbf{hH.dat}\rq \hspace{0.5mm} contain perturbation in distribution function due to electric field and magnetic field for different energy values of the conduction band. These files will show perturbation in the distribution function for only the last element of the temperature array. These perturbations in distribution function are obtained while doing simulation for hall mobility \cite{rode4}.
+\newline File \lq \textbf{gH.dat}\rq \hspace{0.5mm} and \lq \textbf{hH.dat}\rq \hspace{0.5mm} contain perturbation in distribution function due to electric field and magnetic field for different energy values of the conduction band. These files will show perturbation in the distribution function for only the last element of the temperature array. These perturbations in the distribution function are obtained while doing a simulation for hall mobility \cite{rode4}.
 
 \item conduction\_band.dat
 \newline File \lq \textbf{conduction\_band.dat}\rq \hspace{0.5mm} specifies the values of energy (in eV) and wave vector k values (in 1/nm) for the conduction band.
@@ -1193,9 +1208,9 @@ File \lq \textbf{conductivity\_freq.dat}\rq \hspace{0.5mm} shows the real and im
 \newline File \lq \textbf{valence\_band.dat}\rq \hspace{0.5mm} specifies the values of energy (in eV) and wave vector k values (in 1/nm) for the valence band. 
 
 \end{enumerate}
-\textbf{Note:-} For spin-polarized calculations, the program will generate two sets of output files - one set for up - spin calculation and the other set for down spin calculations. 
+\textbf{Note:-} For spin-polarized calculations, the program will generate two sets of output files - one set for up-spin calculation and the other set for down-spin calculations. 
   
-For some scattering mechanisms multiple inputs can be given. If multiple inputs are given for some scattering mechanism then code will generate few  more output files that will specify the contribution of mobility and scattering rate from individual inputs given for that scattering mechanism. 
+For some scattering mechanisms, multiple inputs can be given. If multiple inputs are given for some scattering mechanism, then the code will generate few more output files that will specify the contribution of mobility and scattering rate from individual inputs given for that scattering mechanism. 
 
 \begin{enumerate}
     \item For acoustic scattering \\ acoustic\_mobility.dat  and acoustic\_scattering\_rate.dat. \\
@@ -1205,8 +1220,8 @@ For some scattering mechanisms multiple inputs can be given. If multiple inputs 
     \item For NPOP scattering \\ 
     npop\_mobility.dat and npop\_scattering\_rate.dat 
     
-    \item For intravalley scattering \\
-    intravalley\_mobility.dat and intravalley\_scattering\_rate.dat 
+    \item For intervalley scattering \\
+    intervalley\_mobility.dat and intervalley\_scattering\_rate.dat 
         
     \item For POP scattering \\
     pop\_mobility.dat, pop\_out\_scattering\_rate.dat and pop\_in\_scattering\_rate.dat.
@@ -1218,10 +1233,10 @@ For some scattering mechanisms multiple inputs can be given. If multiple inputs 
 
 \section{Examples} \label{examples}
 \subsection{Example 1 - ZnSe}
-\lq \textbf{Examples}\rq \hspace{0.5mm} folder contains a folder \lq \textbf{ZnSe}\rq \hspace{0.5mm}, this folder contains five files \lq \textbf{EIGENVAL}\rq \hspace{0.5mm}, \lq \textbf{PROCAR}\rq \hspace{0.5mm}, \lq \textbf{DOSCAR}\rq \hspace{0.5mm}, \lq \textbf{OUTCAR}\rq \hspace{0.5mm} and \lq \textbf{input.dat}\rq \hspace{0.5mm}. These files contains ZnSe band structure, wave function admixture, the density of states and different parameters for ZnSe required for simulation \cite{anup1}. Copy these five files to folder 'code' to run code for ZnSe. Open the terminal in the folder and run command \textbf{./AMMCR} at the terminal. It will generates following output files \lq \textbf{mobility.dat}\rq \hspace{0.5mm}, \lq \textbf{conductivity.dat}\rq \hspace{0.5mm}, \lq \textbf{thermopower.dat}\rq \hspace{0.5mm}, \lq \textbf{scattering\_rate.dat}\rq \hspace{0.5mm}, \lq \textbf{g.dat}\rq \hspace{0.5mm}, \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm}, \lq \textbf{conduction\_band.dat}\rq \hspace{0.5mm} and \lq \textbf{valence\_band.dat}\rq \hspace{0.5mm}. The files \lq \textbf{mobility.dat}\rq \hspace{0.5mm}, \lq \textbf{conductivity.dat}\rq \hspace{0.5mm} and \lq \textbf{thermopower.dat}\rq \hspace{0.5mm} will contain mobility, conductivity and  Seebeck coefficient at different temperatures respectively. \lq \textbf{scattering\_rate.dat}\rq \hspace{0.5mm}  file contains scattering rate for different scattering mechanisms at only the last temperature point of temperature array. \lq \textbf{g.dat}\rq \hspace{0.5mm} file contains perturbation in distribution function at only last temperature point of temperature array. \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm} file contains mean free path (in nm) at different values of energy. \lq \textbf{conduction\_band.dat}\rq \hspace{0.5mm} and \lq \textbf{valence\_band.dat}\rq \hspace{0.5mm} files contain conduction band and valence band E-k values for conduction band and valence band respectively.
+\lq \textbf{Examples}\rq \hspace{0.5mm} folder contains a folder \lq \textbf{ZnSe}\rq \hspace{0.5mm}, this folder contains five files \lq \textbf{EIGENVAL}\rq \hspace{0.5mm}, \lq \textbf{PROCAR}\rq \hspace{0.5mm}, \lq \textbf{DOSCAR}\rq \hspace{0.5mm}, \lq \textbf{OUTCAR}\rq \hspace{0.5mm} and \lq \textbf{input.dat}\rq \hspace{0.5mm}. These files contain ZnSe band structure, wave function admixture, the density of states and different parameters for ZnSe required for simulation \cite{anup1}. Copy these five files to folder 'code' to run code for ZnSe. Open the terminal in the folder and run command \textbf{./AMMCR} at the terminal. It will generates following output files \lq \textbf{mobility.dat}\rq \hspace{0.5mm}, \lq \textbf{conductivity.dat}\rq \hspace{0.5mm}, \lq \textbf{scattering\_rate.dat}\rq \hspace{0.5mm}, \lq \textbf{g.dat}\rq \hspace{0.5mm}, \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm}, \lq \textbf{conduction\_band.dat}\rq \hspace{0.5mm} and \lq \textbf{valence\_band.dat}\rq \hspace{0.5mm}. The files \lq \textbf{mobility.dat}\rq \hspace{0.5mm} and \lq \textbf{conductivity.dat}\rq \hspace{0.5mm} will contain mobility and conductivity at different temperatures respectively. \lq \textbf{scattering\_rate.dat}\rq \hspace{0.5mm}  file contains scattering rate for different scattering mechanisms at only the last temperature point of the temperature array. \lq \textbf{g.dat}\rq \hspace{0.5mm} file contains perturbation in the distribution function at only the last temperature point of the temperature array. \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm} file contains a mean free path (in nm) at different values of energy. \lq \textbf{conduction\_band.dat}\rq \hspace{0.5mm} and \lq \textbf{valence\_band.dat}\rq \hspace{0.5mm} files contain conduction band and valence band E-k values for conduction band and valence band respectively.
  
 \subsection{Example 2 - CdS}
-Similarly \lq \textbf{Examples}\rq \hspace{0.5mm} folder contains a folder \lq \textbf{CdS}\rq \hspace{0.5mm}, this folder contains five files \lq \textbf{EIGENVAL}\rq \hspace{0.5mm}, \lq \textbf{PROCAR}\rq \hspace{0.5mm}, \lq \textbf{DOSCAR}\rq \hspace{0.5mm}, \lq \textbf{OUTCAR}\rq \hspace{0.5mm} and \lq \textbf{input.dat}\rq \hspace{0.5mm} for CdS simulation. These files contains CdS band structure, wave function admixture, density of states and different parameters for CdS required for simulation \cite{anup2}. Copy these five files to folder 'code'. Open a terminal in the folder and run command \textbf{./AMMCR} at the terminal. It will generates eight output files \lq \textbf{mobility.dat}\rq,\lq \textbf{conductivity.dat}\rq, \lq \textbf{thermopower.dat}\rq, \lq \textbf{scattering\_rate.dat}\rq, \lq \textbf{g.dat}\rq, \lq \textbf{conduction\_band.dat}\rq, \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm} and \lq \textbf{valence\_band.dat}\rq. 
+Similarly \lq \textbf{Examples}\rq \hspace{0.5mm} folder contains a folder \lq \textbf{CdS}\rq \hspace{0.5mm}, this folder contains five files \lq \textbf{EIGENVAL}\rq \hspace{0.5mm}, \lq \textbf{PROCAR}\rq \hspace{0.5mm}, \lq \textbf{DOSCAR}\rq \hspace{0.5mm}, \lq \textbf{OUTCAR}\rq \hspace{0.5mm} and \lq \textbf{input.dat}\rq \hspace{0.5mm} for CdS simulation. These files contain CdS band structure, wave function admixture, density of states, and different parameters for CdS required for simulation \cite{anup2}. Copy these five files to folder 'code.' Open a terminal in the folder and run command \textbf{./AMMCR} at the terminal. It will generates following output files \lq \textbf{mobility.dat}\rq,\lq \textbf{conductivity.dat}\rq, \lq \textbf{scattering\_rate.dat}\rq, \lq \textbf{g.dat}\rq, \lq \textbf{conduction\_band.dat}\rq, \lq \textbf{mean\_free\_path.dat}\rq \hspace{0.5mm} and \lq \textbf{valence\_band.dat}\rq. 
 
 \subsection{Example 3 - Ti\textsubscript{2}CO\textsubscript{2}}
 Similarly \lq \textbf{Examples}\rq \hspace{0.5mm} folder contains a folder \lq \textbf{Ti2CO2}\rq \hspace{0.5mm}, this folder contains five files \lq \textbf{EIGENVAL}\rq \hspace{0.5mm}, \lq \textbf{PROCAR}\rq \hspace{0.5mm}, \lq \textbf{DOSCAR}\rq \hspace{0.5mm}, \lq \textbf{OUTCAR}\rq \hspace{0.5mm} and \lq \textbf{input.dat}\rq \hspace{0.5mm} for Ti\textsubscript{2}CO\textsubscript{2} simulation. These files contains Ti\textsubscript{2}CO\textsubscript{2} band structure, wave function admixture, density of states and different parameters for Ti\textsubscript{2}CO\textsubscript{2} required for simulation \cite{anup3}. Copy these five files to folder \lq \textbf{code}\rq \hspace{0.5mm}. Open a terminal in the folder and run command \textbf{./AMMCR} at the terminal. Different output files will get generated in the folder.

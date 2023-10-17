@@ -689,7 +689,7 @@ void read_input_file()
 
 
 
-		if(str=="INTRAVALLEY")    //  //  De_iv unit is 10^8 eV/cm  and //  we_iv unit is THz
+		if(str=="INTERVALLEY")    //  //  De_iv unit is 10^8 eV/cm  and //  we_iv unit is THz
 		{
 			getline(in,ss);
 			stringstream tmp(ss);
@@ -730,11 +730,11 @@ void read_input_file()
 			//cout<<"count = "<<count<<endl;
 			if(count%3!=0)
 			{
-				cout<<"Proper inputs are not given for INTRAVALLEY scattering. Exit from program"<<endl;
+				cout<<"Proper inputs are not given for INTERVALLEY scattering. Exit from program"<<endl;
 				exit(EXIT_FAILURE);							
 			}	
 				
-			cout<< "Sr. No.     Frequency for intravally scattering (Hz)         Coupling constants (1e8 eV/cm)		Number of final valley for scattering "<<endl;
+			cout<< "Sr. No.     Frequency for intervally scattering (Hz)         Coupling constants (1e8 eV/cm)		Number of final valley for scattering "<<endl;
 			for(int i=0;i<iv_number;i++)
 			{
 				cout<<i+1<<"          "<<we[i]<< " Hz                                  "<<De[i]<<"    e8 eV/cm              "<<nfv[i]<<endl;
@@ -943,7 +943,7 @@ void read_input_file()
 		  //scattering_mechanisms[5] = 0;  // Transverse optical POP scattering be default is zero
 		  scattering_mechanisms[6] = a1[5];	// Dislocation scattering 
 		  scattering_mechanisms[7] = a1[6];	// Alloy scattering
-		  scattering_mechanisms[8] = a1[7];	// Intra-valley scattering
+		  scattering_mechanisms[8] = a1[7];	// Inter-valley scattering
 		  scattering_mechanisms[9] = a1[8];	// Neutral impurity scattering
 		  scattering_mechanisms[10] = a1[9];	// so pop scattering
 		  scattering_mechanisms[11] = a1[10];	// IR scattering
@@ -1190,7 +1190,7 @@ void read_input_file()
 		}
 		
 		
-		if(str=="INTRAVALLEY_PHONON_FREQUENCY")    // for INTRA VALLEY scattering      // phonon frequency   unit is THZ   line no. 21
+		if(str=="INTERVALLEY_PHONON_FREQUENCY")    // for INTER VALLEY scattering      // phonon frequency   unit is THZ   line no. 21
 		{
 			getline(in,ss);
 			stringstream tmp(ss);
@@ -1204,14 +1204,14 @@ void read_input_file()
 			{
 				if(iv_number!=count)
 				{
-					cout<<"Error same number of intra valley constants are required"<<endl;
+					cout<<"Error same number of inter valley constants are required"<<endl;
 					exit (EXIT_FAILURE);			
 				}
 			}
 			else
 				iv_number = count;
 
-			cout<< "PHONON FREQUENCY FOR INTRAVALLEY SCATTERING "<<endl;
+			cout<< "PHONON FREQUENCY FOR INTERVALLEY SCATTERING "<<endl;
 			for(int i=0;i<iv_number;i++)
 			{
 				cout<<"frequency["<<i<<"] = "<<we[i]<<"THz  "<<endl;
@@ -1221,7 +1221,7 @@ void read_input_file()
 
 		}
 
-		if(str=="COUPLING_CONSTANT_INTRAVALLEY")    // for INTRA VALLEY scattering  3D  unit is 10^8 eV/cm     line no. 22
+		if(str=="COUPLING_CONSTANT_INTERVALLEY")    // for INTER VALLEY scattering  3D  unit is 10^8 eV/cm     line no. 22
 		{
 			getline(in,ss);
 			stringstream tmp(ss);
@@ -1235,14 +1235,14 @@ void read_input_file()
 			{
 				if(iv_number!=count)
 				{
-					cout<<"Error same number of intra valley constants are required"<<endl;
+					cout<<"Error same number of inter valley constants are required"<<endl;
 					exit (EXIT_FAILURE);			
 				}
 			}
 			else
 				iv_number = count;
 
-			cout<< "COUPLING CONSTANT FOR INTRAVALLEY SCATTERING  "<<endl;
+			cout<< "COUPLING CONSTANT FOR INTERVALLEY SCATTERING  "<<endl;
 			for(int i=0;i<iv_number;i++)
 			{
 				cout<<"Coupling constant["<<i<<"] = "<<De[i]<<"e8 eV/cm  "<<endl;
@@ -1252,7 +1252,7 @@ void read_input_file()
 
 		}
 
-		if(str=="NUMBER_OF_VALLEY")      // // for INTRA VALLEY scattering   NUMBER OF final VALLEY    line no. 23
+		if(str=="NUMBER_OF_VALLEY")      // // for INTER VALLEY scattering   NUMBER OF final VALLEY    line no. 23
 		{
 			getline(in,ss);
 			stringstream tmp(ss);
@@ -1265,7 +1265,7 @@ void read_input_file()
 			{
 				if(iv_number!=count)
 				{
-					cout<<"Error same number of intra valley constants are required"<<endl;
+					cout<<"Error same number of inter valley constants are required"<<endl;
 					exit (EXIT_FAILURE);			
 				}
 			}
@@ -1530,7 +1530,7 @@ void read_input_file()
 		  //scattering_mechanisms[5] = 0;  // Transverse optical POP scattering be default is zero
 		  scattering_mechanisms[6] = 0;	// Dislocation scattering 
 		  scattering_mechanisms[7] = 0;	// Alloy scattering
-		  scattering_mechanisms[8] = 0;	// Intra-valley scattering
+		  scattering_mechanisms[8] = 0;	// Inter-valley scattering
 		  scattering_mechanisms[9] = 0;	// Neutral impurity scattering
 		  scattering_mechanisms[10] = 0;	// so pop scattering
 		  scattering_mechanisms[11] = 0;	// IR scattering
@@ -1541,7 +1541,7 @@ void read_input_file()
 		  //scattering_mechanisms[5] = 0;  // Transverse optical POP scattering be default is zero
 		  scattering_mechanisms[6] = 0;	// Dislocation scattering 
 		  scattering_mechanisms[7] = 0;	// Alloy scattering
-		  scattering_mechanisms[8] = 0;	// Intra-valley scattering
+		  scattering_mechanisms[8] = 0;	// Inter-valley scattering
 		  scattering_mechanisms[9] = 0;	// Neutral impurity scattering
 	}	
 		

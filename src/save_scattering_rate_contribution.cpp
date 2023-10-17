@@ -128,10 +128,10 @@ void save_scattering_rate_contribution()
 
 	}		
 
-	// intravalley scattering	
+	// intervalley scattering	
 	if (scattering_mechanisms[8]==1 && iv_number > 1)   
 	{
-		fid1 = fopen("intravalley_scattering_rate.dat","w");
+		fid1 = fopen("intervalley_scattering_rate.dat","w");
 		fprintf(fid1,"# energy           total	individual scattering rates \n");
 
 			for (int i = 0; i < points; i++)		

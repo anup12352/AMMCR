@@ -511,18 +511,18 @@ void save_results()
 		//cout<<"count = "<<count<<endl;
 		if (ispin == 1)
 		{
-			fid1 = fopen("intravalley_mobility.dat","w");		
+			fid1 = fopen("intervalley_mobility.dat","w");		
 		}
 		else
 		{	
 			if(ispin==2 && kk==0)
 			{
-				fid1 = fopen("intravalley_mobility_up_spin.dat","w");
+				fid1 = fopen("intervalley_mobility_up_spin.dat","w");
 			}
 			
 			if(ispin==2 && kk==1)		
 			{
-				fid1 = fopen("intravalley_mobility_down_spin.dat","w");
+				fid1 = fopen("intervalley_mobility_down_spin.dat","w");
 			}
 		}			
 
@@ -542,7 +542,7 @@ void save_results()
 			}
 		}
 
-		fprintf(fid1,"  Intravalley Mobility(cm^2/V-s)    individual mobility \n");
+		fprintf(fid1,"  Intervalley Mobility(cm^2/V-s)    individual mobility \n");
 		
 		for (int i = 0; i <count ; i++)
 		{	fprintf(fid1,"%e     %e \t", calc_mobility[i][0], calc_mobility_iv[i][1]);
