@@ -14,12 +14,12 @@ DIELECTRIC_CONST_HF 6.1
 
 
 # =======SCATTERING MECHANISM CONTROL order - (1)II (2)POP (3)NPOP (4)AC (5)PZ (6)DIS (7)Alloy (8)Intra (9)Neutral (10) So POP (11) IR
-SCATTERING_MECHANISM_CONTROL 1 1 0 1 1 0 0 0 0 0 0 0
+SCATTERING_MECHANISM_CONTROL true true false true true false false false false false false false
 
 # unit is THz
 POP_FREQUENCY 6.44
 
-# potnetial(eV) elastic_constant(dyne/cm^2
+# potnetial(eV) elastic_constant(dyne/cm^2)
 ACOUSTIC 12 7.6924e+11
 
 # unitless

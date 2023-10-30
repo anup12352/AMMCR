@@ -11,13 +11,21 @@ int main()
     double center_kpoint[4] = {0,0,0,1};
     int a;
 
-    cout<<"Enter center point for generating k-point file"<<endl;
+    cout<<"Enter the center point (in the fractional coordinate system) for generating the k-point file."<<endl;
     cin>>center_kpoint[0]>>center_kpoint[1]>>center_kpoint[2];
 
-    cout<<"Select no. of k_points"<<endl<<"8531"<<endl<<"6585"<<endl<<"5047"<<endl<<"3869"<<endl<<"3267"<<endl<<"833"
-	<<endl<<"391"<<endl;
+    cout<<endl<<"Select and enter the number of k_points from the following list. "<<endl<<"8531"<<endl<<"6585"
+    		<<endl<<"5047"<<endl<<"3869"<<endl<<"3267"<<endl<<"833"<<endl<<"391"<<endl<<endl;
     cin>>a;
-		
+
+	while(a!=8531 && a!=6585 && a!=5047 && a!=3869 && a!=3267 && a!=833 && a!=391)
+	{
+		cout<<"Wrong input is given."<<endl;
+	    cout<<"Again enter the number of k_points from the following list. "<<endl<<"8531"<<endl<<"6585"
+	    		<<endl<<"5047"<<endl<<"3869"<<endl<<"3267"<<endl<<"833"<<endl<<"391"<<endl<<endl;
+    	cin>>a;
+	}
+
 	double factor[3]; 
 	if(a ==8531){
     		factor[0] = 9;
@@ -107,7 +115,7 @@ int main()
 	    }
 	    else
 	    {
-		cout<<"Exit from program. Run program again and enter right number of kpoints from above given choices"<<endl;
+		cout<<"Exit from program. Run program again and enter right number of kpoints from the above given choices"<<endl;
 		return 0;
 	    }	    
 				
@@ -156,6 +164,8 @@ int main()
 	    }
 	    //cout<<j<<endl;
 	    fclose(fid1);
+
+	    cout<<"kpoints_file is generated successfully."<<endl;
 	    return 0;
 
 }

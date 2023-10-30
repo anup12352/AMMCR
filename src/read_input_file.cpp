@@ -361,6 +361,19 @@ void read_input_file()
 		  len_nd = count;                    
 		}
 		
+		if(str=="CARRIER_CONC")  // unit per cm^3   or per cm^2    line no. 2
+		{
+		  flag[2] = 1;
+		  getline(in,ss);
+		  stringstream tmp(ss);
+		  int count = 0;
+		  int i=0;
+		  while (tmp >> Nd[i])
+		  { count++; i++; }
+
+		  len_nd = count;
+		}
+
 		if(str=="ACCEPTOR_DOPING")   // unit per cm^3    line no. 3
 		{
 		  flag[2] = 1;	
@@ -374,6 +387,7 @@ void read_input_file()
 		  len_na = count;                    
 		}
 		
+
 		if(str=="NEUTRAL_IMPURITY")    // unit per cm^3    line no. 4
 		{
 		  getline(in,ss);
@@ -911,7 +925,7 @@ void read_input_file()
 			cout<< "MAGNETIC-FIELD " <<Bfield<<"  Tesla "<<endl;
 		}		
 		
-		
+		/*
 		if(str=="DOS")    // DOS 0    ---->  0 means DOSCAR is used otherwise ;  DOS 1  ---> means free electron desnity is used    line no. 24
 		{
 		  getline(in,ss);
@@ -925,6 +939,7 @@ void read_input_file()
 			cout<<"free_e = true, free electron density is used for calculation"<<endl;
 		  
 		}
+		*/
 
 		if(str=="SCATTERING_MECHANISM_CONTROL")       // line no. 
 		{
@@ -935,19 +950,68 @@ void read_input_file()
 		  for(int i=0;i<12;i++)
 		    smc >> a1[i];
 
-		  scattering_mechanisms[0] = a1[0];       // Ionized impurity 
-		  scattering_mechanisms[1] = a1[1];     // Polar Optical phonon scattering due to longitudinal phonon
-		  scattering_mechanisms[2] = a1[2];     // npop phonon
-		  scattering_mechanisms[3] = a1[3];	// Acoustic deformation scattering
-		  scattering_mechanisms[4] = a1[4];	// Piezoelectric scattering          
+		  if(a1[0]==true)
+			  scattering_mechanisms[0] = 1;       // Ionized impurity
+		  else
+			  scattering_mechanisms[0] = 0;       // Ionized impurity
+
+		  if(a1[1]==true)
+		      scattering_mechanisms[1] = 1;     // Polar Optical phonon scattering due to longitudinal phonon
+		  else
+		      scattering_mechanisms[1] = 0;     // Polar Optical phonon scattering due to longitudinal phonon
+
+		  if(a1[2]==true)
+			  scattering_mechanisms[2] = 1;     // npop phonon
+		  else
+			  scattering_mechanisms[2] = 0;     // npop phonon
+
+		  if(a1[3]==true)
+			  scattering_mechanisms[3] = 1;	// Acoustic deformation scattering
+		  else
+			  scattering_mechanisms[3] = 0;	// Acoustic deformation scattering
+
+		  if(a1[4]==true)
+			  scattering_mechanisms[4] = 1;	// Piezoelectric scattering
+		  else
+			  scattering_mechanisms[4] = 0;	// Piezoelectric scattering
+
+		  if(a1[5]==true)
+			  scattering_mechanisms[6] = 1;	// Dislocation scattering
+		  else
+			  scattering_mechanisms[6] = 0;	// Dislocation scattering
+
+		  if(a1[6]==true)
+			  scattering_mechanisms[7] = 1;	// Alloy scattering
+		  else
+			  scattering_mechanisms[7] = 0;	// Alloy scattering
+
+		  if(a1[7]==true)
+			  scattering_mechanisms[8] = 1;	// Inter-valley scattering
+		  else
+			  scattering_mechanisms[8] = 0;	// Inter-valley scattering
+
+		  if(a1[8]==true)
+			  scattering_mechanisms[9] = 1;	// Neutral impurity scattering
+		  else
+			  scattering_mechanisms[9] = 0;	// Neutral impurity scattering
+
+		  if(a1[9]==true)
+			  scattering_mechanisms[10] = 1;	// so pop scattering
+		  else
+			  scattering_mechanisms[10] = 0;	// so pop scattering
+
+		  if(a1[10]==true)
+			  scattering_mechanisms[11] = 1;	// IR scattering
+		  else
+			  scattering_mechanisms[11] = 0;	// IR scattering
+
+		  if(a1[11]==true)
+			  scattering_mechanisms[12] = 1;	// skew scattering
+		  else
+			  scattering_mechanisms[12] = 0;	// skew scattering
+
+
 		  //scattering_mechanisms[5] = 0;  // Transverse optical POP scattering be default is zero
-		  scattering_mechanisms[6] = a1[5];	// Dislocation scattering 
-		  scattering_mechanisms[7] = a1[6];	// Alloy scattering
-		  scattering_mechanisms[8] = a1[7];	// Inter-valley scattering
-		  scattering_mechanisms[9] = a1[8];	// Neutral impurity scattering
-		  scattering_mechanisms[10] = a1[9];	// so pop scattering
-		  scattering_mechanisms[11] = a1[10];	// IR scattering
-		  scattering_mechanisms[12] = a1[11];	// skew scattering
 		  
 		  cout<< " SCATTERING MECHANISM CONTROL " <<ss<<endl;
 		  

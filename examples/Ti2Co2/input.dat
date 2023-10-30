@@ -12,7 +12,7 @@ TEMPERATURE 30 50 80 100 130 150 170 200 230 250 270 300 330 350 370 400 430 450
 
 
 # unit per cm^2
-DONOR_DOPING 1e11
+CARRIER_CONC 1e11
 
 GEOMETRY 2D
 
@@ -27,7 +27,7 @@ BAND_GAP 0.25
  
 
 # =======SCATTERING MECHANISM CONTROL order - - (1)II (2)POP (3)NPOP (4)AC (5)PZ (6)DIS (7)Alloy (8)Intra (9)Neutral (10) So pop
-SCATTERING_MECHANISM_CONTROL 0 1 0 1 1 0 0 0 0 0
+SCATTERING_MECHANISM_CONTROL false true false true true false false false false false
 
 
 # POP scattering unit THz

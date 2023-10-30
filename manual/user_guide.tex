@@ -42,9 +42,8 @@ By: Anup Kumar Mandia, anup12352@gmail.com
 
 \newpage
   
-  
 \section{Introduction}
-Ab initio model for mobility and conductivity calculation by using the Rode Algorithm (AMMCR) is a module to calculate various transport coefficients at low electric field with inputs calculated from first principles. AMMCR solves the Boltzmann transport equation within Rode's iterative scheme. For more detailed information, see \cite{anup1,anup2,anup3}. It is written in C++. Currently, it is interfaced with the Vienna Ab initio Simulation Package (VASP). It is very simple to use. Once compiled, it produces an executable file called AMMCR. The executable can be run in a directory where four VASP output files, OUTCAR, EIGENVAL, PROCAR, and DOSCAR, are present. \\
+Ab initio model for mobility and conductivity calculation by using the Rode Algorithm (AMMCR) is a module to calculate various transport coefficients at low electric field with inputs calculated from first principles. AMMCR solves the Boltzmann transport equation within Rode's iterative scheme. For more detailed information, see \cite{anup1,anup2,anup3, koshi2023}. It is written in C++. Currently, it is interfaced with the Vienna Ab initio Simulation Package (VASP). It is very simple to use. Once compiled, it produces an executable file called AMMCR. The executable can be run in a directory where four VASP output files, OUTCAR, EIGENVAL, PROCAR, and DOSCAR, are present. \\
 
 \begin{figure}[!t]
 	\centering
@@ -54,9 +53,9 @@ Ab initio model for mobility and conductivity calculation by using the Rode Algo
 	\label{flowchart}
 \end{figure}
 
-If the band structure calculation is done in spin-polarized mode, the code automatically detects it and produces two sets of results: For majority and minority spin electrons. \\
+If the band structure calculation is done in spin-polarized mode, the code automatically detects it and produces two sets of results: for majority and minority spin electrons. \\
 
-The specification of the simulation conditions, such as temperature, doping concentration, external electric field, etc., as well as the materials constants, are provided in a file called \textbf{input.dat}. \\
+The specifications of the simulation conditions, such as temperature, doping concentration, external electric field, etc., and the materials constants, are to be provided in a file called \textbf{input.dat}. \\
 
 There is also a YouTube video about how to compile and run the AMMCR code: \\ \href{https://youtu.be/II-7I68iPnI}{https://youtu.be/II-7I68iPnI}. \\ 
 
@@ -71,7 +70,7 @@ We have implemented the Rode algorithm in the AMMCR code, which is valid for the
     f(k) = f_0(k) + x g(k)
 \end{equation}
 
-Where $f_0(k)$ is the equilibrium distribution function and $g(k)$ is the perturbation (out of equilibrium part of the distribution function). The factor x defines the angle between the electric field and the direction of the crystal momentum $k$.
+where $f_0(k)$ is the equilibrium distribution function and $g(k)$ is the perturbation (out of equilibrium part of the distribution function). The factor x defines the angle between the electric field and the direction of the crystal momentum $k$.
 
 The flowchart of the code is shown in the figure \ref{flowchart}. First, one has to calculate all the required inputs using the first-principles method. The typical inputs are the energy band dispersion curve, the density of states, the phonon frequencies, and the elastic constants.
 
@@ -109,7 +108,7 @@ For 3D bulk of p-type, it will simulate by including one valence band. \\ \\
 \textbf{In the section \ref{output_files}}, we have discussed the various output files generated on simulation. \\
 
 \section{Installation and Prerequisites} \label{installation}
-To simulate the code Unix/Linux operating system is required with the GNU GCC compiler installed. The Program is tested with the gcc version 5.4.0.
+To simulate the code, a Unix/Linux operating system is required with the GNU GCC compiler installed. The Program is tested with the gcc version 5.4.0.
 \newline To check whether the gcc compiler is already installed or not installed on your operating system, run the following command at the terminal:
 
 \begin{quote}
@@ -145,14 +144,14 @@ The steps to run the above code are as follows.
 
 \item The distribution included a makefile for simulating the program by using the gnu gcc compiler.  To compile the program, open the terminal in the folder 'code' and run the command \textbf{make}. It will compile different .cpp files inside the folder. It will generate an executable file \lq \textbf{AMMCR}\rq .
 
-\item To simulate the program, run command \textbf{./AMMCR} at the terminal. It will run the program and generate different output files. Some input files are needed for simulation, and it produces different output files on simulation. Description of the input and output files are explained in the section \ref{input_files} and section \ref{output_files}. 
+\item To simulate the program, run the command \textbf{./AMMCR} at the terminal. It will run the program and generate different output files. Some input files are needed for simulation, and it produces different output files on simulation. Description of the input and output files are explained in the section \ref{input_files} and section \ref{output_files}. 
 
 \end{enumerate} 
 
 
 \section{Scattering Mechanisms} \label{scattering}
-In this section, we are going to discuss the various scattering mechanisms included in the module AMMCR. 
-The table below \ref{scattering} shows the various scattering mechanisms included in the module AMMCR.
+In this section, we will discuss the various scattering mechanisms included in the module AMMCR. 
+The table \ref{scattering} below shows the different scattering mechanisms included in the module AMMCR.
 
 \begin{table} [H]
 \caption{ Scattering mechanisms included in the Module AMMCR}
@@ -184,7 +183,7 @@ S.No. & 3D (N-Type) & 3D (P Type) & 2D (N-Type)   \\
 \end{tabular}
 \end{table}
 * - Multiple inputs can be given to these scattering mechanisms.
-Now we are going to discuss the expression for various scattering rates we have implemented in the code.
+Now, we are going to discuss the expression for various scattering rates we have implemented in the code.
 
 \subsection{3D Bulk (N-type)}
 
@@ -208,7 +207,7 @@ where $\epsilon_0$ is the permittivity of free space, $\kappa_0$ is the low freq
 \beta^2 = \frac{e^2}{\kappa_0 \epsilon_0 k_B T}\int D_s(E) f(1-f)dE,
 \label{beta square}
 \end{equation}
-Here, f represents the Fermi level, $D_s(E)$ represents the density of states at energy E, T is temperature, $k_B$ is Boltzmann constant,, N is the concentration of ionized impurity, and it is given by
+Here, f represents the Fermi level, $D_s(E)$ represents the density of states at energy E, T is temperature, $k_B$ is Boltzmann constant, N is the concentration of ionized impurity, and it is given by
 \begin{equation}
 \ N = N_A + N_D
 \label{impurity}
@@ -418,6 +417,7 @@ The momentum relaxation rate for the ionized impurity scattering mechanism with 
 A = \frac{1}{2} \left(2 + \frac{\beta^2}{k^2}\right),
 \label{A}
 \end{equation}
+N is the concentration of acceptor impurity. $\kappa_0$ is the low frequency dielectric constant. 
 
 \subsubsection{Acoustic phonon scattering}
 The momentum relaxation rate for the acoustic phonon scattering mechanism is given by the following expression \cite{ramu2011thermoelectric}
@@ -426,6 +426,8 @@ The momentum relaxation rate for the acoustic phonon scattering mechanism is giv
 \frac{1}{\tau_{ac}(k)} = \frac{k_B T D_A^2 k^2}{2\pi\hbar^2 c_{el}v(k)} ,
 \label{acoustic_deformation_p}
 \end{equation}
+
+where $c_{el}$ is spherically averaged elastic constant, and $D_A$ is acoustic deformation potential and is given by conduction band shift (in eV) per unit strain due to acoustic waves.
 
 \subsubsection{Non-polar optical phonon scattering}
 The momentum relaxation rate for the NPOP scattering mechanism is given by the following expression \cite{ramu2011thermoelectric} 
@@ -440,6 +442,8 @@ where $\bar{c}$  given by
 \bar{c} = \frac{c_l}{3}  + \frac{2 c_t}{3}
 \label{c_bar}
 \end{equation}  
+where $c_l$, $c_t$ are the spherically averaged elastic
+constant for longitudinal and transverse modes respectively, $D_{op}$ is the NPOP deformation potential (units of electron volts per meter),  ̄$\omega_{op}$  is the phonon frequency of NPOP.
 
 \subsubsection{Polar optical phonon scattering}
 The momentum relaxation rate for POP scattering is given by \cite{ramu2011thermoelectric} 
@@ -471,6 +475,7 @@ C^{\pm} = \left( \frac{(c_i^{\pm}+3c_i^{\pm^3})}{2} log \Bigg|  \frac{1+c_i^{\pm
 \label{C_pm}
 \end{equation}
 
+here $\kappa_0$ and $\kappa_{\infty}$ are the low frequency dielectric constant and high frequency dielectric constant and $\omega_{op}$ is the POP frequency.
 
 \subsection{2D Semiconductors (N-type)}
 We have included the following scattering mechanisms for 2D semiconductors of n-type: 
@@ -707,20 +712,20 @@ For remote impurity scattering for 2D we have used the expression of equation \r
 
 
 \section{Input files:-} \label{input_files}
-In this section, we are going to discuss the various input files required for running the module AMMCR. First, we are going to discuss the format of the "input.dat" file. "input.dat" is necessary to run the tool. There are few more input files are required to run the tool. We are to discuss the other input files later. 
+In this section, we  will discuss the various input files required for running the module AMMCR. First, we are going to discuss the format of the "input.dat" file. "input.dat" is necessary to run the tool. There are few more input files are required to run the tool. We are to discuss the other input files later. 
 
 \subsection{List of commands for input.dat file}
 In the input.dat file, values of various constants required for simulation are stored in the proper format. In this section, we report the complete list of the commands available in the AMMCR scripting language. The commands are reported in alphabetical order. Every command has its own syntax. For every command, a description is also reported along with an example and an explanation of that example.
 
-\textbf{Note}: AMMCR scripting language is case-sensitive. This means that, for example, two words like TEMPERATURE and Temperature are not considered as equivalent in AMMCR.
-Second, any line starting with \# is considered as comment line, and the code ignores the line.
+\textbf{Note}: AMMCR scripting language is case-sensitive. This means that, for example, two words like TEMPERATURE and Temperature are not considered equivalent in AMMCR.
+Second, any line starting with \# is considered a comment line, and the code ignores the line.
 
 \begin{enumerate}
     \item \textbf{ACOUSTIC} \\ \\
     \textit{Syntax}: \\
     \textbf{ACOUSTIC} DP\_1 CEL\_1 DP\_2 CEL\_2 DP\_3 CEL\_3  \\ \\
     \textit{Description:} \\
-    This command sets the value of different constants required for acoustic phonon scattering. Here DP refers to acoustic deformation potential ($D_A$ unit is eV), CEL refers to elastic constant ($c_{el}$), and it is $dyne/cm^2$ for 3D bulk material and $dyne/cm$ for 2D materials. Multiple values of inputs can be given (Maximum limit is 3). \\ \\ 
+    This command sets the value of different constants required for acoustic phonon scattering. Here, DP refers to acoustic deformation potential ($D_A$ unit is eV), CEL refers to elastic constant ($c_{el}$), and its unit is $dyne/cm^2$ for 3D bulk material and $dyne/cm$ for 2D materials. Multiple values of inputs can be given (Maximum limit is 3). \\ \\ 
     \textit{Example:}\\
     ACOUSTIC 3.2 3.578e11 4.3 4.128e11 \\ \\
     \textit{Meaning:}\\
@@ -755,6 +760,16 @@ Second, any line starting with \# is considered as comment line, and the code ig
     BAND\_GAP 1.5 \\ \\
     \textit{Meaning:} \\  
     The band gap of the material is 1.5 $eV$. \\ \\
+
+   \item \textbf{CARRIER\_CONC} \\ \\
+    \textit{Syntax:} \\
+    \textbf{CARRIER\_CONC} VALUE\_1 VALUE\_2 VALUE\_3 ... \\ \\ 
+    \textit{Description:} \\
+    The command is used to set the concentration of carriers. Its unit is $cm^{-2}$ (for 2D materials). Multiple values of carrier concentration can be given. A maximum number of 30 carrier concentrations can be given. \\ \\  
+    \textit{Example:} \\
+    CARRIER\_CONC 1e12 2e12 3e12 4e12 \\ \\
+    \textit{Meaning:} \\  
+    Carrier concentration is set to $1 \times 10^{12} \; cm^{-2} $, $2 \times 10^{12} \; cm^{-2} $, $3 \times 10^{12} \; cm^{-2} $ and $4 \times 10^{12} \; cm^{-2}$. \\ \\
 
     \item \textbf{CBAR} \\ \\
     \textit{Syntax:} \\
@@ -816,7 +831,8 @@ Second, any line starting with \# is considered as comment line, and the code ig
     DISTANCE\_FROM\_SHEET 3.2 \\ \\
     \textit{Meaning:} \\    
     The average distance of charge carriers from the 2D sheet is set to 3.2 $nm$. \\ \\
-    
+
+    \begin{comment}    
     \item \textbf{DOS}  \\ \\
     \textit{Syntax:} \\
     \textbf{DOS} VALUE \\ \\ 
@@ -826,6 +842,7 @@ Second, any line starting with \# is considered as comment line, and the code ig
     DOS 0 \\ \\
     \textit{Meaning:} \\    
     The density of states is read from the DOSCAR file. \\ \\
+    \end{comment}
     
     \item \textbf{DONOR\_DOPING} \\ \\
     \textit{Syntax:} \\
@@ -863,12 +880,13 @@ Second, any line starting with \# is considered as comment line, and the code ig
     The command is used to set the model for input. We have included the following models in the module \\
     \begin{enumerate}
         \item \textbf{VASP} \\
-        If the input model is VASP, then the module reads band structure, density, and other input from files generated by using the VASP module (EIGENVAL, DOSCAR, PROCAR, and OUTCAR). If this model is chosen as input, then four more input files, EIGENVAL, DOSCAR, PROCAR and OUTCAR, should be given as input. Out of these four input files, two input files, EIGENVAL and OUTCAR files are necessary for simulation. \\
+        If the input model is VASP, then the module reads band structure, density, and other input from files generated by using the VASP module (EIGENVAL, DOSCAR, PROCAR, and OUTCAR). If this model is chosen as input, then four more input files, EIGENVAL, DOSCAR, PROCAR, and OUTCAR, should be given as input. \\
+        %Out of these four input files, two input files, EIGENVAL and OUTCAR files are necessary for simulation. \\
         \item \textbf{TABLE\_FORM} \\
-        if the input model is TABLE\_FORM is given, then we have to give three more input files (EK\_CB.dat, EK\_CB.dat, and DOS.dat) for simulation. The format of the input files for this model is as follows:-
+        If the input model is TABLE\_FORM is given, then we have to give three more input files (EK\_CB.dat, EK\_CB.dat, and DOS.dat) for simulation. The format of the input files for this model is as follows:-
         \begin{enumerate}
             \item \textbf{Format of EK\_CB.dat} \\
-            EK\_CB.dat specifies the E-k values of the conduction band. Its first line is skipped by the program and treated as a comment line. From the second line afterward, it lists k-points and energy values at different kpoints of the conduction band. It has four columns. The first three columns list the values of kx, ky and kz (unit is $cm^{-1}$), respectively and the fourth lines list the value of energy (in $eV$).  \\
+            EK\_CB.dat specifies the E-k values of the conduction band. Its first line is skipped by the program and treated as a comment line. From the second line afterward, it lists k-points and energy values at different kpoints of the conduction band. It has four columns. The first three columns list the values of kx, ky and kz (unit is $cm^{-1}$), respectively and the fourth lines list the energy value (in $eV$).  \\
             \item \textbf{Format of EK\_VB.dat} \\
             EK\_VB.dat lists the E-k values of the valence band. Its format is the same as EK\_CB.dat. \\
             \item \textbf{Format of DOS.dat} \\
@@ -876,7 +894,7 @@ Second, any line starting with \# is considered as comment line, and the code ig
         \end{enumerate}
           
         \item \textbf{TIGHT\_BINDING\_BAND\_STRUCTURE} \\
-        This model generates a tight binding band structure for different materials. The user has to specify the material for the simulation. There is a separate command \textbf{TBS\_MATERIAL} to select material for tight binding band structure. This command is discussed later in the manual. 
+        This model generates a tight binding band structure for different materials. The user has to specify the material for the simulation. There is a separate command \textbf{TBS\_MATERIAL}, to select material for tight binding band structure. This command is discussed later in the manual. 
     \end{enumerate}
     
     \textit{Example:} \\ 
@@ -1027,7 +1045,7 @@ Second, any line starting with \# is considered as comment line, and the code ig
     \textit{Syntax:} \\
     \textbf{SCATTERING\_MECHANISM\_CONTROL} II POP NPOP AC PZ DIS ALLOY INTER NEUTRAL SO\_POP IR \\ \\
     \textit{Description:} \\
-    This command specifies the scattering mechanisms to be included in the simulation. The value of different elements in this command controls the different scattering mechanisms included in the simulation. If an element is zero, then the corresponding scattering mechanism is not included in the simulation, and if an element is one, then that particular scattering mechanism is included in the simulation. The order of different scattering mechanisms is as follows 
+    This command specifies the scattering mechanisms to be included in the simulation. The value of different elements in this command controls the different scattering mechanisms included in the simulation. If an element is \textbf{false}, then the corresponding scattering mechanism is not included in the simulation, and if an element is \textbf{true}, then that particular scattering mechanism is included in the simulation. The order of different scattering mechanisms is as follows 
     \begin{enumerate}
         \item II - Ionized impurity scattering.
         \item POP - Polar optical phonon scattering.
@@ -1043,7 +1061,7 @@ Second, any line starting with \# is considered as comment line, and the code ig
     \end{enumerate}
 
     \textit{Example:} \\
-    SCATTERING\_MECHANISM\_CONTROL 1 1 1 1 0 0 0 0 1 0 1 \\ \\
+    SCATTERING\_MECHANISM\_CONTROL true true true true false false false false true false true \\ \\
     \textit{Meaning:} \\    
     It means that ionized impurity, POP, NPOP, acoustic phonon, neutral impurity and interface roughness scattering are included in the simulation. \\ \\
     
@@ -1137,7 +1155,7 @@ Second, any line starting with \# is considered as comment line, and the code ig
     \textbf{NOTE}:-
     \begin{enumerate}
 
-    \item Out of temperature and doping array, one must be of length one. If the temperature and doping array both are greater than one length, then the program will stop. 
+    \item Out of temperature and doping array (or carrier concentration array for 2D materials), one must be of length one. If the temperature and doping array (or carrier concentration array for 2D materials) both are greater than one length, then the program will stop. 
     \item The donor, acceptor, and neutral impurity array concentration length must be the same. 
     \end{enumerate}
     
@@ -1149,7 +1167,7 @@ Second, any line starting with \# is considered as comment line, and the code ig
 \label{input_files_table}
 \begin{tabular}{|c|c|c|}
 \hline
-Model & Input Files Required   \\
+\textbf{Model} & \textbf{Input Files Required}   \\
 \hline                                      
 VASP   & input.dat, EIGENVAL, OUTCAR, \\
 & PROCAR, DOSCAR \\
@@ -1161,6 +1179,111 @@ TIGHT\_BINDING\_BAND\_STRUCTURE   & input.dat     \\
 \end{tabular}
 \end{table}
 
+\subsection{List of parameters needed for simulation of a 3D material.}  
+The table below \ref{DFT_3D_N}and \ref{DFT_3D_P} lists the various input parameters required to be calculated using DFT for different scattering mechanisms for n-type and p-type 3D materials respectively.
+
+\begin{table} [H]
+\centering
+\caption{Parameters needed for n-type 3D (electrons transport) materials calculation.}
+\label{DFT_3D_N}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Scattering Mechanism}} & {\textbf{Parameters Needed}} \\
+\hline                                      
+Acoustic Phonon scattering   & Acoustic Deformation potential, \\
+ &  Elastic Constant \\
+\hline   
+Non Polar optical phonon  & Deformation potential, density, \\
+ & Phonon frequency of NPOP \\
+\hline  
+Piezoelectric scattering & Low frequency Dielectric constant,  \\
+ & Piezoelectric constant  \\
+\hline
+Polar optical phonon
+scattering & Low frequency dielectric constant, \\
+ & High frequency Dielectric constant, \\ 
+ & Phonon frequency of POP \\
+\hline
+Inter valley scattering & Deformation potential, density, \\ 
+ & Phonon frequency \\
+\hline
+Ionized Impurity scattering & Low frequency dielectric constant \\
+\hline
+Neutral Impurity scattering & Low frequency dielectric constant \\
+\hline
+Dislocation Scattering & Low frequency dielectric constant, \\
+ &  Elastic Constant, Lattice Constant \\
+\hline
+Alloy Scattering & Alloy potential \\
+\hline
+
+\end{tabular}
+\end{table}
+
+
+\begin{table} [H]
+\centering
+\caption{Parameters needed for p-type 3D (hole transport) materials calculation.}
+\label{DFT_3D_P}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Scattering Mechanism}} & {\textbf{Parameters Needed}} \\
+\hline                                      
+Acoustic Phonon scattering   & Acoustic Deformation potential, \\
+ &  Elastic Constant \\
+\hline   
+Non Polar optical phonon  & Deformation potential, density, \\
+ & Phonon frequency of NPOP, Elastic constant \\
+\hline  
+Polar optical phonon
+scattering & Low frequency dielectric constant, \\
+ & High frequency Dielectric constant, \\ 
+ & Phonon frequency of POP \\
+\hline
+Ionized Impurity scattering & Low frequency dielectric constant \\
+\hline
+
+\end{tabular}
+\end{table}
+
+
+% \textbf{Scattering Mechanism} & \textbf{Parameters Needed}
+
+\subsection{List of parameters needed for simulation of a 2D material.}  
+The table below \ref{DFT_3D_N} lists the various input parameters required to be calculated using DFT for different scattering mechanisms for n-type 2D material.
+
+\begin{table} [H]
+\centering
+\caption{Parameters needed for n-type 2D materials calculation.}
+\label{DFT_2D}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Scattering Mechanism}} & {\textbf{Parameters Needed}} \\
+\hline                                      
+Acoustic Phonon scattering   & Acoustic Deformation potential, \\
+ & Elastic Constant \\
+\hline   
+Non Polar optical phonon scattering & Deformation potential, Density,  \\ 
+ & Phonon frequency of NPOP \\
+\hline  
+Piezoelectric scattering & Low frequency dielectric constant, \\
+ & Elastic constant, Piezoelectric constant \\ 
+\hline
+Polar Optical Phonon Scattering & Low frequency Dielectric constant, \\
+ & High frequency Dielectric constant,  \\
+ & Phonon frequency of POP \\
+\hline
+Remote interfacial phonon or & Low frequency dielectric constant of substrate and oxide, \\
+Surface optical phonon scattering  & High frequency Dielectric constant of substrate and oxide, \\
+ & Surface optical phonon frequency \\
+\hline
+Remote Impurity Scattering & Low frequency dielectric constant of substrate and oxide \\
+\hline
+
+\end{tabular}
+\end{table}
+
+\textbf{Note:} The methodology to calculate these various parameters using DFT is given in the references \cite{anup1}, \cite{anup2}, \cite{anup3} and \cite{koshi2023}. 
 %\newpage
 \section{Output Files}  \label{output_files}
 The program will generate the following different output files on simulation.
