@@ -394,8 +394,26 @@ void find_fermi(double n, double T, int ii)
 	//*/
         if (E1 == E2 || E_mid_old == E_mid)
         {
-            cout<<"Calculated concentration is not so accurate, it may lead to wrong answer"<<endl;
-            getchar();
+        	if(n==0)
+        	{
+        		if(n_mid > 1)
+        		{
+        			cout<<"Calculated concentration is not so accurate, it may lead to wrong answer"<<endl;
+        		}
+        	}
+        	else
+        	{
+        		cout<<"Calculated concentration is not so accurate, it may lead to wrong answer"<<endl;
+        	}
+
+
+            //getchar();
+            /*
+        	cout<<"n_mid = "<<n_mid<<endl;
+        	cout<<"integral_n = "<<integral_n<<endl;
+        	cout<<"integral_p = "<<integral_p<<endl;
+        	getchar();
+        	//*/
             break;
         }
         E_mid_old = E_mid;

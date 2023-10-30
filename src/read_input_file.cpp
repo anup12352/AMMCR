@@ -946,66 +946,67 @@ void read_input_file()
 		  flag[4] = 1;	
 		  getline(in,ss);
 		  stringstream smc(ss);
-		  int a1[12];
+		  string a1[12];
 		  for(int i=0;i<12;i++)
 		    smc >> a1[i];
 
-		  if(a1[0]==true)
+
+		  if(a1[0]=="true")
 			  scattering_mechanisms[0] = 1;       // Ionized impurity
 		  else
 			  scattering_mechanisms[0] = 0;       // Ionized impurity
 
-		  if(a1[1]==true)
+		  if(a1[1]=="true")
 		      scattering_mechanisms[1] = 1;     // Polar Optical phonon scattering due to longitudinal phonon
 		  else
 		      scattering_mechanisms[1] = 0;     // Polar Optical phonon scattering due to longitudinal phonon
 
-		  if(a1[2]==true)
+		  if(a1[2]=="true")
 			  scattering_mechanisms[2] = 1;     // npop phonon
 		  else
 			  scattering_mechanisms[2] = 0;     // npop phonon
 
-		  if(a1[3]==true)
+		  if(a1[3]=="true")
 			  scattering_mechanisms[3] = 1;	// Acoustic deformation scattering
 		  else
 			  scattering_mechanisms[3] = 0;	// Acoustic deformation scattering
 
-		  if(a1[4]==true)
+		  if(a1[4]=="true")
 			  scattering_mechanisms[4] = 1;	// Piezoelectric scattering
 		  else
 			  scattering_mechanisms[4] = 0;	// Piezoelectric scattering
 
-		  if(a1[5]==true)
+		  if(a1[5]=="true")
 			  scattering_mechanisms[6] = 1;	// Dislocation scattering
 		  else
 			  scattering_mechanisms[6] = 0;	// Dislocation scattering
 
-		  if(a1[6]==true)
+		  if(a1[6]=="true")
 			  scattering_mechanisms[7] = 1;	// Alloy scattering
 		  else
 			  scattering_mechanisms[7] = 0;	// Alloy scattering
 
-		  if(a1[7]==true)
+		  if(a1[7]=="true")
 			  scattering_mechanisms[8] = 1;	// Inter-valley scattering
 		  else
 			  scattering_mechanisms[8] = 0;	// Inter-valley scattering
 
-		  if(a1[8]==true)
+		  if(a1[8]=="true")
 			  scattering_mechanisms[9] = 1;	// Neutral impurity scattering
 		  else
 			  scattering_mechanisms[9] = 0;	// Neutral impurity scattering
 
-		  if(a1[9]==true)
+		  if(a1[9]=="true")
 			  scattering_mechanisms[10] = 1;	// so pop scattering
 		  else
 			  scattering_mechanisms[10] = 0;	// so pop scattering
 
-		  if(a1[10]==true)
+		  if(a1[10]=="true")
 			  scattering_mechanisms[11] = 1;	// IR scattering
 		  else
 			  scattering_mechanisms[11] = 0;	// IR scattering
 
-		  if(a1[11]==true)
+		  if(a1[11]=="true")
 			  scattering_mechanisms[12] = 1;	// skew scattering
 		  else
 			  scattering_mechanisms[12] = 0;	// skew scattering
