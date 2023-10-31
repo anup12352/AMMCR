@@ -1618,8 +1618,9 @@ void read_input_file()
 	
 	if(flag[2]==0)
 	{
-		cout<<"Doping is not given as input. Exit from program"<<endl;
-		exit(EXIT_FAILURE);
+		len_nd = 1;
+		//cout<<"Doping is not given as input. Exit from program"<<endl;
+		//exit(EXIT_FAILURE);
 	
 	}
 	
