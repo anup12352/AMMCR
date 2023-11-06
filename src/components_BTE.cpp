@@ -10,11 +10,14 @@ void components_BTE(double T, int T_loop, double efefn, double efefp, int ii)   
 //---------------------------- components for BTE ------------------------------------------------------------------
 	if(geometry==1 && type == "n")
 	{	
-		    beta_constant = beta(T, T_loop);
-		    // unit 1/nm
 
-		    cout<< "Inverse screening length, beta = "<<beta_constant<<" (1/nm)"<<endl;
+			if(scattering_mechanisms[0] == 1)
+			{
+				beta_constant = beta(T, T_loop);
+				// unit 1/nm
 
+				cout<< "Inverse screening length, beta = "<<beta_constant<<" (1/nm)"<<endl;
+			}
 		    //--------------------------- df0dz_integral -----------------------------------------
 		    int factr = 10;
 		    for(int counter = 0;counter<=points-2;counter++)

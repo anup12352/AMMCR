@@ -493,12 +493,18 @@ void find_fermi(double n, double T, int ii)
 			a1 = abs(N_dis/c_lattice*1e7);
 		    else
 			a1=0;
-		    				
-		    N_ii = (n_e + n_h) + a1;
-				cout<<"Net ionized donors concentration =  "<<N_ii<<"  cm^(-3)"<<endl;
 
-			if(geometry==1)  // for 3D
-			    cout<<"Net neutral impurity =  "<<N_im[ii]<<" cm^(-3)"<<endl;
+		    N_ii = (n_e + n_h) + a1;
+
+		    if(scattering_mechanisms[0] == 1)
+		    {
+		    	cout<<"Net ionized donors concentration =  "<<N_ii<<"  cm^(-3)"<<endl;
+		    }
+
+		    if(scattering_mechanisms[9] == 1)	// Neutral impurity scattering  // for 3D
+			{
+		    	cout<<"Net neutral impurity =  "<<N_im[ii]<<" cm^(-3)"<<endl;
+			}
 			    // net neutral impurity
 	    }	
 }

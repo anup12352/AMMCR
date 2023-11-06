@@ -64,6 +64,21 @@ void generate_required_data(double T)
 		v_p[counter] = abs(dedk(k_dum,coefficients_val,kindex_val,b11)/h_bar*1e-7);
 		//cout<<"v_p[counter] = "<<v_p[counter]<<endl;
 		//getchar();
+
+		if(counter!=0 && energy_p[counter] < energy_p[counter-1] )
+		{
+			energy_p[counter] = energy_p[counter-1] + 0.01;
+			v_p[counter] = (energy_p[counter] - energy_p[counter-1])/((k_grid[counter] - k_grid[counter-1])*h_bar*1e7);
+		}
+
+		if(counter!=0 && energy_n[counter] < energy_n[counter-1] )
+		{
+			energy_n[counter] = energy_n[counter-1] + 0.01;
+
+			v_n[counter] = (energy_n[counter] - energy_n[counter-1])/((k_grid[counter] - k_grid[counter-1])*h_bar*1e7);
+
+			//v_n[counter] =  ((k_grid[counter] - k_grid[counter-1]))*(v_n[counter-1] - v_n[counter-2])/(k_grid[counter-1] - k_grid[counter-2]);
+		}
 		
 		if (count_orbital!=0)
 		{

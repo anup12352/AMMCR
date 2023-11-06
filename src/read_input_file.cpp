@@ -411,7 +411,7 @@ void read_input_file()
 		
 		if(str=="DIELECTRIC_CONST_LF")    // unitless     line no. 5
 		{
-		  flag[2] = 1;	
+		  flag[5] = 1;	
 		  getline(in,ss);
 		  stringstream tmp(ss);
 		  tmp >> epsilon_s[0]; 
@@ -1625,7 +1625,7 @@ void read_input_file()
 	}
 	
 	/*
-	else if(flag[2]==0)
+	else if(flag[5]==0)
 	{
 		cout<<"Low frequency dielectric constant is not given as input. Exit from program"<<endl;
 		exit(EXIT_FAILURE);

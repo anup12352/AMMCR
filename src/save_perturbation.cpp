@@ -20,7 +20,13 @@ void save_perturbation()
 		    for (int i = 0; i < points; i++)
 			{
 				//cout<<"i+1 = "<<i+1<<"    g[i] = "<<g[i]<<endl;			
-				fprintf(fid1,"  %d        %e      %e  \n", i+1, energy_n[i], g[i]);
+				fprintf(fid1,"  %d        %e    ", i+1, energy_n[i]);
+
+				for(int i=0;i<iterations;++i)
+					fprintf(fid1,"  %e     ", result_g[i][i+1]);
+
+				fprintf(fid1,"\n");
+
 				//getchar();
 			}
 			fclose(fid1);
@@ -30,7 +36,13 @@ void save_perturbation()
 		    for (int i = 0; i < points; i++)
 			{
 				//cout<<"i+1 = "<<i+1<<"    g[i] = "<<g[i]<<endl;			
-				fprintf(fid1,"  %d        %e      %e  \n", i+1, energy_p[i], g[i]);
+				fprintf(fid1,"  %d        %e      ", i+1, energy_p[i]);
+
+
+				for(int i=0;i<iterations;++i)
+					fprintf(fid1,"  %e     ", result_g[i][i+1]);
+
+				fprintf(fid1," \n ");
 				//getchar();
 			}
 			fclose(fid1);
@@ -67,12 +79,24 @@ void save_perturbation()
 	        {
 			//cout<<"i+1 = "<<i+1<<"    gH[i] = "<<gH[i]<<endl;			
 			//cout<<"i+1 = "<<i+1<<"    hH[i] = "<<hH[i]<<endl;			
-			fprintf(fid1,"  %d        %e      %e  \n", i+1, energy_n[i], gH[i]);
-			fprintf(fid2,"  %d        %e      %e  \n", i+1, energy_n[i], hH[i]);
+			fprintf(fid1,"  %d        %e     ", i+1, energy_n[i]);
+			fprintf(fid2,"  %d        %e     ", i+1, energy_n[i]);
+
+
+			for(int i=0;i<iterations;++i)
+				fprintf(fid1,"  %e     ", result_gH[i][i+1]);
+
+			fprintf(fid1," \n ");
+
+			for(int i=0;i<iterations;++i)
+				fprintf(fid2,"  %e     ", result_hH[i][i+1]);
+
+			fprintf(fid2," \n ");
+
 			//getchar();
 		}
 		fclose(fid1);
-	    	fclose(fid2);
+	    fclose(fid2);
 	}
 	
 }
