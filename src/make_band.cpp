@@ -338,23 +338,48 @@ void make_band(int typee)
 
 	double conduction_band[NKPTS][2];
 	double distance, kx, ky, kz;
-	for (int i = 0; i < NKPTS; i++)
+
+	if(typee==1 || (typee==2 && flagg ==0))
 	{
-		kx = pow(kpoints[i][0] - reference_point[0], 2);
-		ky = pow(kpoints[i][1] - reference_point[1], 2);
-		kz = pow(kpoints[i][2] - reference_point[2], 2);
-		// unit 1/nm
-		
-		//cout<<"i = "<<i<<endl;
-		//cout<<"kz = "<<kz<<endl;
-		//cout<<"kpoints[i][2] = "<<kpoints[i][2]<<endl;
-		//getchar();
-		
-		distance = sqrt(kx + ky + kz);   // unit is 1/nm
-		conduction_band[i][0] = distance;
-		conduction_band[i][1] = energies[i][1];    // CB
-		//printf("\n %e %lf", distance,energies[i]);
+		for (int i = 0; i < NKPTS; i++)
+		{
+			kx = pow(kpoints[i][0] - reference_point[0], 2);
+			ky = pow(kpoints[i][1] - reference_point[1], 2);
+			kz = pow(kpoints[i][2] - reference_point[2], 2);
+			// unit 1/nm
+
+			//cout<<"i = "<<i<<endl;
+			//cout<<"kz = "<<kz<<endl;
+			//cout<<"kpoints[i][2] = "<<kpoints[i][2]<<endl;
+			//getchar();
+
+			distance = sqrt(kx + ky + kz);   // unit is 1/nm
+			conduction_band[i][0] = distance;
+			conduction_band[i][1] = energies[i][1];    // CB
+			//printf("\n %e %lf", distance,energies[i]);
+		}
 	}
+	else if(typee==2 && flagg ==1)
+	{
+		for (int i = 0; i < NKPTS; i++)
+		{
+			kx = pow(kpoints_p[i][0] - reference_point[0], 2);
+			ky = pow(kpoints_p[i][1] - reference_point[1], 2);
+			kz = pow(kpoints_p[i][2] - reference_point[2], 2);
+			// unit 1/nm
+
+			//cout<<"i = "<<i<<endl;
+			//cout<<"kz = "<<kz<<endl;
+			//cout<<"kpoints[i][2] = "<<kpoints[i][2]<<endl;
+			//getchar();
+
+			distance = sqrt(kx + ky + kz);   // unit is 1/nm
+			conduction_band[i][0] = distance;
+			conduction_band[i][1] = energies[i][1];    // VB
+			//printf("\n %e %lf", distance,energies[i]);
+		}
+	}
+		
 	if (typee == 2)
 	{
 		for (int i = 0; i < NKPTS; i++)

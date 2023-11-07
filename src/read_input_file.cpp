@@ -2,7 +2,7 @@
 
 int flag[50]={0};
 
-double energies[limit3][2]={0}, kpoints[limit3][4]={0}, temp1[limit3][3]={0};
+double energies[limit3][2]={0}, kpoints[limit3][4]={0}, kpoints_p[limit3][4]={0}, temp1[limit3][3]={0};
 int vbm_index=0, cbm_index=0;
 
 double ecbm,evbm,kcbm1[3],kvbm1[3];
@@ -16,6 +16,7 @@ double volume1;
 double c_lattice=0;
 int number;
 string TB_material;
+int flagg = 0;  // flagg =1 for EIGNEVAL_n is present
 
 //---------------------------------------------------------------------------------------------------------------
 double vf, vf_cb, vf_vb;

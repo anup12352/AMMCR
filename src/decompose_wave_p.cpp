@@ -22,16 +22,25 @@ int decompose_wave_p()
 		int num_bands1, num_ions,band_number;
 		band_number = NBVAL;
 
-
-		fid = fopen("PROCAR_p", "r");
-		if (fid==NULL)
-		fid = fopen("PROCAR","r");
+		if(flagg==1)
+			fid = fopen("PROCAR_p", "r");
+		else
+			fid = fopen("PROCAR","r");
 
 		if (fid==NULL)
 		{
-			cout<<"PROCAR is not present. Program is running by assuming valence band to be p-like"<<endl;
-			return 0;
+			if(flagg==1)
+			{
+				cout<<"PROCAR_p is not present. Program is running by assuming valence band to be p-like"<<endl;
+				return 0;
+			}
+			else
+			{
+				cout<<"PROCAR is not present. Program is running by assuming valence band to be p-like"<<endl;
+				return 0;
+			}
 		}
+
 		fgets(line, 1000, fid);
 		fgets(line, 1000, fid);
 		//cout<<"line = "<<line<<endl;

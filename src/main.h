@@ -212,6 +212,7 @@ extern double lm[10][10], volume1, ion_mass1[5], Emax;
 extern int ion_numbers1[5], spin_orbit_coupling;
 extern int npop_number;
 
+extern int flagg;
 
 extern double CBM, kcbm[3];
 extern double kvbm[3], VBM;
@@ -277,7 +278,7 @@ extern int kk, count_d ,count_t;
 extern double k_min, k_trans, k_step_fine, k_step;
 extern int points, points1, points2;
 extern int vbm_index, cbm_index;
-extern double energies[limit3][2], kpoints[limit3][4], temp1[limit3][3];
+extern double energies[limit3][2], kpoints[limit3][4], temp1[limit3][3], kpoints_p[limit3][4];
 //energies[][0] --for VB
 //energies[][1] --for CB
 

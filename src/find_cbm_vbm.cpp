@@ -8,16 +8,38 @@ void find_cbm_vbm(int spin_orbit_coupling)
 	char line[1000];
 	int a[10],i,j ;
 	FILE *fid;
+	FILE *fid1;
 
 	double temp[3];
 	
 	if(VASP==1)
 	{
-		fid = fopen("EIGENVAL","r");
+
+		fid = fopen("EIGENVAL_n", "r");
+
+		if(fid != NULL)
+		{
+			flagg = 1;
+		}
+
 		if (fid==NULL)
 		{
+		    fid = fopen("EIGENVAL","r");
+		    if (fid==NULL)
+		    {
 			cout<<"EIGENVAL is not present. Exit from program";
 			exit(EXIT_FAILURE);
+		    }
+		}
+
+		if(flagg==1)
+		{
+			fid1 = fopen("EIGENVAL_p", "r");
+			if (fid1==NULL)
+			{
+				cout<<"EIGENVAL_p is not present. Exit from program";
+				exit(EXIT_FAILURE);
+			}
 		}
 
 		fgets(line, 1000, fid);
@@ -26,6 +48,18 @@ void find_cbm_vbm(int spin_orbit_coupling)
 		for(i=1;i<=5;i++)
 		{
 			fgets(line,1000,fid);   // passing next 4 unimportant line and reading next 5th line
+		}
+
+
+		if(flagg==1)
+		{
+			fgets(line, 1000, fid1);
+			sscanf(line, "%d %d %d %d", &a[0], &a[1], &a[2], &a[3]);
+
+			for(i=1;i<=5;i++)
+			{
+				fgets(line,1000,fid1);   // passing next 4 unimportant line and reading next 5th line
+			}
 		}
 
 		sscanf(line, "%d %d %d", &a[0], &a[1], &a[2] );
@@ -91,6 +125,56 @@ void find_cbm_vbm(int spin_orbit_coupling)
 			} // loop for reading energy for bands is completd here
 		//getchar();
 		} // loop for all kpoints is completed here
+
+		if(flagg==1)
+		{
+			for (i=0; i<NKPTS; i++)
+			{
+				fgets(line,1000,fid1);   //passing one empty line
+				fgets(line,1000,fid1);    // reading kpoint line
+
+				sscanf(line, "%lf %lf %lf", &temp1[i][0], &temp1[i][1], &temp1[i][2]);
+
+				kpoints_p[i][0] = (temp1[i][0] * lm[0][3] + temp1[i][1] * lm[1][3] + temp1[i][2] * lm[2][3]) * 2. * 3.14159265359 * 10;
+				kpoints_p[i][1] = (temp1[i][0] * lm[0][4] + temp1[i][1] * lm[1][4] + temp1[i][2] * lm[2][4]) * 2. * 3.14159265359 * 10;
+				kpoints_p[i][2] = (temp1[i][0] * lm[0][5] + temp1[i][1] * lm[1][5] + temp1[i][2] * lm[2][5]) * 2. * 3.14159265359 * 10;
+				// unit is 1/nm
+				//cout<<"line = "<<line<<endl;
+				//cout<<"kpoints = "<<kpoints[i][0]<<"   "<<kpoints[i][1]<<"   "<<kpoints[i][2]<<"   "<<kpoints[i][3]<<endl;
+				//getchar();
+
+				for (j = 0; j<NBTOT; j++)
+				{
+				    //cout<<"j = "<<j<<endl;
+				    fgets(line,1000,fid1);
+				    //cout<<"line = "<<line<<endl;
+				    sscanf(line, "%lf %lf %lf ", &temp[0], &temp[1], &temp[2]);
+
+				    if(j==NBVAL-1)    // VB
+				    	energies[i][0] = temp[1];
+
+				    //energies[i][0]  contains valence band
+				    // energies[i][1]  contains CB
+
+				    if (ispin == 2 && kk==1)    // reading for spin down
+				    {
+					    if(j==NBVAL-1)    // VB
+					    	energies[i][0] = temp[2];
+				    }
+				    /*
+				     if(j == NBVAL-1 )
+				     	cout<<"Valence Energy = "<<energies[i][0]<<endl;
+
+				     if(j == NBVAL )
+				     	cout<<"Conduction Energy = "<<energies[i][1]<<endl;
+				    //getchar();
+
+				    */
+				} // loop for reading energy for bands is completd here
+			//getchar();
+			} // loop for all kpoints is completed here
+		}
+
 	}   // if condiction for VASP==1 completed
 	else if(VASP==0)    // reading from table
 	{
@@ -160,16 +244,34 @@ void find_cbm_vbm(int spin_orbit_coupling)
 	//cout<<"Comparing VB and CB for VBM and CBM "<<endl;		
 	for (i=0; i<NKPTS; i++)
 	{
-		if(energies[i][0] > evbm)
+
+		if(flagg==0)
 		{
-			evbm = energies[i][0];      
-			kvbm1[0] = kpoints[i][0];    // unit is 1/nm
-			kvbm1[1] = kpoints[i][1];
-			kvbm1[2] = kpoints[i][2];
+			if(energies[i][0] > evbm)
+			{
+				evbm = energies[i][0];
+				kvbm1[0] = kpoints[i][0];    // unit is 1/nm
+				kvbm1[1] = kpoints[i][1];
+				kvbm1[2] = kpoints[i][2];
 
-			if(VASP==1)
-				vbm_index = i;
+				if(VASP==1)
+					vbm_index = i;
 
+			}
+		}
+		else
+		{
+			if(energies[i][0] > evbm)
+			{
+				evbm = energies[i][0];
+				kvbm1[0] = kpoints_p[i][0];    // unit is 1/nm
+				kvbm1[1] = kpoints_p[i][1];
+				kvbm1[2] = kpoints_p[i][2];
+
+				if(VASP==1)
+					vbm_index = i;
+
+			}
 		}
 
 		if(energies[i][1] < ecbm )
@@ -203,9 +305,17 @@ void find_cbm_vbm(int spin_orbit_coupling)
 
 		fid = fopen("EK_VB.dat","w");
 		fprintf(fid,"# kx(1/cm)   ky(1/cm)    kz(1/cm)    energy  \n");
-	
-		for (int i = 0; i < NKPTS; i++)
-			fprintf(fid,"%e  %e  %e   %e \n", kpoints[i][0]*1e7, kpoints[i][1]*1e7, kpoints[i][2]*1e7, energies[i][0]);
+
+		if(flagg==0)
+		{
+			for (int i = 0; i < NKPTS; i++)
+				fprintf(fid,"%e  %e  %e   %e \n", kpoints[i][0]*1e7, kpoints[i][1]*1e7, kpoints[i][2]*1e7, energies[i][0]);
+		}
+		else
+		{
+			for (int i = 0; i < NKPTS; i++)
+				fprintf(fid,"%e  %e  %e   %e \n", kpoints_p[i][0]*1e7, kpoints_p[i][1]*1e7, kpoints_p[i][2]*1e7, energies[i][0]);
+		}
 		//kpoints are save in 1/cm
 	
 		fclose(fid);
