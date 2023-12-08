@@ -12,6 +12,70 @@ void save_results()
 		count = count_d;
 
 
+
+
+	// --------- carrier conc and ef saving -----------------------
+	if (ispin == 1)
+	{
+		fid1 = fopen("carrier_conc.dat","w");
+	}
+	else
+	{
+		if(ispin==2 && kk==0)
+		{
+			fid1 = fopen("carrier_conc_up_spin.dat","w");
+		}
+
+		if(ispin==2 && kk==1)
+		{
+			fid1 = fopen("carrier_conc_down_spin.dat","w");
+
+		}
+	}
+
+	if (variation==0)   // temperature variation
+	{
+		fprintf(fid1,"#Temperature(K)");
+	}
+	else
+	{
+		if(geometry==1)
+		{
+			fprintf(fid1,"#Doping(cm^-3)");
+
+		}
+		else if(geometry==2)
+		{
+			fprintf(fid1,"# Carrier conc.(cm^-2)");
+		}
+	}
+
+
+	if(geometry==1 && type=="n")
+	{
+
+		fprintf(fid1,"   n_e (cm^-3)      n_h (cm^-3)           E_F (eV)    \n");
+	}
+	else  // geometry==2
+	{
+		fprintf(fid1,"n_e (cm^-2)      n_h (cm^-2)           E_F (eV)    \n");
+	}  // end of geometry ==2 part
+
+	for (int i = 0; i <count ; i++)
+	{
+		fprintf(fid1,"%e	 %e     %e          %e     \n",  calc_mobility[i][0], ne[i] , nh[i], ef[i]);
+	}
+
+	fclose(fid1);
+	// --------- carrier conc and ef saved -----------------------
+
+
+
+
+
+
+
+
 	// --------- saving mobility results ----------------------- 
 	if (ispin == 1)
 	{

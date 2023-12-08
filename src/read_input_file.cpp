@@ -17,6 +17,7 @@ double c_lattice=0;
 int number;
 string TB_material;
 int flagg = 0;  // flagg =1 for EIGNEVAL_n is present
+double ne[limit10], nh[limit10], ef[limit10];
 
 //---------------------------------------------------------------------------------------------------------------
 double vf, vf_cb, vf_vb;

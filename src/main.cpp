@@ -30,7 +30,10 @@ int main()
 
     int jj=0;
 	
-			    	
+	//cout<<"Inside main "<<endl;
+	//getchar();
+
+		    	
     if(VASP==1)    	
     {
 	//--------------------------------// reading outcar file ----------------------------------  	
@@ -47,7 +50,7 @@ int main()
     //getchar();
       	    
 //---------------------------------------------output file generated---------------------------------------------------------
-
+	
     // running code for different ispin 		
     for (kk=0; kk<= jj ; kk++)
     {
@@ -171,7 +174,7 @@ int main()
 //------------------------------------finding fermi level ------------------------------------------------------------
 			
 		    if (De_ionization==0)
-			find_fermi(n_array[ii], T, T_loop);
+			find_fermi(n_array[ii], T, T_loop, ii);
 		    
 		    	                		
 		    efef_n = 0; // effective ef (fermi energy)
@@ -181,16 +184,20 @@ int main()
 		    {
 			    efef_n = E_F;
 			    efef_p = -(E_F+Bgap[T_loop]);
+
 		    }
 		    else
 		    {
 			    efef_n = -(E_F+Bgap[T_loop]);
 			    efef_p = E_F;
+
 		    }	
 //-------------------------------------------------------------------------------------------------------------------
 
 		     components_BTE(T, T_loop, efef_n, efef_p, ii);
 			
+			//cout<<"Calling solve g"<<endl;
+			//getchar();
 
 		     solve_g(T, T_loop, ii);	
 
@@ -204,7 +211,7 @@ int main()
 		     calculate_mobility(T, T_loop, ii);
 				
 
-		}   // temperature variation loop
+			}   // temperature variation loop
 	    }   //  doping variation loop
 	    
 	    save_results();

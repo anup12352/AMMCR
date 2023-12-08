@@ -24,7 +24,8 @@ void save_scattering_rate_contribution()
 
 		}				
 		fclose(fid1);
-			
+
+		/*
 		fid1 = fopen("pop_in_scattering_rate.dat","w");
 			fprintf(fid1,"# energy           individual in scattering rates \n");
 
@@ -40,7 +41,7 @@ void save_scattering_rate_contribution()
 		}				
 			
 		fclose(fid1);	
-			
+		*/
 	}	
 
 

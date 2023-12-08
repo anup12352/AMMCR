@@ -2,7 +2,7 @@
 #include"main.h"
 
 
-void find_fermi(double n, double T, int ii)
+void find_fermi(double n, double T, int T_loop, int ii)
 {
 		
     if (n > 5e20)
@@ -51,7 +51,7 @@ void find_fermi(double n, double T, int ii)
 				// volume1 unit cm^3 	
 				
 				integral_p = integral_p+
-				de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],-(e_f+Bgap[ii]),T)*N_vb;
+				de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],-(e_f+Bgap[T_loop]),T)*N_vb;
 				// 100 is multiplied to convert thicknesss from m to cm
 				// volume1 unit cm^3 	
 
@@ -62,7 +62,7 @@ void find_fermi(double n, double T, int ii)
 			else
 			{
 				integral_n = integral_n + 
-				de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],-(e_f+Bgap[ii]),T)*N_cb;
+				de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],-(e_f+Bgap[T_loop]),T)*N_cb;
 				// 100 is multiplied to convert thicknesss from m to cm
 				// volume1 unit cm^3 	
 				
@@ -97,14 +97,14 @@ void find_fermi(double n, double T, int ii)
 				integral_n = integral_n + 
 				(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],e_f,T)*N_cb;
 				integral_p = integral_p + 
-				(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],-(e_f+Bgap[ii]),T)*N_vb;
+				(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],-(e_f+Bgap[T_loop]),T)*N_vb;
 				// multipiled with 1e21 to convert (1/nm)^3 to (1/cm)^3  
 				// integral_n unit is 1/cm^3 ; for 3D
 				// integral_n unit is 1/cm^2 ; for 2D
 			}
 			else
 			{
-				integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],-(e_f+Bgap[ii]),T)*N_cb;
+				integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],-(e_f+Bgap[T_loop]),T)*N_cb;
 				integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],e_f,T)*N_vb;
 				// multipiled with 1e21 to convert (1/nm)^3 to (1/cm)^3  
 				// integral_n unit is 1/cm^3 ; for 3D
@@ -158,7 +158,7 @@ void find_fermi(double n, double T, int ii)
         }
         else if (i==2)
         {
-		E2 = -1*(Bgap[ii] + x);
+		E2 = -1*(Bgap[T_loop] + x);
 		e_f = E2;		
         }
         else
@@ -191,7 +191,7 @@ void find_fermi(double n, double T, int ii)
 
 		        
 		        integral_p = integral_p + 
-		        de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],-(e_f+Bgap[ii]),T)*N_vb;
+		        de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],-(e_f+Bgap[T_loop]),T)*N_vb;
 			// volume1 unit 1/cm^3 	
 
 			// integral_n unit is 1/cm^3 ; for 3D
@@ -201,7 +201,7 @@ void find_fermi(double n, double T, int ii)
 		else
 		{
 		        integral_n = integral_n + 
-		        de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],-(e_f+Bgap[ii]),T)*N_cb;
+		        de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],-(e_f+Bgap[T_loop]),T)*N_cb;
 		        integral_p = integral_p + 
 		        de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],e_f,T)*N_vb;
 			// integral_n unit is 1/cm^3 ; for 3D
@@ -227,14 +227,14 @@ void find_fermi(double n, double T, int ii)
 		if(type == "n")
 		{
 		        integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],e_f,T)*N_cb;
-		        integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],-(e_f+Bgap[ii]),T)*N_vb;
+		        integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],-(e_f+Bgap[T_loop]),T)*N_vb;
 		        // multipiled with 1e21 to convert (1/nm)^3 to (1/cm)^3  
 			// integral_n unit is 1/cm^3 ; for 3D
 			// integral_n unit is 1/cm^2 ; for 2D
 		}
 		else
 		{
-		        integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],-(e_f+Bgap[ii]),T)*N_cb;
+		        integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],-(e_f+Bgap[T_loop]),T)*N_cb;
 		        integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],e_f,T)*N_vb;
 		        // multipiled with 1e21 to convert (1/nm)^3 to (1/cm)^3  
 			// integral_n unit is 1/cm^3 ; for 3D
@@ -342,13 +342,13 @@ void find_fermi(double n, double T, int ii)
 		if(type == "n")
 		{
 			integral_n = integral_n+de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],e_f,T)*N_cb;
-			integral_p = integral_p+de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],-(e_f+Bgap[ii]),T)*N_vb;
+			integral_p = integral_p+de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],-(e_f+Bgap[T_loop]),T)*N_vb;
 			// integral_n unit is 1/cm^3 ; for 3D
 			// integral_n unit is 1/cm^2 ; for 2D
 		}
 		else
 		{
-			integral_n = integral_n+de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],-(e_f+Bgap[ii]),T)*N_cb;
+			integral_n = integral_n+de_n*(Ds_n[counter]*thickness*100)/volume1*f0(energy_n[counter],-(e_f+Bgap[T_loop]),T)*N_cb;
 			integral_p = integral_p+de_p*(Ds_p[counter]*thickness*100)/volume1*f0(energy_p[counter],e_f,T)*N_vb;
 			// integral_n unit is 1/cm^3 ; for 3D
 			// integral_n unit is 1/cm^2 ; for 2D
@@ -364,14 +364,14 @@ void find_fermi(double n, double T, int ii)
 		if(type == "n")
 		{
 		        integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],e_f,T)*N_cb;
-		        integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],-(e_f+Bgap[ii]),T)*N_vb;
+		        integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],-(e_f+Bgap[T_loop]),T)*N_vb;
 		        // multipiled with 1e21 to convert (1/nm)^3 to (1/cm)^3  
 			// integral_n unit is 1/cm^3 ; for 3D
 			// integral_n unit is 1/cm^2 ; for 2D
 		}
 		else
 		{
-		        integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],-(e_f+Bgap[ii]),T)*N_cb;
+		        integral_n = integral_n+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_n[counter],-(e_f+Bgap[T_loop]),T)*N_cb;
 		        integral_p = integral_p+(dk*(pow((k_grid[counter]/pi),2))*1e21)*f0(energy_p[counter],e_f,T)*N_vb;
 		        // multipiled with 1e21 to convert (1/nm)^3 to (1/cm)^3  
 			// integral_n unit is 1/cm^3 ; for 3D
@@ -430,6 +430,7 @@ void find_fermi(double n, double T, int ii)
 		cout<<"E_F = "<<E_F<<" eV"<<endl;
 		cout<<"n_e = "<<n_e<<" cm^-3"<<endl;
 		cout<<"n_h = "<<n_h<<" cm^-3"<<endl;
+
 	}
 	else if(geometry==2)  // for 2D
 	{
@@ -437,6 +438,20 @@ void find_fermi(double n, double T, int ii)
 		cout<<"n_e = "<<n_e<<" cm^-2"<<endl;
 		cout<<"n_h = "<<n_h<<" cm^-2"<<endl;
 	}
+
+	if(variation == 0)  // temp variation
+	{
+		ne[T_loop] = n_e;
+		nh[T_loop] = n_h;
+		ef[T_loop] = E_F;
+	}
+	else   // doping variation
+	{
+		ne[ii] = n_e;
+		nh[ii] = n_h;
+		ef[ii] = E_F;
+	}
+
 	//cout<<"n = "<<n<<endl;
 		
 	//cout<<"(n_e-n_h)/n = "<<(n_e-n_h)/n<<endl;
@@ -503,7 +518,7 @@ void find_fermi(double n, double T, int ii)
 
 		    if(scattering_mechanisms[9] == 1)	// Neutral impurity scattering  // for 3D
 			{
-		    	cout<<"Net neutral impurity =  "<<N_im[ii]<<" cm^(-3)"<<endl;
+		    	cout<<"Net neutral impurity =  "<<N_im[T_loop]<<" cm^(-3)"<<endl;
 			}
 			    // net neutral impurity
 	    }	

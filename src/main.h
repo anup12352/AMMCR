@@ -87,7 +87,7 @@ extern int pop_number, so_pop_number;
 extern double we_pop[limit5], we_to[limit5], dist;
 extern int gd[limit5], method, overlap;
 extern double rimp, Si_so_pop_grid[limit2];
-
+extern double ne[limit10], nh[limit10], ef[limit10];
 
 //-----------------------
 void read_OUTCAR();
@@ -121,7 +121,7 @@ double DOS_value(double energy, int a);
 void tight_binding_band_structure();
 void tight_binding_band_DOS();
 
-void find_fermi(double n, double T, int ii);
+void find_fermi(double n, double T, int T_loop, int ii);
 double f0(double E1, double e_f, double T);
 double beta(double T,int T_loop);
 double N_poph(double omega, double T);
