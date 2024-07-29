@@ -4,7 +4,7 @@
 #include<iostream>
 using namespace std;
 
-double orbital_decomposedd_p[5000][4];
+double orbital_decomposedd_p[1000][4];
 
 int decompose_wave_p()
 {
@@ -14,33 +14,21 @@ int decompose_wave_p()
     
 	double kpoints_BZ[limit3][3], s_total[limit3]={0}, p_total[limit3]={0}, d_total[limit3]={0};
 
-	//cout<<"Reached before in p"<<endl;
-	//getchar();
-
 	if(VASP==1)		
 	{
 		int num_bands1, num_ions,band_number;
 		band_number = NBVAL;
 
-		if(flagg==1)
-			fid = fopen("PROCAR_p", "r");
-		else
-			fid = fopen("PROCAR","r");
+
+		fid = fopen("PROCAR_p", "r");
+		if (fid==NULL)
+		fid = fopen("PROCAR","r");
 
 		if (fid==NULL)
 		{
-			if(flagg==1)
-			{
-				cout<<"PROCAR_p is not present. Program is running by assuming valence band to be p-like"<<endl;
-				return 0;
-			}
-			else
-			{
-				cout<<"PROCAR is not present. Program is running by assuming valence band to be p-like"<<endl;
-				return 0;
-			}
+		cout<<"PROCAR is not present. Program is running by assuming valence band to be p-like"<<endl;
+		return 0;
 		}
-
 		fgets(line, 1000, fid);
 		fgets(line, 1000, fid);
 		//cout<<"line = "<<line<<endl;
@@ -228,153 +216,111 @@ int decompose_wave_p()
 
 		int nb=0,dummy;
 
+		string dummy_s;
+		int result;
 		for(int k=0;k<num_kpoints;k++)
 		{
 			//cout<<"kpoint no. = "<<k<<endl;
-			
 			fgets(line, 1000, fid);
 			fgets(line, 1000, fid);
-
-			if(line[1]!='k')
-				fgets(line, 1000, fid);
-
 			//cout<<"line = "<<line<<endl;
 			//getchar();
-			
-			i=0;
-			l = strlen(line);
-			while(line[i]!=':')
-			    i++;
-			i++;
 
-			j=i;
+			result = sscanf(line, "%s %s %s %lf %lf %lf %s %s %lf", &dummy_s, &dummy_s, &dummy_s,
+					&kpoints[k][0], &kpoints[k][1], &kpoints[k][2], &dummy_s, &dummy_s, &kpoints[k][3]);
 
-			while(line[i]!='w')
+			if (result != 9)
 			{
-			    //cout<<"i = "<<i<<endl;
-			    //cout<<"line[i] = "<<line[i]<<endl;
-			    //getchar();
-			    
-			    if(line[i]=='-')
-			    {
-			    	data[i-j] = ' ';
-			    	i++;
-			    	data[i-j] = line[i-1];
-			    	
-			    	//cout<<"line[i-1] = "<<line[i-1]<<endl;
-			    	
-			    	//cout<<"Inside if "<<endl;
-			    	//cout<<"data[i-j-1] =   a"<<data[i-j-1]<<"a    data[i-j] = "<<data[i-j]<<endl;
-			    	//getchar();
-			    	
-			    	i++;
-			    }
-			    else
-			    {
-			    	//cout<<"Inside else "<<endl;			
-			    	data[i-j] = line[i];
-			    	i++;
-			    }
+				//std::cerr << "Error: Data does not contain a valid double value. next passing one empty line" << std::endl;
+				fgets(line, 1000, fid);  // passing one empty line
+				//cout<<"This should be valid kpoint line = "<<line<<endl;   // reading band number line
+
+				result = sscanf(line, "%s %s %s %lf %lf %lf %s %s %lf", &dummy_s, &dummy_s, &dummy_s,
+						&kpoints[k][0], &kpoints[k][1], &kpoints[k][2], &dummy_s, &dummy_s, &kpoints[k][3]);
+
+				//exit(EXIT_FAILURE);
 			}
 
-			sscanf(data, "%lf %lf %lf", &kpoints[k][0], &kpoints[k][1], &kpoints[k][2]);
 
-			while(line[i]!='=')
-			    i++;
-			i++;
-			j=i;
+			//cout<<"In P type Printing kpoints varaibles. Pres key to continue = "<<endl<<kpoints[k][0]<<"   "
+			//		<<kpoints[k][1]<<"   "<<kpoints[k][2]<<"   "<<kpoints[k][3]<<endl;
 
-			while(i!=l)
-			{
-			    data[i-j] = line[i];
-			    i++;
-			}
-
-			sscanf(data, "%lf ", &kpoints[k][3]);
-
-			//cout<<"kpoints = "<<kpoints[k][0]<<"   "<<kpoints[k][1]<<"   "<<kpoints[k][2]<<"   "<<kpoints[k][3]<<endl;
+			//getchar();
+			//cout<<"kpoints = "<<kpoints[k][0]<<"   "<<kpoints[k][0]<<"   "<<kpoints[k][1]
+			//<<"   "<<kpoints[k][2]<<"   "<<kpoints[k][2]<<endl;
 			//getchar();
 
 			for (nb=0;nb<num_bands1;nb++)
 			{
-			    //cout<<"band number =  "<<nb<<endl;
-			    //getchar();
-			    
-			    fgets(line, 1000, fid);
-			    fgets(line, 1000, fid);
-			    
-			    if(line[0]!='b')
-			    {
-			    	//cout<<"Inside first if "<<endl;
-			    	fgets(line, 1000, fid);
-			    	//cout<<"line = "<<line<<endl;
-			    	//getchar();
-			    }	
-
-			    i =19;
-			    j=i;
-			    while(line[i]!='#')
-			    {
-				data[i-j]=line[i];
-				i++;
-			    }
-			    data[i-j]='\0';
-			    sscanf(data, "%lf ", &band_energies[nb][k]);
-			    
-			    //cout<<"energy = "<<band_energies[nb][k]<<"     end"<<endl;
-			    //getchar();
-			    
-			    fgets(line, 1000, fid);
-			    fgets(line, 1000, fid);
-			    fgets(line, 1000, fid);
-			    
-			    //cout<<line<<endl<<"ssss";
-			    //getchar();
-			    
-			    for(i=0;i<num_ions;i++)
-			    {
-			    	//cout<<"Here total"<<endl;
-				sscanf(line, "%d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &dummy, &s[i][nb][k],
-				   &py[i][nb][k], &pz[i][nb][k], &px[i][nb][k], &dxy[i][nb][k], &dyz[i][nb][k], &dz2[i][nb][k],
-				   &dxz[i][nb][k], &dx2[i][nb][k], &ion_total[i][nb][k]);
-
-				/*
-				cout<<dummy<<"  "<<s[i][nb][k]<<"  "<<py[i][nb][k]<<"  "<<pz[i][nb][k]<<"  "<<px[i][nb][k]<<"   "<<dxy[i][nb][k]
-				 <<"  "<<dyz[i][nb][k]<<"  "<<dz2[i][nb][k]<<"  "<<dxz[i][nb][k]<<"  "<<dx2[i][nb][k]<<"  "<<ion_total[i][nb][k]<<endl;
-				getchar();
-				*/
-				//cout<<"check  "<<endl;
+				//cout<<"band number =  "<<nb<<endl;
 				fgets(line, 1000, fid);
-				//cout<<line<<"xxxx"<<endl;
-				//getchar();
-			    }
+				fgets(line, 1000, fid);
+				i =19;
+				j=i;
 
-			    l = strlen(line);
-			    for (i=3;i<l;i++)
-				data[i-3] = line[i];
-			    sscanf(data, " %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf ", &s_total1[nb][k], &py_total[nb][k], &pz_total[nb][k],
+				int result = sscanf(line, "%s %s %s %s %lf", &dummy_s, &dummy_s, &dummy_s, &dummy_s, &band_energies[nb][k]);
+				//cout<<"Result = "<<result<<endl;
+
+				if (result != 5)
+				{
+					//std::cerr << "Error: Data does not contain a valid double value. next passing one empty line" << std::endl;
+					fgets(line, 1000, fid);  // passing one empty line
+					//cout<<"This should be valid Band number line = "<<line<<endl;   // reading band number line
+
+					sscanf(line, "%s %s %s %s %lf", &dummy_s, &dummy_s, &dummy_s, &dummy_s, &band_energies[nb][k]);
+
+					//exit(EXIT_FAILURE);
+				}
+
+				//cout<<"energy = "<<band_energies[nb][k]<<"     end"<<endl;
+				//getchar();
+				fgets(line, 1000, fid);
+				fgets(line, 1000, fid);
+				fgets(line, 1000, fid);
+				//cout<<line<<endl<<"ssss";
+				//getchar();
+				for(i=0;i<num_ions;i++)
+				{
+					sscanf(line, "%d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &dummy, &s[i][nb][k],
+					   &py[i][nb][k], &pz[i][nb][k], &px[i][nb][k], &dxy[i][nb][k], &dyz[i][nb][k], &dz2[i][nb][k],
+					   &dxz[i][nb][k], &dx2[i][nb][k], &ion_total[i][nb][k]);
+
+					/*
+					cout<<dummy<<"  "<<s[i][nb][k]<<"  "<<py[i][nb][k]<<"  "<<pz[i][nb][k]<<"  "<<px[i][nb][k]<<"   "<<dxy[i][nb][k]
+					 <<"  "<<dyz[i][nb][k]<<"  "<<dz2[i][nb][k]<<"  "<<dxz[i][nb][k]<<"  "<<dx2[i][nb][k]<<"  "<<ion_total[i][nb][k]<<endl;
+					getchar();
+					*/
+					//cout<<"check  "<<endl;
+					fgets(line, 1000, fid);
+					//cout<<line<<"xxxx"<<endl;
+					//getchar();
+				}
+
+
+				sscanf(line, " %s %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf ", &dummy_s, &s_total1[nb][k], &py_total[nb][k], &pz_total[nb][k],
 				   &px_total[nb][k], &dxy_total[nb][k], &dyz_total[nb][k], &dz2_total[nb][k],
 				   &dxz_total[nb][k], &dx2_total[nb][k], &total[nb][k]);
 
-			    p_total1[nb][k] = py_total[nb][k]+ px_total[nb][k] + pz_total[nb][k];
-			    d_total1[nb][k] = dxy_total[nb][k]+ dyz_total[nb][k] + dz2_total[nb][k] + dxz_total[nb][k] + dx2_total[nb][k];
+				p_total1[nb][k] = py_total[nb][k]+ px_total[nb][k] + pz_total[nb][k];
+				d_total1[nb][k] = dxy_total[nb][k]+ dyz_total[nb][k] + dz2_total[nb][k] + dxz_total[nb][k] + dx2_total[nb][k];
 
-			    //cout<<"Here total"<<endl;
-			    //cout<<s_total1[nb][k]<<"    "<<p_total1[nb][k]<<"    "<<d_total1[nb][k]<<"    "<<endl;
-			    //getchar();
+				//cout<<"Here total"<<endl;
+				//cout<<s_total1[nb][k]<<"    "<<p_total1[nb][k]<<"    "<<d_total1[nb][k]<<"    "<<endl;
+				//getchar();
 
-			    if (spin_orbit_coupling == 1)
-			    {
-				//cout<<"ssshoww"<<endl;
-				for (int skp=1;skp<=3*(num_ions+1);skp++)
-				    fgets(line, 1000, fid);
-			    }
+				if (spin_orbit_coupling == 1)
+				{
+					//cout<<"ssshoww"<<endl;
+					for (int skp=1;skp<=3*(num_ions+1);skp++)
+						fgets(line, 1000, fid);
+				}
 			}
+
 			fgets(line, 1000, fid);
 		}
 
 
-		//cout<<"test";
+		//cout<<"test  num_kpoints = "<<num_kpoints;
 		//getchar();
 
 		//cout<<"check";
@@ -394,10 +340,6 @@ int decompose_wave_p()
 			p_total[i] = p_total1[band_number-1][i];
 			d_total[i] = d_total1[band_number-1][i];
 		}
-
-		//cout<<"Reached outside in p"<<endl;
-		//getchar();
-
 		/*
 		//--------------------------------------- save wave function admixture ---------------------------------
 		fid2 = fopen("WAVE_ADMIXTURE_VB.dat","w");
@@ -410,7 +352,7 @@ int decompose_wave_p()
 		*/
 		
 	}	
-	else if(VASP==0)    // reading wave function admixture from table form
+	else      // reading wave function admixture from table form
 	{
 		
 		fid = fopen("WAVE_ADMIXTURE_VB.dat","r");
@@ -431,18 +373,7 @@ int decompose_wave_p()
 		}
 		num_kpoints = i;
 				
-	}    
-	else if(VASP==2)   // tight binding band strructure
-	{
-		//cout<<"For tight binding band structure program is running by assuming conduction band to be s-like and valence band to be p-like"<<endl;
-		return 0;
-		// In generate_required_data,.cpp if  count_orbital_n and count_orbital_p are zero then it will make conduction band to be s-like and valence band to be p-like
-		// By default count_orbital_p = 0 and count_orbital_n = 0
-		
-	}
-	// if and else condition for VASP==1 completed
-		
-	// if and else condition for VASP==1 completed
+	}    // if and else condition for VASP==1 completed
         //--------------------------------------------------------------------------------------------------------------------------
 
 
