@@ -86,7 +86,7 @@ double sigma_r[limit10][limit9], sigma_i[limit10][limit9], mobility_r[limit10][l
 double sigma_real, sigma_img;
 
 //---------------------------------------------------------------------------------------------------------------
-
+double orbital_decomposedd[5000][4], orbital_decomposedd_p[5000][4];
 double nu_deformation_p[limit2][2][2]={0}, nu_ionizedimpurity_p[limit2][2][2]={0}, nu_el_p[limit2][2][2]={0};
 double nu_npop_p[limit2][2][2]={0};
 double nu_So_p[limit2][2][2]={0};
