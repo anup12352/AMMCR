@@ -208,8 +208,8 @@ double find_fermi();
 extern double h_bar;
 //--------------------------------------------------------------------------------------------
 extern int cc, VASP;
-extern double lm[10][10], volume1, ion_mass1[5], Emax;
-extern int ion_numbers1[5], spin_orbit_coupling;
+extern double lm[10][10], volume1, ion_mass1[100], Emax;
+extern int ion_numbers1[100], spin_orbit_coupling;
 extern int npop_number;
 
 extern int flagg;

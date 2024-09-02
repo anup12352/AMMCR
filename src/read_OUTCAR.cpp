@@ -29,19 +29,19 @@ void read_OUTCAR()
 			//printf("%s \n", line);
 			//printf("\n %lu \n", strlen(line));
 			if (strlen(line) > 18)
-            		{	
+            {
 				//cout<<"SSSSSSSSSSS"<<endl;
 				strncpy(temp, line, 18);
 				temp[18] = '\0';
 				//printf("%s\n", temp); getchar();
 				if (strcmp(temp, "   LSORBIT =      ")==0)
-                		{
+				{
 					if (line[18] == 'T')
-                    			{
+					{
 						spin_orbit_coupling = 1;
 					}
 					else
-                    			{
+					{
 						spin_orbit_coupling = 0;
 					}
 				}
@@ -204,19 +204,142 @@ void read_OUTCAR()
 	}
 	fclose(fid);
 
+	/*
+	char *token = strtok(ion_numbers, " "); // Split the string by spaces
+	i = 0;
+	// Loop through each token and parse it into a double
+	while (token != nullptr)
+	{
+		if (strlen(token) > 0)
+		{ // Skip empty tokens caused by multiple spaces
+
+			cout<<"token = "<<*token<<endl;
+			getchar();
+
+			sscanf(token, "%d", &ion_numbers1[i]);
+			cout<<ion_numbers[i]<<"    "<<endl;
+			getchar();
+			i++;
+		}
+		token = strtok(nullptr, " "); // Get the next token
+	}
+	number = i;
+
+	i = 0;
+	token = strtok(ion_mass, " "); // Split the string by spaces
+
+	// Loop through each token and parse it into a double
+	while (token != nullptr)
+	{
+		if (strlen(token) > 0)
+		{ // Skip empty tokens caused by multiple spaces
+			sscanf(token, "%lf", &ion_mass1[i]);
+			i++;
+		}
+		token = strtok(nullptr, " "); // Get the next token
+	}
+	*/
+
+	int offset = 0;  // To keep track of the position in the array
+
+	int result;
+
+	// check if there are some spaces
+	while(ion_numbers[offset]==' ')
+	{
+		++offset;
+	}
+
+	i = 0;
+	// Loop to read all integers until the end of the string
+	while (sscanf(ion_numbers + offset, "%d", &ion_numbers1[i]) == 1)
+	{
+		//std::cout << "Read integer: " << ion_numbers1[i] << std::endl;
+
+		// Update offset to move to the next integer
+		// Calculate the length of the current number as a string and add it to the offset
+		offset += snprintf(nullptr,0, "%d", ion_numbers1[i]);
+		//offset += result;
+		//cout<<"offset = "<<offset<<endl;
+
+		// Skip any spaces (or other delimiters) between numbers
+		while (ion_numbers[offset] == ' ')
+		{
+			offset++;
+		}
+		//cout<<"New offset = "<<offset<<endl;
+		++i;
+		//getchar();
+	}
+
+	offset = 0;
+	// check if there are some spaces
+	while(ion_mass[offset]==' ')
+	{
+		++offset;
+	}
+
+	i = 0;
+
+	// Loop to read all masses until the end of the string
+	while (sscanf(ion_mass + offset, "%lf", &ion_mass1[i]) == 1)
+	{
+		//std::cout << "Read mass: " << ion_mass1[i] << std::endl;
+
+		// Update offset to move to the next integer
+
+		 while ((ion_mass[offset] != ' ') && (ion_mass[offset] != '\0'))
+		 {
+			 offset++;
+		 }
+
+		 // Skip any spaces (or other delimiters) between numbers
+		while (ion_mass[offset] == ' ')
+		{
+			offset++;
+		}
+		//cout<<"New offset = "<<offset<<endl;
+		++i;
+		//getchar();
+	}
+
+	number = i;
+	//cout<<" number = "<<number<<endl;
+
+	cout<<"Ion numbers are: "<<endl;
+	for(int i=0;i<number;++i)
+	{
+		cout<<ion_numbers1[i]<<"    ";
+	}
+	cout<<endl;
+
+	cout<<"Ion masses are: "<<endl;
+	for(int i=0;i<number;++i)
+	{
+		// Print double in floating-point format with default precision
+		cout<<std::fixed<<ion_mass1[i]<<"    ";
+	}
+	cout<<endl;
+
+	/*
 	//cout<<"Outside looop"<<endl;
 	//printf("%lf", ion_mass1[0]); getchar();
 	int c=0;
 	i=0;
 	while(ion_numbers[i]!='\0' && ion_numbers[i]!=char(10) )
-    	{
+	{
+
 		if(ion_numbers[i] != char(32) )
-		    number++;
+			number++;
 		i++;
-    	}
+	}
 	
-	
-	
+
+	for(int i=0;i<number;++i)
+	{
+		sscanf(ion_numbers, "%d", &ion_numbers1[0]);
+		sscanf(ion_mass, "%lf", &ion_mass1[0]);
+	}
 	if (number==1)
 	{	
 		sscanf(ion_numbers, "%d", &ion_numbers1[0]);
@@ -262,7 +385,7 @@ void read_OUTCAR()
 //------------------------// showing outcar data ---------------------------------------------------------------------------------
     			
     //cout<<"number = "<<number<<endl;
-
+	/*
     if (number==1)
     {
         printf("\nion_mass =  %lf \n", ion_mass1[0] );   // unit amu
@@ -288,8 +411,9 @@ void read_OUTCAR()
         printf("\nion_mass =  %lf %lf %lf %lf %lf \n", ion_mass1[0], ion_mass1[1],ion_mass1[2], ion_mass1[3], ion_mass1[4]);     // unit amu
         printf("\nion_numbers =  %d %d %d %d %d \n", ion_numbers1[0], ion_numbers1[1], ion_numbers1[2], ion_numbers1[3], ion_numbers1[4]);
     }
-    	
-    	volume1 = volume1/1e24;   // converted from A^3 to cm^3
+    */
+
+	volume1 = volume1/1e24;   // converted from A^3 to cm^3
 	printf("\nvolume =  %e cm^(-3)\n", volume1);
 	//getchar();
 	// unit 1/cm^3  volume = a^3/4   (a -> lattice constant)

@@ -9,9 +9,9 @@ double ecbm,evbm,kcbm1[3],kvbm1[3];
 int NKPTS,NBVAL,NBTOT;
 
 int spin_orbit_coupling;
-double ion_mass1[5];
+double ion_mass1[100];
 double lm[10][10];
-int ion_numbers1[5];
+int ion_numbers1[100];
 double volume1;
 double c_lattice=0;
 int number;
@@ -265,10 +265,33 @@ void read_input_file()
 		in>> str;
 		
 		// to check comments(if a line is not part of input then start tat line with #)
-		if(str=="#")
+		if(str[0]=='#')
 		{
 		  getline(in,ss);
 		  cout<< "--COMMENT--" <<ss <<endl<<endl;
+		  continue;
+		}
+		else
+		{
+			//int i =0;
+			//cout<<"str = "<<str<<endl;
+
+			auto i=str.begin();
+			//cout<<"*i = "<<*i<<endl;
+			//getchar();
+			while(*i==' ')
+			{
+				++i;
+				getchar();
+			}
+
+			if(*i=='#')
+			{
+			  getline(in,ss);
+			  //cout<< "--COMMENT AAA--" <<ss <<endl<<endl;
+			  continue;
+			}
+
 		}
 		
 		if(str=="TYPE")
@@ -334,6 +357,10 @@ void read_input_file()
 		  flag[0] = 1;  	
 		  getline(in,ss);
 		  stringstream tmp(ss);
+
+
+		  cout<<"tmp = "<<tmp.str()<<endl;
+
 		  int count = 0;
 		  int i=0; 
 		  while (tmp >> T_array[i]) 
@@ -942,9 +969,12 @@ void read_input_file()
 		  
 		}
 		*/
-
+		//cout<<"str = "<<str<<endl;
+		//getchar();
+		// SCATTERING_MECHANISM_CONTROL
 		if(str=="SCATTERING_MECHANISM_CONTROL")       // line no. 
 		{
+		  //cout<<"Insided scater"<<endl;
 		  flag[4] = 1;	
 		  getline(in,ss);
 		  stringstream smc(ss);
@@ -1614,7 +1644,7 @@ void read_input_file()
 		
 	if(flag[0]==0)
 	{
-		cout<<"Temeprature is not given as input. Exit from program"<<endl;
+		cout<<"Temprature is not given as input. Exit from program"<<endl;
 		exit(EXIT_FAILURE);
 	}
 	
