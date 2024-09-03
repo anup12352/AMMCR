@@ -42,8 +42,8 @@ DebugFlag = -g
 
 Compiler = g++ 
 
-#Flags = -std=c++14 -MMD -MP
-Flags =  -MMD -MP
+Flags = -std=c++14 -MMD -MP
+#Flags =  -MMD -MP
 
 #LIB = -I ../helper/eigen-3.4.0/eigen-3.4.0/
 
