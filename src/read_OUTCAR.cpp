@@ -319,7 +319,9 @@ void read_OUTCAR()
 		// Print double in floating-point format with default precision
 		cout<<std::fixed<<ion_mass1[i]<<"    ";
 	}
-	cout<<endl;
+	//cout<<endl;
+
+	cout<<std::scientific<<setprecision(6)<<endl;
 
 	/*
 	//cout<<"Outside looop"<<endl;

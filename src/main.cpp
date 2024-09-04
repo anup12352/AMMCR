@@ -6,7 +6,7 @@ int main()
     cout<<"Inside main function"<<endl;	
     //cout<<"iterations = "<<iterations<<endl;
 
-    cout.precision(15);
+    cout.precision(7);
     FILE *fid1;
     FILE *fid2;
 	
