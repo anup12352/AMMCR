@@ -443,7 +443,7 @@ where $\bar{c}$  given by
 \label{c_bar}
 \end{equation}  
 where $c_l$, $c_t$ are the spherically averaged elastic
-constant for longitudinal and transverse modes respectively, $D_{op}$ is the NPOP deformation potential (units of electron volts per meter),  ̄$\omega_{op}$  is the phonon frequency of NPOP.
+constant for longitudinal and transverse modes respectively, $D_{op}$ is the NPOP deformation potential (units of electron volts),  ̄$\omega_{op}$  is the phonon frequency of NPOP.
 
 \subsubsection{Polar optical phonon scattering}
 The momentum relaxation rate for POP scattering is given by \cite{ramu2011thermoelectric} 
@@ -961,15 +961,26 @@ Second, any line starting with \# is considered a comment line, and the code ign
     Neutral impurity concentration is set to $1 \times 10^{12}$, $1 \times 10^{13}$, $1 \times 10^{14}$ and $1 \times 10^{15}$ $cm^{-3}$ (or $cm^{-2}$). \\ \\
 
 
-    \item \textbf{NPOP\_3D}   \\ \\
+    \item \textbf{NPOP\_3D\_N}   \\ \\
     \textit{Syntax:} \\
-    \textbf{NPOP\_3D} FREQ\_1 CONST\_1 FREQ\_2 CONST\_2 FREQ\_3 CONST\_3 \\ \\
+    \textbf{NPOP\_3D\_N} FREQ\_1 CONST\_1 FREQ\_2 CONST\_2 FREQ\_3 CONST\_3 \\ \\
     \textit{Description:} \\
-    This command is used to set the values of various inputs required for NPOP scattering rate calculation for 3D bulk material. FREQ denotes the NPOP phonon frequency ($\omega_{npop}$ unit is $THZ$). CONST denotes the coupling constant ($D_{op}$ unit is $10^8 eV cm^{-1}$) for NPOP scattering rate. Multiple values can be given for simulation (maximum limit is 5). \\ \\
+    This command is used to set the values of various inputs required for NPOP scattering rate calculation for n-type 3D bulk material. FREQ denotes the NPOP phonon frequency ($\omega_{npop}$ unit is $THZ$). CONST denotes the coupling constant ($D_{op}$ unit is $10^8 eV cm^{-1}$) for NPOP scattering rate. Multiple values can be given for simulation (maximum limit is 5). \\ \\
     \textit{Example:} \\
-    NPOP\_3D 1.4 3.2 2.1 3.4 \\ \\
+    NPOP\_3D\_N 1.4 3.2 2.1 3.4 \\ \\
     \textit{Meaning:} \\   
     Two sets of inputs are given for NPOP scattering for 3D bulk materials. The first one sets the phonon frequency to 1.4 $THz$ and the coupling constant value to $3.2 \times 10^{8} \; eV/cm$. The second one sets the phonon frequency to 2.1 $THz$ and the coupling constant value to $3.4 \times 10^{8} \; eV/cm$. \\ \\     
+
+    \item \textbf{NPOP\_3D\_P}   \\ \\
+    \textit{Syntax:} \\
+    \textbf{NPOP\_3D\_P} FREQ\_1 CONST\_1 FREQ\_2 CONST\_2 FREQ\_3 CONST\_3 \\ \\
+    \textit{Description:} \\
+    This command is used to set the values of various inputs required for NPOP scattering rate calculation for p-type 3D bulk material. FREQ denotes the NPOP phonon frequency ($\omega_{npop}$ unit is $THZ$). CONST denotes the coupling constant ($D_{op}$ unit is $ eV $) for NPOP scattering rate. Multiple values can be given for simulation (maximum limit is 5). \\ \\
+    \textit{Example:} \\
+    NPOP\_3D\_P 2.4 4.2 5.1 2.4 \\ \\
+    \textit{Meaning:} \\   
+    Two sets of inputs are given for NPOP scattering for p-type 3D bulk materials. The first one sets the phonon frequency to 2.4 $THz$ and the coupling constant value to $4.2 eV $. The second one sets the phonon frequency to 5.1 $THz$ and the coupling constant value to $2.4 eV $. \\ \\     
+    
     \item \textbf{NPOP\_2D}   \\ \\
     \textit{Syntax:} \\
     \textbf{NPOP\_2D} FREQ\_1 CONST\_1 NFV\_1 FREQ\_2 CONST\_2 NFV\_2 FREQ\_3 CONST\_3 NFV\_3 \\ \\
