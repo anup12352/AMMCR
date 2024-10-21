@@ -40,92 +40,106 @@ void generate_required_data(double T)
 
 	    for (int counter=0;counter<points;counter++)
 	    {
-		if ((k_min+(counter)*k_step_fine)<k_trans)
-		    k_dum = k_min+(counter)*k_step_fine;
-		else
-		    k_dum = k_trans+(counter-points1+1)*k_step;
+			if ((k_min+(counter)*k_step_fine)<k_trans)
+				k_dum = k_min+(counter)*k_step_fine;
+			else
+				k_dum = k_trans+(counter-points1+1)*k_step;
 
-		k_grid[counter] = k_dum;  // unit 1/nm
-		//cout<<"k_grid[counter] = "<<k_grid[counter]<<endl;
+			k_grid[counter] = k_dum;  // unit 1/nm
+			//cout<<"k_grid[counter] = "<<k_grid[counter]<<endl;
 
-		energy_n[counter] = conduction_dispersion(k_dum, coefficients_cond, kindex_cond, a11);
-		energy_p[counter] = conduction_dispersion(k_dum, coefficients_val, kindex_val, b11);
+			energy_n[counter] = conduction_dispersion(k_dum, coefficients_cond, kindex_cond, a11);
+			energy_p[counter] = conduction_dispersion(k_dum, coefficients_val, kindex_val, b11);
+
+			/*
+			cout<<"counter   =  "<<counter<<endl;
+			cout<<"energy_n[counter] = "<<energy_n[counter]<<endl;
+			cout<<"energy_p[counter] = "<<energy_p[counter]<<endl;
+			getchar();
+			//*/
+
+			v_n[counter] = abs(dedk(k_dum,coefficients_cond,kindex_cond,a11)/h_bar*1e-7);
+			// group velocity in cm/s
+			//cout<<"v_n[counter] = "<<v_n[counter]<<endl;
+			v_p[counter] = abs(dedk(k_dum,coefficients_val,kindex_val,b11)/h_bar*1e-7);
+			//cout<<"v_p[counter] = "<<v_p[counter]<<endl;
+			//getchar();
+
+			/*
+			if(counter!=0 && energy_p[counter] < energy_p[counter-1] )
+			{
+				energy_p[counter] = energy_p[counter-1] + 0.01;
+				v_p[counter] = (energy_p[counter] - energy_p[counter-1])/((k_grid[counter] - k_grid[counter-1])*h_bar*1e7);
+			}
+
+			if(counter!=0 && energy_n[counter] < energy_n[counter-1] )
+			{
+				energy_n[counter] = energy_n[counter-1] + 0.01;
+
+				v_n[counter] = (energy_n[counter] - energy_n[counter-1])/((k_grid[counter] - k_grid[counter-1])*h_bar*1e7);
+
+				//v_n[counter] =  ((k_grid[counter] - k_grid[counter-1]))*(v_n[counter-1] - v_n[counter-2])/(k_grid[counter-1] - k_grid[counter-2]);
+			}
+			*/
 		
-		/*
-		cout<<"counter   =  "<<counter<<endl;
-		cout<<"energy_n[counter] = "<<energy_n[counter]<<endl;
-		cout<<"energy_p[counter] = "<<energy_p[counter]<<endl;
-		getchar();
-		//*/
-
-		v_n[counter] = abs(dedk(k_dum,coefficients_cond,kindex_cond,a11)/h_bar*1e-7);
-		// group velocity in cm/s
-		//cout<<"v_n[counter] = "<<v_n[counter]<<endl;
-		v_p[counter] = abs(dedk(k_dum,coefficients_val,kindex_val,b11)/h_bar*1e-7);
-		//cout<<"v_p[counter] = "<<v_p[counter]<<endl;
-		//getchar();
-
-		if(counter!=0 && energy_p[counter] < energy_p[counter-1] )
-		{
-			energy_p[counter] = energy_p[counter-1] + 0.01;
-			v_p[counter] = (energy_p[counter] - energy_p[counter-1])/((k_grid[counter] - k_grid[counter-1])*h_bar*1e7);
-		}
-
-		if(counter!=0 && energy_n[counter] < energy_n[counter-1] )
-		{
-			energy_n[counter] = energy_n[counter-1] + 0.01;
-
-			v_n[counter] = (energy_n[counter] - energy_n[counter-1])/((k_grid[counter] - k_grid[counter-1])*h_bar*1e7);
-
-			//v_n[counter] =  ((k_grid[counter] - k_grid[counter-1]))*(v_n[counter-1] - v_n[counter-2])/(k_grid[counter-1] - k_grid[counter-2]);
-		}
-		
-		if (count_orbital!=0)
-		{
-		    a_n[counter] = admixture_value(k_dum,2);
-		    c_n[counter] = admixture_value(k_dum,3);
-		}
-		else
-		{
-		    a_n[counter] = 1;
-		    c_n[counter] = 0;
-		}
+			if (count_orbital!=0)
+			{
+				a_n[counter] = admixture_value(k_dum,2);
+				c_n[counter] = admixture_value(k_dum,3);
+			}
+			else
+			{
+				a_n[counter] = 1;
+				c_n[counter] = 0;
+			}
 
 
-		if (count_orbital_p!=0)
-		{
-		    a_p[counter] = admixture_value_p(k_dum,2);
-		    c_p[counter] = admixture_value_p(k_dum,3);
-		}
-		else
-		{
-		    a_p[counter] = 0;
-		    c_p[counter] = 1;
-		}
+			if (count_orbital_p!=0)
+			{
+				a_p[counter] = admixture_value_p(k_dum,2);
+				c_p[counter] = admixture_value_p(k_dum,3);
+			}
+			else
+			{
+				a_p[counter] = 0;
+				c_p[counter] = 1;
+			}
 
-		//cout<<"a_n[counter] = "<<a_n[counter]<<endl;
-		//cout<<"c_n[counter] = "<<c_n[counter]<<endl;
-		//getchar();
+			//cout<<"a_n[counter] = "<<a_n[counter]<<endl;
+			//cout<<"c_n[counter] = "<<c_n[counter]<<endl;
+			//getchar();
 
-		//cout<<"a_p[counter] = "<<a_p[counter]<<endl;
-		//cout<<"c_p[counter] = "<<c_p[counter]<<endl;
-		//getchar();
+			//cout<<"a_p[counter] = "<<a_p[counter]<<endl;
+			//cout<<"c_p[counter] = "<<c_p[counter]<<endl;
+			//getchar();
 
-		if (free_e==0)
-		{
-		    //if (counter==699)
-		    //    Ds_n[counter] = DOS_value1(energy_n[counter],1);   // 1 for n means conduction band
-		    //else
-		    Ds_n[counter] = DOS_value(energy_n[counter],1);   // 1 for n means conduction band
+			if (free_e==0)
+			{
+				//if (counter==699)
+				//    Ds_n[counter] = DOS_value1(energy_n[counter],1);   // 1 for n means conduction band
+				//else
+				Ds_n[counter] = DOS_value(energy_n[counter],1);   // 1 for n means conduction band
 
-		    Ds_p[counter] = DOS_value(energy_p[counter],2);   // 2 for p means valence band
-		    //cout<<"Ds_n[counter] = "<<Ds_n[counter]<<endl;
-		    //cout<<"Ds_p[counter] = "<<Ds_p[counter]<<endl;
-		}
+				Ds_p[counter] = DOS_value(energy_p[counter],2);   // 2 for p means valence band
+				//cout<<"Ds_n[counter] = "<<Ds_n[counter]<<endl;
+				//cout<<"Ds_p[counter] = "<<Ds_p[counter]<<endl;
+			}
 	    }
 
 
-            double dum,dum1,dum2;
+		if(type=="n")
+		{
+			for (int counter=points;counter>=1;--counter)
+			{
+				if(energy_n[counter]!=0)
+				{
+					points = counter;
+					break;
+				}
+			}
+		}
+
+           double dum,dum1,dum2;
             dum1 = energy_n[0];
             dum2 = energy_p[0];
             //dum1 = 0;
